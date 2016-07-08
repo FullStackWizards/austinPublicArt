@@ -1,7 +1,7 @@
 var express    = require('express');
 var path       = require('path');
 var browserify = require("browserify-middleware");
-var Utils      = require('Utils');
+var Utils      = require('./utils.js');
 
 var db         = require('./db.js');
 

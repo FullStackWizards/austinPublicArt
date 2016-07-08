@@ -25,5 +25,5 @@ var Utils = {
   }
 }
 
-modules.export = Utils;
+module.exports = Utils;
 
