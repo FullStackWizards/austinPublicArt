@@ -21,6 +21,19 @@ browserify(path.join(__dirname, '../client/main.js'), {
  })
 );
 
+// client asking for art data
+app.get('/art', function(req,res) {
+  //retrieve all art from db
+  db.collection('art').find()
+  .then((art) => {
+    res.send(art)
+  })
+
+
+})
+
+//authentication endpoints
+
 app.post('/signUp', function(req, res) {
  var username = req.body.username;
  var password = req.body.password;
