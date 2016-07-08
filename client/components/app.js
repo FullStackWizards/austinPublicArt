@@ -1,7 +1,7 @@
 import React from 'react';
 
 import ArtGallery from './ArtGallery'
-import AuthPanel from './AuthPanel'
+import AuthModal from './AuthModal'
 
 export default class App extends React.Component {
   constructor(props) {
@@ -26,7 +26,7 @@ export default class App extends React.Component {
     return (
       <div>
         <h2>Austin Art</h2>
-        <AuthPanel loggedIn={this.state.loggedIn} loginFunction={this.login.bind(this)} logoutFunction={this.logout.bind(this)}/>
+        <AuthModal />
         <ArtGallery />
       </div>
     )
