@@ -29,7 +29,7 @@ export default class ArtGallery extends React.Component {
         { this.props.gallery ? this.props.gallery.map((art) => {
           return <div className="artwork" key={art._id}>
             <img className="artImage" src={this.parseImageUrl(art.Images)} />
-            <p className="artistName"> {art.Images} </p>
+            <p className="artistName"> {art['Artist Name']} </p>
           </div>
         }) : '' }
       </div>

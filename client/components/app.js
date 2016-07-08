@@ -39,9 +39,7 @@ export default class App extends React.Component {
   fetchArt() {
     art.getArt()
     .then((artwork) => {
-      console.log('in fetch art', artwork)
       this.setState({artCollection: artwork})
-      console.log('state after fetchArt', this.state.artCollection)
     })
   }
 
@@ -49,8 +47,8 @@ export default class App extends React.Component {
     return (
       <div>
         <h2>Austin Art</h2>
-        <AuthModal login={this.login.bind(this)} signUp={this.signUp.bind(this)}/>
-        <ArtGallery gallery={this.state.artCollection} fetchArt={this.fetchArt.bind(this)}/>
+        <AuthModal className="loginButton" login={this.login.bind(this)} signUp={this.signUp.bind(this)}/>
+        <ArtGallery className="artGallery" gallery={this.state.artCollection} fetchArt={this.fetchArt.bind(this)}/>
       </div>
     )
   }
