@@ -8,9 +8,9 @@ export function signUp(userData) {
     headers: {
       'Content-Type': 'application/json'
     },
-    data: userData
+    body: JSON.stringify(userData)
   }
-  return fetch(`https://localhost4000/signUp`, obj)
+  return fetch(`/signUp`, obj)
     .then(function(data){
       console.log(data, 'data')
       return data
@@ -25,9 +25,9 @@ export function login(userData) {
     headers: {
       'Content-Type': 'application/json'
     },
-    data: userData
+    body: JSON.stringify(userData)
   }
-  return fetch(`https://localhost4000/login`, obj)
+  return fetch(`/login`, obj)
     .then(function(data){
       console.log(data, 'data')
       return data.json()

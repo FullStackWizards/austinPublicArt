@@ -11,6 +11,13 @@ app.get('/app-bundle.js',
   })
 );
 
+app.get('/signUp', function(req, res) {
+	console.log('xD', req.body)
+} 
+
+
+	)
+
 var port = process.env.PORT || 4000;
 app.listen(port);
 console.log("Listening on localhost:" + port);
