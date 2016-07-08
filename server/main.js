@@ -35,14 +35,17 @@ app.post('/signUp', function(req, res) {
    }
  })
  .then(function(hash){
+  console.log('Running hash promise')
    return db.collection('users').insert({username: username, password: hash});
  })
  .then(function(obj){
    console.log("Data returned from inserting:", obj);
    var sessionId = Utils.createSessionId();
-   return db.collection('sessions').insert({username: username, sessionId: sessionId});
+   console.log("Line 44:", sessionId);
+   return db.collection('sessions').insert({id: obj._id, sessionId: sessionId});
  })
- .then(function(){
+ .then(function(obj){
+  console.log("Data returned from inserting into sessions:", obj)
    res.end();
  })
 })
