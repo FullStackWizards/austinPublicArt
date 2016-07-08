@@ -25,8 +25,10 @@
     "express": "^4.13.4",
     "isomorphic-fetch": "^2.2.1",
     "nodemon": "^1.9.2",
+    "path": "^0.12.7",
     "promised-mongo": "github:makersquare/promised-mongo",
     "react": "^15.1.0",
-    "react-dom": "^15.1.0"
+    "react-dom": "^15.1.0",
+    "react-modal-dialog": "^3.0.1"
   }
 }
