@@ -6,23 +6,32 @@ export default class ArtGallery extends React.Component {
     super(props)
 
     this.state = {
-      art: this.props.art
+      artCollection: []
     }
   }
 
+  checkState() {
+    console.log("this.props.gallery", this.props.gallery)
+  }
   componentWillMount() {
     this.props.fetchArt()
+    setTimeout(this.checkState.bind(this), 5000)
+  }
+
+  parseImageUrl(imgUrl) {
+    imgUrl = imgUrl.split(';')
+    return imgUrl[0]
   }
 
   render() {
     return (
       <div className="artGallery">
-        { this.state.art.map((art) => {
-          return <div className="artwork" key={art.image}>
-            <img className="artImage" src={art.image} />
-            <p className="artistName"> {art.artist} </p>
+        { this.props.gallery ? this.props.gallery.map((art) => {
+          return <div className="artwork" key={art._id}>
+            <img className="artImage" src={this.parseImageUrl(art.Images)} />
+            <p className="artistName"> {art.Images} </p>
           </div>
-        })}
+        }) : '' }
       </div>
     )
   }

@@ -6,6 +6,7 @@ export function getArt (){
   };
   return fetch('/art', obj)
   .then((artwork) => {
-    return art.json()
+
+    return artwork.json()
   })
 }

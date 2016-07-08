@@ -11,8 +11,12 @@ export default class App extends React.Component {
 
     this.state = {
       loggedIn: false,
-      artCollection: []
+      artCollection: null
     }
+  }
+
+  componentWillMount() {
+    this.fetchArt()
   }
 
   signUp(userData) {
@@ -35,7 +39,9 @@ export default class App extends React.Component {
   fetchArt() {
     art.getArt()
     .then((artwork) => {
+      console.log('in fetch art', artwork)
       this.setState({artCollection: artwork})
+      console.log('state after fetchArt', this.state.artCollection)
     })
   }
 
@@ -44,7 +50,7 @@ export default class App extends React.Component {
       <div>
         <h2>Austin Art</h2>
         <AuthModal login={this.login.bind(this)} signUp={this.signUp.bind(this)}/>
-        <ArtGallery art={this.state.artCollection} fetchArt={this.fetchArt.bind(this)}/>
+        <ArtGallery gallery={this.state.artCollection} fetchArt={this.fetchArt.bind(this)}/>
       </div>
     )
   }
