@@ -6,11 +6,13 @@ var Utils      = require('./utils.js');
 var db         = require('./db.js');
 
 var bodyParser = require('body-parser');
+var cookieParser = require('cookie-parser');
 
 var app        = express();
 
 app.use(express.static(path.join(__dirname, "../client/public")));
 app.use(bodyParser.json());
+app.use(cookieParser());
 
 // This will bundle all of our .js files into one.
 // When loading the webpage, we will make a request to GET /app-bundle.js which is the bundled .js files
@@ -29,7 +31,9 @@ app.post('/signUp', function(req, res) {
  .then((user) => {
    console.log(user);
    if(user[0]){
-     res.end(400, "bad request");
+    console.log('bad request');
+     res.status(400).end("bad request");
+     res.set("Connection", "close");
    } else {
      return Utils.hashPassword(password)
    }
@@ -46,7 +50,8 @@ app.post('/signUp', function(req, res) {
  })
  .then(function(obj){
   console.log("Data returned from inserting into sessions:", obj)
-   res.end();
+   res.cookie("session_id", obj.sessionId, { maxAge: 900000, httpOnly: false})
+   res.send("yay!");
  })
 })
 

@@ -24,6 +24,7 @@
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.15.2",
     "browserify-middleware": "^7.0.0",
+    "cookie-parser": "^1.4.3",
     "express": "^4.13.4",
     "isomorphic-fetch": "^2.2.1",
     "node-uuid": "^1.4.7",
