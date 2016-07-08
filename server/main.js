@@ -17,6 +17,21 @@ app.get('/app-bundle.js',
   })
 );
 
+app.post('/login') {
+  /*TODO: add functionality for POST /login
+    Takes a username, password
+    Checks to see if the user is in the system
+      True: Continue
+      False: 400 response
+    Hash attempted password
+    Validate password
+      True: continue
+      False: 401 response
+    Generate UUID
+    Send UUID as a cookie
+  */
+}
+
 // Run server on port 4040
 var port = 4040;
 app.listen(port);
