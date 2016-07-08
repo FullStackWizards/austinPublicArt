@@ -17,7 +17,7 @@ app.get('/app-bundle.js',
   })
 );
 
-app.post('/login') {
+app.post('/login', function(req, res) {
   /*TODO: add functionality for POST /login
     Takes a username, password
     Checks to see if the user is in the system
@@ -30,7 +30,7 @@ app.post('/login') {
     Generate UUID
     Send UUID as a cookie
   */
-}
+})
 
 // Run server on port 4040
 var port = 4040;
