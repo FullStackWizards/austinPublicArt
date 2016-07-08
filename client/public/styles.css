@@ -1,4 +1,26 @@
 .artImage {
   max-height: 200px;
   max-width: 200px;
+  box-shadow: 5px 5px 2px black;
+  -moz-box-shadow: 5px 5px 2px black;
+  -webkit-box-shadow: 5px 5px 2px black;
+}
+.artGallery {
+-moz-column-count: 3;
+-webkit-column-count: 3;
+padding-left: 120px;
+padding-top: 50px
+}
+.loginButton{
+  position: relative;
+  top:  0px;
+  left: 120px;
+}
+#title{
+  -webkit-box-align:center;
+   -webkit-box-pack:center;
+   display:-webkit-box;
+}
+.artistName{
+  
 }
