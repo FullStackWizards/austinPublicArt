@@ -6,18 +6,12 @@ export default class ArtGallery extends React.Component {
     super(props)
 
     this.state = {
-      art: [{
-        image: 'http://st.hzcdn.com/simgs/b0f1319d01845aa4_4-8455/artwork.jpg',
-        artist: 'van gough',
-        location: 78787
-
-      },
-      {
-        image: 'http://garitocafe.com/max/img/articulos/2015/09/01/tumblr_ncv6ba4qes1rv44ddo1_1280_1.jpg',
-        artist: 'Travers Pinkerton',
-        location: 78787
-      }]
+      art: this.props.art
     }
+  }
+
+  componentWillMount() {
+    this.props.fetchArt()
   }
 
   render() {
