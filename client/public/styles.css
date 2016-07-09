@@ -1,26 +1,26 @@
 .artImage {
-  height: 200px;
-  width: 200px;
+  height: 345px;
+  width: 345px;
   box-shadow: 5px 5px 2px black;
   -moz-box-shadow: 5px 5px 2px black;
   -webkit-box-shadow: 5px 5px 2px black;
+  display: block;
+  margin: 0 auto;
 }
 .artGallery {
 -moz-column-count: 3;
 -webkit-column-count: 3;
-padding-left: 120px;
-padding-top: 50px
-}
-.loginButton{
-  position: relative;
-  top:  0px;
-  left: 120px;
-}
-#title{
-  -webkit-box-align:center;
-   -webkit-box-pack:center;
-   display:-webkit-box;
 }
 .artistName{
+  text-align: center;
+}
+.artwork{
 
+  display: block;
+  margin: 0 auto;
+  height: 500px;
+  width: 500px
+}
+.artTitle{
+  text-align: center;
 }
