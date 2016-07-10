@@ -21,6 +21,8 @@
     "babel-preset-es2015": "^6.9.0",
     "babel-preset-react": "^6.5.0",
     "babelify": "^7.3.0",
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.15.2",
     "browserify-middleware": "^7.0.0",
     "express": "^4.13.4",
     "isomorphic-fetch": "^2.2.1",
@@ -29,6 +31,8 @@
     "promised-mongo": "github:makersquare/promised-mongo",
     "react": "^15.1.0",
     "react-dom": "^15.1.0",
-    "react-modal-dialog": "^3.0.1"
+    "react-modal-dialog": "^3.0.1",
+    "react-spinjs": "^3.0.0",
+    "uuid-js": "^0.7.5"
   }
 }

@@ -18,9 +18,13 @@
 
   display: block;
   margin: 0 auto;
-  height: 500px;
-  width: 500px
+  height: 360px;
+  width: 360px;
 }
 .artTitle{
   text-align: center;
+}
+
+.mySlides {
+  display:none;
 }
