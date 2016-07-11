@@ -41,9 +41,10 @@ app.post('/signUp', function(req, res) {
 
  db.collection('users').find({username: username})
  .then((user) => {
-   console.log(user);
    if(user[0]){
-     res.end(400, "bad request");
+    console.log('bad request');
+     res.status(400).end("bad request");
+     res.set("Connection", "close");
    } else {
      return Utils.hashPassword(password)
    }
@@ -52,12 +53,11 @@ app.post('/signUp', function(req, res) {
    return db.collection('users').insert({username: username, password: hash});
  })
  .then(function(obj){
-   console.log("Data returned from inserting:", obj);
    var sessionId = Utils.createSessionId();
-   return db.collection('sessions').insert({username: username, sessionId: sessionId});
+   return db.collection('sessions').insert({id: obj._id, sessionId: sessionId});
  })
- .then(function(){
-   res.end();
+ .then(function(obj){  
+   res.send(JSON.stringify(obj.sessionId));
  })
 })
 
