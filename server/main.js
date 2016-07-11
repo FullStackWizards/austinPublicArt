@@ -43,7 +43,6 @@ app.post('/signUp', function(req, res) {
 
  db.collection('users').find({username: username})
  .then((user) => {
-   console.log(user);
    if(user[0]){
     console.log('bad request');
      res.status(400).end("bad request");
@@ -53,19 +52,14 @@ app.post('/signUp', function(req, res) {
    }
  })
  .then(function(hash){
-  console.log('Running hash promise')
    return db.collection('users').insert({username: username, password: hash});
  })
  .then(function(obj){
-   console.log("Data returned from inserting:", obj);
    var sessionId = Utils.createSessionId();
-   console.log("Line 44:", sessionId);
    return db.collection('sessions').insert({id: obj._id, sessionId: sessionId});
  })
- .then(function(obj){
-  console.log("Data returned from inserting into sessions:", obj)
-   res.cookie("session_id", obj.sessionId, { maxAge: 900000, httpOnly: false})
-   res.send("yay!");
+ .then(function(obj){  
+   res.send(JSON.stringify(obj.sessionId));
  })
 })
 
