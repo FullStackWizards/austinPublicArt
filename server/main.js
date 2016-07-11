@@ -16,12 +16,26 @@ app.use(cookieParser());
 
 // This will bundle all of our .js files into one.
 // When loading the webpage, we will make a request to GET /app-bundle.js which is the bundled .js files
+
 // We then transform all the code with babelify so that any react/es2015 code can be interpreted with es5 standards 
+
 app.get('/app-bundle.js',
 browserify(path.join(__dirname, '../client/main.js'), {
    transform: [ [ require('babelify'), { presets: ["es2015", "react"] } ] ]
  })
 );
+
+// client asking for art data
+app.get('/art', function(req,res) {
+  //retrieve all art from db
+  db.collection('art').find()
+  .then((art) => {
+    res.send(art)
+  })
+
+})
+
+
 
 app.post('/signUp', function(req, res) {
  var username = req.body.username;

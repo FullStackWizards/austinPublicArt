@@ -13,7 +13,7 @@ export function signUp(userData) {
   return fetch(`/signUp`, obj)
     .then(function(data){
       console.log(data, 'data')
-      return data
+      return data.json()
     })
   }
 
