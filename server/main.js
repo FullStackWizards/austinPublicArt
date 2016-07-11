@@ -6,13 +6,11 @@ var Utils      = require('./utils.js');
 var db         = require('./db.js');
 
 var bodyParser = require('body-parser');
-var cookieParser = require('cookie-parser');
 
 var app        = express();
 
 app.use(express.static(path.join(__dirname, "../client/public")));
 app.use(bodyParser.json());
-app.use(cookieParser());
 
 // This will bundle all of our .js files into one.
 // When loading the webpage, we will make a request to GET /app-bundle.js which is the bundled .js files
