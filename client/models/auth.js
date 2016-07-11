@@ -32,5 +32,4 @@ export function login(userData) {
       console.log(data, 'data')
       return data.json()
     })
-
 }

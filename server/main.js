@@ -1,11 +1,10 @@
 var express    = require('express');
 var path       = require('path');
 var browserify = require("browserify-middleware");
-var Utils      = require('./utils.js');
-
-var db         = require('./db.js');
-
 var bodyParser = require('body-parser');
+
+var Utils      = require('./utils.js');
+var db         = require('./db.js');
 
 var app        = express();
 
@@ -27,7 +26,6 @@ app.post('/signUp', function(req, res) {
 
  db.collection('users').find({username: username})
  .then((user) => {
-   console.log(user);
    if(user[0]){
      res.end(400, "bad request");
    } else {
@@ -38,7 +36,6 @@ app.post('/signUp', function(req, res) {
    return db.collection('users').insert({username: username, password: hash});
  })
  .then(function(obj){
-   console.log("Data returned from inserting:", obj);
    var sessionId = Utils.createSessionId();
    return db.collection('sessions').insert({username: username, sessionId: sessionId});
  })
@@ -48,44 +45,29 @@ app.post('/signUp', function(req, res) {
 })
 
 app.post('/login', function(req, res) {
- /*TODO: add functionality for POST /login
-   Takes a username, password
-   Checks to see if the user is in the system
-     True: Continue
-     False: 400 response
-   Validate password with comparePassword
-     True: continue
-     False: 401 response
-   Generate UUID
-   Send UUID as a cookie
- */
  var username = req.body.username;
  var password = req.body.password;
 
  var userID;
 
-  db.collection('users').find({username: username})
+  db.users.find({username: username})
   .then((userObj) => {
-    console.log("68 - userObj: ", userObj);
     if(!userObj) {
       res.end(400, "Invalid username/Password")
     } else {
-      userID = userObj._id;
-      console.log('74 - userID: ', userID)
-      return Utils.comparePassword(userObj.password, password)
+      userID = userObj[0]._id;
+      return Utils.comparePassword(userObj[0].password, password)
     }
   })
   .then((isValidPassword) => {
     if(!isValidPassword) {
       res.end(401, "Invalid Username/password");
     } else {
-      return db.collection('sessions').insert({id: userID, 
-                                               sessionId: Utils.createSessionId()})
+      return db.sessions.insert({id: userID, sessionId: Utils.createSessionId()})
     }
   })
   .then((userObj) => {
-    res.set('Set-Cookie', userObj.sessionId);
-    res.redirect('/');
+    res.send(JSON.stringify(userObj.sessionId))
   })
 })
 

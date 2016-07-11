@@ -32,5 +32,8 @@
     "react-dom": "^15.1.0",
     "react-modal-dialog": "^3.0.1",
     "react-spinjs": "^3.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.9.2"
   }
 }
