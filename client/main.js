@@ -5,9 +5,12 @@ import { Router, Route, Link, browserHistory } from 'react-router'
 import App from './components/HomePage';
 
 ReactDOM.render((
+  <div>
+  
   <Router history={browserHistory}>
     <Route path="/" component={App} />
     <Route path="/artists" component={Artists} />   
     <Route path="/:artistName" component={App} />
   </Router>
+  </div>
 ), document.getElementById('app'))

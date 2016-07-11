@@ -2,6 +2,7 @@ import React from 'react'
 import {ModalContainer, ModalDialog} from 'react-modal-dialog';
 import ReactSpinner from 'react-spinjs';
 import SearchInput, {createFilter} from 'react-search-input'
+import NavBar from './NavBar'
 
 const KEYS_TO_FILTERS = ['Artist Name', 'Art Title']
 
@@ -34,6 +35,7 @@ export default class ArtGallery extends React.Component {
     const filteredArt = this.props.gallery.filter(createFilter(this.state.searchTerm, KEYS_TO_FILTERS))
     return (
       <div className="artGallery">
+        <NavBar />
         {this.state.showInfo ?
           <Info onClose={this.closeInfo.bind(this)} currentArt={this.state.currentArt} parseImageUrl={this.parseImageUrl.bind(this)}/>
         : null} 
