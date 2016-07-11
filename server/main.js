@@ -1,11 +1,10 @@
 var express    = require('express');
 var path       = require('path');
 var browserify = require("browserify-middleware");
-var Utils      = require('./utils.js');
-
-var db         = require('./db.js');
-
 var bodyParser = require('body-parser');
+
+var Utils      = require('./utils.js');
+var db         = require('./db.js');
 
 var app        = express();
 
@@ -14,7 +13,6 @@ app.use(bodyParser.json());
 
 // This will bundle all of our .js files into one.
 // When loading the webpage, we will make a request to GET /app-bundle.js which is the bundled .js files
-
 // We then transform all the code with babelify so that any react/es2015 code can be interpreted with es5 standards 
 
 app.get('/app-bundle.js',
@@ -30,10 +28,7 @@ app.get('/art', function(req,res) {
   .then((art) => {
     res.send(art)
   })
-
 })
-
-
 
 app.post('/signUp', function(req, res) {
  var username = req.body.username;
@@ -62,18 +57,30 @@ app.post('/signUp', function(req, res) {
 })
 
 app.post('/login', function(req, res) {
- /*TODO: add functionality for POST /login
-   Takes a username, password
-   Checks to see if the user is in the system
-     True: Continue
-     False: 400 response
-   Hash attempted password
-   Validate password
-     True: continue
-     False: 401 response
-   Generate UUID
-   Send UUID as a cookie
- */
+ var username = req.body.username;
+ var password = req.body.password;
+
+ var userID;
+
+  db.users.find({username: username})
+  .then((userObj) => {
+    if(!userObj) {
+      res.end(400, "Invalid username/Password")
+    } else {
+      userID = userObj[0]._id;
+      return Utils.comparePassword(userObj[0].password, password)
+    }
+  })
+  .then((isValidPassword) => {
+    if(!isValidPassword) {
+      res.end(401, "Invalid Username/password");
+    } else {
+      return db.sessions.insert({id: userID, sessionId: Utils.createSessionId()})
+    }
+  })
+  .then((userObj) => {
+    res.send(JSON.stringify(userObj.sessionId))
+  })
 })
 
 // Run server on port 4040

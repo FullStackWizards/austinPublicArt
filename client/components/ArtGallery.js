@@ -80,9 +80,3 @@ class Info extends React.Component {
     )
   }
 }
-
-
-
-
-
-
