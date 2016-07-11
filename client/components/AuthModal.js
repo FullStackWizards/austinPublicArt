@@ -40,6 +40,9 @@ export default class AuthModal extends React.Component {
         <LoginModal onClose={this.closeLogin.bind(this)} login={this.props.login.bind(this)}/>
       : null}
     </button>
+    <button onClick={this.props.logout}>
+    Logout
+    </button>
     </div>
     )
   }

@@ -6,8 +6,7 @@ import Home from './components/HomePage'
 import Gallery from './components/ArtGallery'
 
 ReactDOM.render((
-  <div>
-  
+  <div> 
   <Router history={browserHistory}>
     <Route path="/" component={Home} />
     <Route path="/artists" component={Artists} /> 
