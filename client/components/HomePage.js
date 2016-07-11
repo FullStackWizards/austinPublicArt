@@ -50,7 +50,7 @@ export default class App extends React.Component {
     return (
       <div>
         <h2>Austin Art</h2>
-        <Link to={`/artists`}>View featured Artists</Link>
+        
         <AuthModal className="loginButton" login={this.login.bind(this)} signUp={this.signUp.bind(this)}/>
         <ArtGallery className="artGallery" gallery={this.state.artCollection} loggedIn={this.state.loggedIn} fetchArt={this.fetchArt.bind(this)}/>
       </div>

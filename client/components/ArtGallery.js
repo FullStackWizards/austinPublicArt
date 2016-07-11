@@ -34,12 +34,14 @@ export default class ArtGallery extends React.Component {
   render() {
     const filteredArt = this.props.gallery.filter(createFilter(this.state.searchTerm, KEYS_TO_FILTERS))
     return (
+      <div>
+      <SearchInput className="search-input" onChange={this.searchUpdated.bind(this)} />
       <div className="artGallery">
         <NavBar />
         {this.state.showInfo ?
           <Info onClose={this.closeInfo.bind(this)} currentArt={this.state.currentArt} parseImageUrl={this.parseImageUrl.bind(this)}/>
         : null} 
-        <SearchInput className="search-input" onChange={this.searchUpdated.bind(this)} />
+
         {filteredArt.map((art) => {
           return <div className="artwork" key={art._id}>
             <img className="artImage" src={this.parseImageUrl(art.Images)[0]} onClick={(e) => this.openInfo(art)}/>            
@@ -51,6 +53,7 @@ export default class ArtGallery extends React.Component {
               : ''}
           </div>
         })}
+      </div>
       </div>
     )
   }
