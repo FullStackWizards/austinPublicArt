@@ -14,7 +14,9 @@ app.use(bodyParser.json());
 
 // This will bundle all of our .js files into one.
 // When loading the webpage, we will make a request to GET /app-bundle.js which is the bundled .js files
-// We then transform all the code with babelify so that any react/es2015 code can be interpreted with es5 standards
+
+// We then transform all the code with babelify so that any react/es2015 code can be interpreted with es5 standards 
+
 app.get('/app-bundle.js',
 browserify(path.join(__dirname, '../client/main.js'), {
    transform: [ [ require('babelify'), { presets: ["es2015", "react"] } ] ]
@@ -28,7 +30,9 @@ app.get('/art', function(req,res) {
   .then((art) => {
     res.send(art)
   })
+
 })
+
 
 
 app.post('/signUp', function(req, res) {
@@ -76,3 +80,4 @@ app.post('/login', function(req, res) {
 var port = 4040;
 app.listen(port);
 console.log('Server is listening to port: ' + port);
+
