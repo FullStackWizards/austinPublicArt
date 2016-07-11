@@ -1,15 +1,12 @@
-// React package that deals with DOM interactions
+
 import ReactDOM from 'react-dom';
 
-// React package for constructing components (and all non-DOM related actions)
 import React from 'react';
 import Artists from './components/Artists'
 
 import { Router, Route, Link, browserHistory } from 'react-router'
 
-
-// Import parent app component
-import App from './components/app';
+import App from './components/HomePage';
 
 ReactDOM.render((
   <Router history={browserHistory}>

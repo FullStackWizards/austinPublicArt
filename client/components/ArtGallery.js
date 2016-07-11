@@ -1,13 +1,17 @@
 import React from 'react'
 import {ModalContainer, ModalDialog} from 'react-modal-dialog';
 import ReactSpinner from 'react-spinjs';
+import SearchInput, {createFilter} from 'react-search-input'
+
+const KEYS_TO_FILTERS = ['Artist Name', 'Art Title']
 
 export default class ArtGallery extends React.Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      showInfo: false
+      showInfo: false,
+      searchTerm: ''
     }
   }
 
@@ -23,14 +27,19 @@ export default class ArtGallery extends React.Component {
   closeInfo() {
     this.setState({showInfo: false});
   }
+  searchUpdated (term) {
+    this.setState({searchTerm: term})
+  }
 
   render() {
+    const filteredArt = this.props.gallery.filter(createFilter(this.state.searchTerm, KEYS_TO_FILTERS))
     return (
       <div className="artGallery">
         {this.state.showInfo ?
           <Info onClose={this.closeInfo.bind(this)} currentArt={this.state.currentArt} parseImageUrl={this.parseImageUrl.bind(this)}/>
         : null} 
-        {this.props.gallery.map((art) => {
+        <SearchInput className="search-input" onChange={this.searchUpdated.bind(this)} />
+        {filteredArt.map((art) => {
           return <div className="artwork" key={art._id}>
             <img className="artImage" src={this.parseImageUrl(art.Images)[0]} onClick={(e) => this.openInfo(art)}/>            
             {this.props.loggedIn ?
@@ -46,10 +55,8 @@ export default class ArtGallery extends React.Component {
   }
 }
 
-
 class Info extends React.Component {
 
- 
   render() {
     return <ModalContainer onClose={this.props.onClose}>
      
@@ -61,8 +68,7 @@ class Info extends React.Component {
             <img src={this.props.parseImageUrl(this.props.currentArt.Images)[0]} />
             <img src={this.props.parseImageUrl(this.props.currentArt.Images)[1]} />
             <img src={this.props.parseImageUrl(this.props.currentArt.Images)[2]}/>
-          
-           
+                  
         </ModalDialog>
       
     </ModalContainer>;

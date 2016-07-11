@@ -33,6 +33,7 @@
     "react-dom": "^15.1.0",
     "react-modal-dialog": "^3.0.1",
     "react-router": "^2.5.2",
+    "react-search-input": "^0.10.1",
     "react-spinjs": "^3.0.0",
     "uuid-js": "^0.7.5"
   }
