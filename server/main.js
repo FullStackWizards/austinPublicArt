@@ -14,11 +14,21 @@ app.use(bodyParser.json());
 // This will bundle all of our .js files into one.
 // When loading the webpage, we will make a request to GET /app-bundle.js which is the bundled .js files
 // We then transform all the code with babelify so that any react/es2015 code can be interpreted with es5 standards 
+
 app.get('/app-bundle.js',
 browserify(path.join(__dirname, '../client/main.js'), {
    transform: [ [ require('babelify'), { presets: ["es2015", "react"] } ] ]
  })
 );
+
+// client asking for art data
+app.get('/art', function(req,res) {
+  //retrieve all art from db
+  db.collection('art').find()
+  .then((art) => {
+    res.send(art)
+  })
+})
 
 app.post('/signUp', function(req, res) {
  var username = req.body.username;
@@ -27,7 +37,9 @@ app.post('/signUp', function(req, res) {
  db.collection('users').find({username: username})
  .then((user) => {
    if(user[0]){
-     res.end(400, "bad request");
+    console.log('bad request');
+     res.status(400).end("bad request");
+     res.set("Connection", "close");
    } else {
      return Utils.hashPassword(password)
    }
@@ -37,10 +49,10 @@ app.post('/signUp', function(req, res) {
  })
  .then(function(obj){
    var sessionId = Utils.createSessionId();
-   return db.collection('sessions').insert({username: username, sessionId: sessionId});
+   return db.collection('sessions').insert({id: obj._id, sessionId: sessionId});
  })
- .then(function(){
-   res.end();
+ .then(function(obj){  
+   res.send(JSON.stringify(obj.sessionId));
  })
 })
 

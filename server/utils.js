@@ -3,10 +3,13 @@ var uuid = require('node-uuid');
 
 var Utils = {
  hashPassword: function(password) {
+  console.log("hash password", password);
    return new Promise(function(resolve, reject){
+    console.log("In promise")
      bcrypt.hash(password, null, null, function(err, hash){
-       if(err) console.log("bcrpyt error:", err);
-         resolve(hash);
+       console.log('err');
+       if(err) {console.log("bcrpyt error:", err)};
+       resolve(hash);
      })
    })
  },
