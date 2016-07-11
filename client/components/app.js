@@ -19,7 +19,11 @@ export default class App extends React.Component {
   }
 
   componentWillMount() {
-    this.fetchArt()
+    this.fetchArt(this.props.params.artistName)
+  }
+
+  componentDidMount() {
+    console.log(this.props.params)
   }
 
   signUp(userData) {

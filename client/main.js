@@ -14,7 +14,8 @@ import App from './components/app';
 ReactDOM.render((
   <Router history={browserHistory}>
     <Route path="/" component={App} />
-    <Route path="/artists" component={Artists}/>   
+    <Route path="/artists" component={Artists} />   
+    <Route path="/:artistName" component={App} />
   </Router>
 ), document.getElementById('app'))
 
