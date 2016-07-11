@@ -1,14 +1,12 @@
 import React from 'react'
 import {ModalContainer, ModalDialog} from 'react-modal-dialog';
 import ReactSpinner from 'react-spinjs';
-// import PictureShow from 'react-picture-show'
 
 export default class ArtGallery extends React.Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      artCollection: [],
       showInfo: false
     }
   }
@@ -32,23 +30,21 @@ export default class ArtGallery extends React.Component {
         {this.state.showInfo ?
           <Info onClose={this.closeInfo.bind(this)} currentArt={this.state.currentArt} parseImageUrl={this.parseImageUrl.bind(this)}/>
         : null} 
-        {this.props.gallery ? this.props.gallery.map((art) => {
+        {this.props.gallery.map((art) => {
           return <div className="artwork" key={art._id}>
             <img className="artImage" src={this.parseImageUrl(art.Images)[0]} onClick={(e) => this.openInfo(art)}/>            
             {this.props.loggedIn ?
-            <div className="userFeatures">
-            <button>Like</button>
-            <button>Fav!</button>
-            </div> : ''
-            }
+              <div className="userFeatures">
+              <button>Like</button>
+              <button>Fav!</button>
+              </div> 
+              : ''}
           </div>
-        }) : '' }
+        })}
       </div>
     )
   }
 }
-
-
 
 
 class Info extends React.Component {
@@ -60,8 +56,12 @@ class Info extends React.Component {
         <ModalDialog onClose={this.props.onClose} className="info">
          
             <h2>{this.props.currentArt['Art Title']}</h2>
-            <p>By: {this.props.currentArt['Artist Name']}</p>     
+            <p>By: {this.props.currentArt['Artist Name']}</p>
+   
             <img src={this.props.parseImageUrl(this.props.currentArt.Images)[0]} />
+            <img src={this.props.parseImageUrl(this.props.currentArt.Images)[1]} />
+            <img src={this.props.parseImageUrl(this.props.currentArt.Images)[2]}/>
+          
            
         </ModalDialog>
       

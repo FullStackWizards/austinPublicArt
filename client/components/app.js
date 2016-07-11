@@ -1,9 +1,12 @@
 import React, {PropTypes} from 'react';
+import {Link} from 'react-router' 
 
 import ArtGallery from './ArtGallery'
 import AuthModal from './AuthModal'
+
 import * as auth from '../models/auth'
 import * as art from '../models/art'
+
 
 export default class App extends React.Component {
   constructor(props) {
@@ -11,7 +14,7 @@ export default class App extends React.Component {
 
     this.state = {
       loggedIn: false,
-      artCollection: null
+      artCollection: []
     }
   }
 
@@ -36,16 +39,24 @@ export default class App extends React.Component {
     this.setState({loggedIn: false})
   }
 
-  fetchArt() {
+  fetchArt(artist) {
+
     art.getArt()
     .then((artwork) => {
-      this.setState({artCollection: artwork})
+      if(artist) {
+        this.setState({artCollection: artwork.filter((art) => art['Artist Name'] == artist)})
+      }
+      else{
+        this.setState({artCollection: artwork})
+      }
+      
     })
   }
 
   render(){
     return (
       <div>
+        <Link to={`/artists`}>artists</Link>
         <h2>Austin Art</h2>
         <AuthModal className="loginButton" login={this.login.bind(this)} signUp={this.signUp.bind(this)}/>
         <ArtGallery className="artGallery" gallery={this.state.artCollection} loggedIn={this.state.loggedIn} fetchArt={this.fetchArt.bind(this)}/>
