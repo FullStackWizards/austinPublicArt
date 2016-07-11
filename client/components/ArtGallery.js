@@ -19,7 +19,6 @@ export default class ArtGallery extends React.Component {
     imgUrl = imgUrl.split(';')
     return imgUrl
   }
-
   openInfo(art) {
     this.setState({showInfo: true});
     this.setState({currentArt: art})
@@ -58,7 +57,8 @@ export default class ArtGallery extends React.Component {
 class Info extends React.Component {
 
   render() {
-    return <ModalContainer onClose={this.props.onClose}>
+    return (
+      <ModalContainer onClose={this.props.onClose}>
      
         <ModalDialog onClose={this.props.onClose} className="info">
          
@@ -71,7 +71,8 @@ class Info extends React.Component {
                   
         </ModalDialog>
       
-    </ModalContainer>;
+    </ModalContainer>
+    )
   }
 }
 

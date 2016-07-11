@@ -2,6 +2,7 @@ import React from 'react'
 import {Link} from 'react-router' 
 
 import * as art from '../models/art'
+
 export default class Artists extends React.Component {
 	constructor() {
 		super()
@@ -21,11 +22,13 @@ export default class Artists extends React.Component {
 		})
 	}
 	render() {
-		return <div>
-		<h3>Artist List</h3>
-		<ul>
-		{this.state.artists.map((name) => <li key={name}><Link to={`/${name}`}>{name}</Link></li>)}
-		</ul>
-		</div>
+		return (
+      <div>
+  		<h3>Artist List</h3>
+  		<ul>
+  		{this.state.artists.map((name) => <li key={name}><Link to={`/${name}`}>{name}</Link></li>)}
+  		</ul>
+  		</div>
+    )
 	}
 }

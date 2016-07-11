@@ -7,7 +7,6 @@ import AuthModal from './AuthModal'
 import * as auth from '../models/auth'
 import * as art from '../models/art'
 
-
 export default class App extends React.Component {
   constructor(props) {
     super(props);
@@ -21,39 +20,29 @@ export default class App extends React.Component {
   componentWillMount() {
     this.fetchArt(this.props.params.artistName)
   }
-
-  componentDidMount() {
-    console.log(this.props.params)
-  }
-
   signUp(userData) {
     console.log('signing up in~~~app.js')
     auth.signUp(userData)
     this.setState({loggedIn: true})
   }
-
   login(userData) {
     console.log('logging in~~~app.js')
     auth.login(userData)
     this.setState({loggedIn: true})
   }
-
   logout() {
     console.log('logging out')
     this.setState({loggedIn: false})
   }
-
   fetchArt(artist) {
-
     art.getArt()
     .then((artwork) => {
       if(artist) {
         this.setState({artCollection: artwork.filter((art) => art['Artist Name'] == artist)})
       }
-      else{
+      else {
         this.setState({artCollection: artwork})
-      }
-      
+      }   
     })
   }
 
@@ -61,7 +50,7 @@ export default class App extends React.Component {
     return (
       <div>
         <h2>Austin Art</h2>
-        <Link to={`/artists`}>artists</Link>
+        <Link to={`/artists`}>View featured Artists</Link>
         <AuthModal className="loginButton" login={this.login.bind(this)} signUp={this.signUp.bind(this)}/>
         <ArtGallery className="artGallery" gallery={this.state.artCollection} loggedIn={this.state.loggedIn} fetchArt={this.fetchArt.bind(this)}/>
       </div>
