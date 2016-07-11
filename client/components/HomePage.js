@@ -7,12 +7,7 @@ export default class HomePage extends React.Component {
   render() {
     return (
       <div>
-        <div>
         <NavBar />
-        </div>
-        <div >
-          <h2>HomePage</h2>
-        </div>
       </div>
     )
   }
