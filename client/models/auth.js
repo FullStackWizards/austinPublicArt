@@ -15,7 +15,7 @@ export function signUp(userData) {
       return data.json()
     })
     .then(function(data){
-      document.cookie = "sessionId=" + data;
+      document.cookie = "sessionId=" + data + ";path=/";
     })
   }
 
@@ -34,6 +34,6 @@ export function login(userData) {
       return data.json()
     })
     .then(function(data) {
-      document.cookie = "sessionId=" + data;
+      document.cookie = "sessionId=" + data + ";path=/";
     })
 }
