@@ -3,6 +3,7 @@ import {ModalContainer, ModalDialog} from 'react-modal-dialog';
 import ReactSpinner from 'react-spinjs';
 import SearchInput, {createFilter} from 'react-search-input'
 import NavBar from './NavBar'
+import * as auth from '../models/auth'
 
 const KEYS_TO_FILTERS = ['Artist Name', 'Art Title']
 
@@ -39,18 +40,13 @@ export default class ArtGallery extends React.Component {
       <div className="artGallery">
         <NavBar />
         {this.state.showInfo ?
-          <Info onClose={this.closeInfo.bind(this)} currentArt={this.state.currentArt} parseImageUrl={this.parseImageUrl.bind(this)}/>
+          <Info onClose={this.closeInfo.bind(this)} loggedIn={this.props.loggedIn} currentArt={this.state.currentArt} parseImageUrl={this.parseImageUrl.bind(this)}/>
         : null} 
 
         {filteredArt.map((art) => {
           return <div className="artwork" key={art._id}>
             <img className="artImage" src={this.parseImageUrl(art.Images)[0]} onClick={(e) => this.openInfo(art)}/>            
-            {this.props.loggedIn ?
-              <div className="userFeatures">
-              <button>Like</button>
-              <button>Fav!</button>
-              </div> 
-              : ''}
+            
           </div>
         })}
       </div>
@@ -73,6 +69,12 @@ class Info extends React.Component {
             <img src={this.props.parseImageUrl(this.props.currentArt.Images)[0]} />
             <img src={this.props.parseImageUrl(this.props.currentArt.Images)[1]} />
             <img src={this.props.parseImageUrl(this.props.currentArt.Images)[2]}/>
+            {this.props.loggedIn ?
+              <div className="userFeatures">
+              <button onClick={() => auth.likePhoto(this.props.currentArt._id)}>Like</button>
+              <button>Fav!</button>
+              </div> 
+              : ''}
                   
         </ModalDialog>
       

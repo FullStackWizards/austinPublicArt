@@ -30,6 +30,19 @@
   display:none;
 }
 
+.soloWork {
+  padding:20px;
+  margin: 30px;
+  background: #eef;
+}
+.soloArtTitle {
+  margin: 0;
+}
+.soloArtInfo {
+  display: inline;
+  margin-left: 25px;
+}
+
 body {
 		background: #ffffff;
     font-family: 'Open Sans', sans-serif;
@@ -179,16 +192,16 @@ p {
 }
 
 #home .btn-danger {
-  background: #ffa400 !important;
+  background: black !important;
   margin-right: 20px;
 }
 
 #home .btn-danger:hover {
-  background: #ffc400 !important;
+  background: #ffa400 !important;
 }
 
 #home .btn {
-  background: #000000;
+  background: #4C8DF8;
   border-color: transparent;
   color: #ffffff;
   font-size: 12px;
@@ -203,279 +216,7 @@ p {
 }
 
 
-/* testimonial section styles
-/* ========================================== */
-#testimonial .item {
-  text-align: center;
-  display: block;
-  width: 100%;
-  padding-bottom: 62px;
-}
-
-#testimonial .item img {
-  display: inline-block;
-}
-
-/* about section styles
-/* ========================================== */
-#about .container {
-  	width: 100%;
-  	padding: 0px;
-  	margin: 0px;
-}
-
-#about .col-md-6 {
-	padding: 0;
-}
-
-#about .about-des {
-  	padding: 65px;
-}
-
-#about .about-des h3 {
-	font-size: 26px;
-}
-
-#about .about-des h4 {
-	font-size: 20px;
-}
-
-#about .about-des p {
-	font-size: 16px;
-	line-height: 32px;
-}
-
-
-/* blog section styles
-/* ========================================== */
-#blog h2, #blog h4 {
-  text-align: center;
-}
-
-#blog h2 {
-  padding-bottom: 12px;
-  font-size: 32px;
-}
-
-#blog h4 {
-  padding-bottom: 32px;
-  letter-spacing: 0.9px;
-}
-
-#blog p {
-	padding-top: 10px;
-	font-size: 14px;
-	line-height: 28px;
-}
-
-#blog .blog-wrapper {
-  background: #ffffff;
-  border: 1px solid #f0f0f0;
-  padding: 20px;
-  margin-top: 20px;
-  margin-bottom: 20px;
-}
-
-#blog .blog-wrapper h3 a {
-  color: #000000;
-}
-
-
-/* Counter section styles
-/* ========================================== */
-#counter {
-   background: url('../images/counter-bg.jpg') 50% 0 repeat-y fixed;
-  -webkit-background-size: cover;
-  background-size: cover;
-  background-position: center;
-  text-align: center;
-  padding-top: 160px;
-  padding-bottom: 160px;
-}
-
-#counter .counter-number {
-  color: #ffa400;
-  font-size: 32px;
-}
-
-#counter .counter-text {
-  color: #ffffff;
-  letter-spacing: 2px;
-}
-
-
-/* contact section styles
-/* ========================================== */
-#contact {
-  background: url('../images/contact-bg.jpg') 50% 0 repeat-y fixed;
-  -webkit-background-size: cover;
-  background-size: cover;
-  background-position: center;
-}
-
-#contact .form-control {
-  background: transparent;
-  border-color: #ffffff;
-  color: #ffffff;
-  border-radius: 0px;
-  box-shadow: none;
-  margin-bottom: 22px;
-  transition: all 0.4s ease-in-out;
-  padding: 10px;
-  height: auto;
-}
-
-#contact input[type="submit"] {
-  background: #000000;
-  border:none;
-  border-radius: 4px;
-  font-weight: bold;
-  letter-spacing: 1px;
-  height: 50px;
-  margin-top: 10px;
-}
-
-#contact input[type="submit"]:hover {
-  background: #ffa400;
-}
-
-.form-control::-moz-placeholder {
-  color: #ffffff;
-  opacity: 1;
-}
-.form-control:-ms-input-placeholder {
-  color: #ffffff;
-}
-.form-control::-webkit-input-placeholder {
-  color: #ffffff;
-}
-
-#contact .contact-detail {
-  background: rgba(250,250,250,0.75);
-  padding: 34px 10px 34px 60px;
-}
-
-#contact .contact-detail h2 {
-  padding-bottom: 28px;
-}
-
-#contact .contact-detail div {
-  padding-bottom: 10px;
-}
-
-
-/* footer section styles
-/* ========================================== */
-footer {
-  padding-top: 80px;
-  padding-bottom: 50px;
-}
-
-footer p {
-  padding-right: 40px;
-  padding-bottom: 20px;
-  font-size: 14px;
-}
-
-footer a {
-  color: #606060;
-}
-
-footer a:hover {
-  color: #ffa400;
-  text-decoration: none;
-}
-
-.link-list a {
-  color: #606060;
-  display: block;
-  padding-top: 4px;
-  padding-bottom: 4px;
-}
-
-.social-icon {
-  padding: 0;
-  margin: 0;
-}
-.social-icon li {
-  list-style: none;
-  display: inline-block;
-}
-.social-icon li a {
-  background: #3c3c3c;
-  border-radius: 100%;
-  color: #ffffff;
-  font-size: 18px;
-  line-height: 32px;
-  width: 32px;
-  height: 32px;
-  text-align: center;
-  text-decoration: none;
-  transition: all 0.4s ease-in-out;
-  margin-right: 2px;
-}
-.social-icon li a:hover {
-  background: #ffa400;
-}
 
 
 
-@media (max-width: 1280px) {
-	#about .about-des {
-		padding: 40px;
-	}
-	#about .about-des h3 {
-		font-size: 20px;
-	}
-	
-	#about .about-des h4 {
-		font-size: 16px;
-	}
-	
-	#about .about-des p {
-		font-size: 13px;
-		line-height: 24px;
-	}
-}
-/* mobile responsive section styles
-/* ========================================== */
-@media (max-width: 768px) {
-  h1 {
-    font-size: 53px;
-  }
-  #counter .counter-item {
-    padding-top: 20px;
-    padding-bottom: 20px;
-  }
-  
-}
 
-@media (max-width: 650px) {
-  h1 {
-    font-size: 40px;
-  }
-}
-
-@media (max-width: 450px) {
-  h1 {
-    font-size: 28px;
-    line-height: 38px;
-  }
-  #home h5 {
-    font-size: 11px;
-  }
-  #home .btn {
-    display: inline-block;
-    padding: 14px 32px;
-  }
-}
-
-@media (max-width: 375px) {
-  h1 {
-    font-size: 24px;
-    line-height: 34px;
-  }
-  #home h5 {
-    font-size: 9px;
-  }
-}
