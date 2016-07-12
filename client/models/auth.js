@@ -33,7 +33,9 @@ export function login(userData) {
     .then(function(data){
       return data.json()
     })
-
+    .then(function(data) {
+      document.cookie = "sessionId=" + data;
+    })
 }
 
 export function likePhoto(artId) {
