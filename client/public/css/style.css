@@ -1,4 +1,35 @@
 
+.artImage {
+  height: 345px;
+  width: 345px;
+  box-shadow: 5px 5px 2px black;
+  -moz-box-shadow: 5px 5px 2px black;
+  -webkit-box-shadow: 5px 5px 2px black;
+  display: block;
+  margin: 0 auto;
+}
+.artGallery {
+-moz-column-count: 3;
+-webkit-column-count: 3;
+}
+.artistName{
+  text-align: center;
+}
+.artwork{
+
+  display: block;
+  margin: 0 auto;
+  height: 360px;
+  width: 360px;
+}
+.artTitle{
+  text-align: center;
+}
+
+.mySlides {
+  display:none;
+}
+
 body {
 		background: #ffffff;
     font-family: 'Open Sans', sans-serif;
@@ -127,7 +158,7 @@ p {
 /* home section styles
 /* ========================================== */
 #home {
-  background: url('../images/home-bg.jpg') 50% 0 repeat-y fixed;
+  background: url('../images/austin-texas-wallpaper-1.jpg') 50% 0 repeat-y fixed;
   -webkit-background-size: cover;
   background-size: cover;
   background-position: center center;
@@ -141,6 +172,10 @@ p {
           align-items: center;
   height: 100vh;
   text-align: center;
+}
+
+#home h1 {
+  color: white;
 }
 
 #home .btn-danger {

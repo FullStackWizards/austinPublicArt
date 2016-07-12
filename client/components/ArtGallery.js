@@ -46,6 +46,8 @@ export default class App extends React.Component {
   render(){
     return (
       <div>
+      <br/>
+      <br/>
         <h2>Austin Art</h2>
         
         <AuthModal className="loginButton" login={this.login.bind(this)} signUp={this.signUp.bind(this)}/>
