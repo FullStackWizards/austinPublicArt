@@ -90,9 +90,9 @@ app.post('/login', function(req, res) {
 
   If we add total amount of favorites we also need to increment the favorite key of that specific art in the Art Collection
 
-  1) Check UUID to see if it is in the Sessions, half ass authentication
-    1) True: Grab _id for the UUID
-      1) Add an entry to Favorites collection with _id and art ID
+  X 1) Check UUID to see if it is in the Sessions, half ass authentication
+    X 1) True: Grab _id for the UUID
+      X 1) Add an entry to Favorites collection with _id and art ID
     2) False: return error 403
   2) Return something here if success or error if fail
 
@@ -106,12 +106,25 @@ app.get('/favorites', function(req, res) {
     .find({sessionId: sessionId})
     .then((returnedSession) => userId = returnedSession[0]._id)
     .then(() => {
-      db.collection('favorites').find({ _id: userID, ar})
-      db.collection('favorites')
-      .insert({ userId: userID, artId: artId})
-    .then(() => db.collection('art')
-      .update({ _id: artId }, { $inc: { favorites: 1 } }))
-  
+      //Check to see if the user has already favorited the artwork
+      return db.collection('favorites').find({
+        $and : [
+        { userId: { $eq: userID } },
+        { artId : { $eq: artId } } ]
+      })
+    .then((isEqual) => {
+      !isEqual 
+      // If user hasnt favorited it, add to favorite collection and increment favorites from art collection
+      ? db.collection('favorites')
+          .insert({ userId: userID, artId: artId });
+        db.collection('art')
+          .update({ _id: artId }, { $inc: { favorites: 1 } }));
+      // If user has favorited it, remove from favorite collection and decrement favorites from art collection
+      : db.collection('favorites')
+          .delete({ userID: userID, artId: artId });
+        db.collection('art')
+          .update({ _id: artId }, { $inc: { favorites: -1 } }));
+    })
   res.end();
 })
 
