@@ -117,13 +117,9 @@ app.get('/favorites', function(req, res) {
       // If user hasnt favorited it, add to favorite collection and increment favorites from art collection
       ? db.collection('favorites')
           .insert({ userId: userID, artId: artId });
-        db.collection('art')
-          .update({ _id: artId }, { $inc: { favorites: 1 } }));
       // If user has favorited it, remove from favorite collection and decrement favorites from art collection
       : db.collection('favorites')
           .delete({ userID: userID, artId: artId });
-        db.collection('art')
-          .update({ _id: artId }, { $inc: { favorites: -1 } }));
     })
   res.end();
 })
