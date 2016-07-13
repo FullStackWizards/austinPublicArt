@@ -11,10 +11,6 @@ var app        = express();
 app.use(express.static(path.join(__dirname, "../client/public")));
 app.use(bodyParser.json());
 
-// This will bundle all of our .js files into one.
-// When loading the webpage, we will make a request to GET /app-bundle.js which is the bundled .js files
-// We then transform all the code with babelify so that any react/es2015 code can be interpreted with es5 standards 
-
 app.get('/app-bundle.js',
 browserify(path.join(__dirname, '../client/main.js'), {
    transform: [ [ require('babelify'), { presets: ["es2015", "react"] } ] ]
@@ -56,35 +52,85 @@ app.post('/signUp', function(req, res) {
  })
 })
 
+// Logs in current user as long as username is in users collection and provided a valid password
 app.post('/login', function(req, res) {
  var username = req.body.username;
  var password = req.body.password;
-
  var userID;
 
-  db.users.find({username: username})
-  .then((userObj) => {
-    if(!userObj) {
-      res.end(400, "Invalid username/Password")
-    } else {
-      userID = userObj[0]._id;
-      return Utils.comparePassword(userObj[0].password, password)
-    }
+  db.collection('users')
+    .find({username: username})
+    .then((userObj) => {
+      if(!userObj) {
+        res.end(400, "Invalid username/Password")
+      } else {
+        userID = userObj[0]._id;
+        return Utils.comparePassword(userObj[0].password, password)
+      }
+    })
+    .then((isValidPassword) => {
+      if(!isValidPassword) {
+        res.sendStatus(401, "Invalid Username/password");
+      } else {
+        return db.collection('sessions')
+          .insert({ id: userID, sessionId: Utils.createSessionId() })
+      }
+    })
+    .then((userObj) => {
+      res.send(JSON.stringify(userObj.sessionId))
+    })
+})
+
+// Will add a favorite with userId and artId to the favorites collection if not already present.
+// If it is present it will remove the userId and artId from favorites collection
+app.post('/favorites/:artId', function(req, res) {
+  var artId = req.params.artId;
+  var sessionId;
+  var userID = '';
+
+  // Checks to see if user has a cookie.
+  //  True : assign cookie to sessionID
+  //  False: send a 403("Forbidden") status back to client
+  if(req.headers.cookie) {
+    sessionId = req.headers.cookie.substring(10);
+  } else {
+    res.sendStatus(403)
+  }
+
+  // Finds the users session object using sessionId from cookie
+  db.collection('sessions')
+    .find({sessionId: sessionId})
+    .then((returnedSession) => {
+      userID = returnedSession[0].id
+    })
+    .then(() => {
+      //Check to see if the user has already favorited the artwork
+      return db.collection('favorites').find({
+        $and : [
+        { userId: { $eq: userID } },
+        { artId : { $eq: artId } } ]
+      })
+    .then((isEqual) => {
+      // Checks to see if user has already favorited :artId
+      // False: add userId and artId to favorites collection
+      if(!isEqual[0]) {
+        db.collection('favorites')
+          .insert({ userId: userID, artId: artId })
+      } else {
+        // True: remove userId and artId from favorites collection
+        db.collection('favorites')
+        .find({ userId: userID, artId: artId })
+        .then((returnedDocument) => {
+          db.collection('favorites')
+          .remove({ _id: returnedDocument[0]._id })
+        })
+      }
+    })
   })
-  .then((isValidPassword) => {
-    if(!isValidPassword) {
-      res.end(401, "Invalid Username/password");
-    } else {
-      return db.sessions.insert({id: userID, sessionId: Utils.createSessionId()})
-    }
-  })
-  .then((userObj) => {
-    res.send(JSON.stringify(userObj.sessionId))
-  })
+  res.send()
 })
 
 // Run server on port 4040
 var port = 4040;
 app.listen(port);
-console.log('Server is listening to port: ' + port);
-
+console.log('Server is listening to port: ' + port)
