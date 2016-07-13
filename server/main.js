@@ -97,14 +97,41 @@ app.post('/login', function(req, res) {
   2) Return something here if success or error if fail
 
  */
-app.get('/favorites', function(req, res) {
-  var artId = req.body.artId;
+app.get('/getUsers', function(req, res) {
+  db.collection('users').find()
+  .then((data) => res.send(data))
+})
+
+app.get('/getArt', function(req, res) {
+    db.collection('art').find()
+    .then((data) => res.send(data))
+})
+
+app.get('/getSessions', function(req, res) {
+    db.collection('sessions').find()
+    .then((data) => res.send(data))
+})
+
+app.get('/getFavorites', function(req, res) {
+    db.collection('favorites').find()
+    .then((data) => res.send(data))
+})
+
+app.post('/param/:id', function(req, res) {
+  console.log("params")
+  res.send(req.params.id)
+})
+
+app.post('/favorites/:id', function(req, res) {
+  console.log("HIT")
+  var artId = req.params.artId;
+  console.log("artID: ", artId)
   var sessionId = req.headers.cookie.substring(10);
-  var userID;
+  var userID = '';
 
   db.collection('sessions')
     .find({sessionId: sessionId})
-    .then((returnedSession) => userId = returnedSession[0]._id)
+    .then((returnedSession) => userID = returnedSession[0].id)
     .then(() => {
       //Check to see if the user has already favorited the artwork
       return db.collection('favorites').find({
@@ -113,19 +140,20 @@ app.get('/favorites', function(req, res) {
         { artId : { $eq: artId } } ]
       })
     .then((isEqual) => {
-      !isEqual 
-      // If user hasnt favorited it, add to favorite collection and increment favorites from art collection
-      ? db.collection('favorites')
-          .insert({ userId: userID, artId: artId });
-      // If user has favorited it, remove from favorite collection and decrement favorites from art collection
-      : db.collection('favorites')
-          .delete({ userID: userID, artId: artId });
+      if(!isEqual[0]) {
+        return db.collection('favorites')
+          .insert({ userId: userID, artId: artId })
+      } else {
+        return db.collection('favorites')
+          .delete({ userID: userID, artId: artId })  
+      }
     })
-  res.end();
+    .then((data) => console.log(data))
+  })
+  res.send()
 })
 
 // Run server on port 4040
 var port = 4040;
 app.listen(port);
-console.log('Server is listening to port: ' + port);
-
+console.log('Server is listening to port: ' + port)
