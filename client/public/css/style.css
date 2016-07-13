@@ -18,12 +18,16 @@
 .artwork{
 
   display: block;
-  margin: 0 auto;
+  margin: 10px auto 20px;
   height: 360px;
   width: 360px;
 }
 .artTitle{
   text-align: center;
+}
+
+.userFeatures {
+  margin: 0 0 0 6px;
 }
 
 .mySlides {
@@ -479,3 +483,5 @@ footer a:hover {
     font-size: 9px;
   }
 }
+
+/* 
