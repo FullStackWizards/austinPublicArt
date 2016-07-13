@@ -15,7 +15,7 @@ export default class NavBar extends React.Component {
           <li className="w3-hide-small"><Link to={`/gallery`} className="w3-padding-large">GALLERY</Link></li>
           <li className="w3-hide-small"><a href="#" className=" w3-padding-large">CONTACT</a></li>
           <li className="w3-hide-small w3-dropdown-hover">
-            <a className="w3-hover-none w3-padding-large" title="More">Account <i className="fa fa-caret-down"></i></a>
+            <a className="w3-hover-none w3-padding-large" title="More">ACCOUNT <i className="fa fa-caret-down"></i></a>
             <div className="w3-dropdown-content w3-white w3-card-4">
               <a href="#">Login</a>
               <a href="#">Signup</a>
