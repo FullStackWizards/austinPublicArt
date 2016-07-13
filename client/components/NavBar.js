@@ -15,11 +15,11 @@ export default class NavBar extends React.Component {
           <li className="w3-hide-small"><Link to={`/gallery`} className="w3-padding-large">GALLERY</Link></li>
           <li className="w3-hide-small"><a href="#" className=" w3-padding-large">CONTACT</a></li>
           <li className="w3-hide-small w3-dropdown-hover">
-            <a href="javascript:void(0)" className="w3-hover-none w3-padding-large" title="More">MORE <i className="fa fa-caret-down"></i></a>
+            <a className="w3-hover-none w3-padding-large" title="More">ACCOUNT <i className="fa fa-caret-down"></i></a>
             <div className="w3-dropdown-content w3-white w3-card-4">
-              <a href="#">Merchandise</a>
-              <a href="#">Extras</a>
-              <a href="#">Media</a>
+              <a href="#">Login</a>
+              <a href="#">Signup</a>
+              <a href="#">Logout</a>
             </div>
           </li>
           <li className="w3-hide-small w3-right"><a href="javascript:void(0)" className="w3-padding-large w3-hover-red"><i className="fa fa-search"></i></a></li>
