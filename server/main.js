@@ -81,6 +81,27 @@ app.post('/login', function(req, res) {
     })
 })
 
+// Retrieve all favorited art for the current logged in user
+app.get('/favorites', function(req, res) {
+	var sessionId;
+
+	if(req.headers.cookie) {
+		sessionId = req.headers.cookie.substring(10);
+	} else {
+		res.sendStatus(403);
+	}
+	// Find the sessionId in sessions collection
+	db.collection('sessions')
+	.find({ sessionId: sessionId })
+	// Grab the user id from the sessions collection
+	.then((returnedSession) => returnedSession[0].id)
+	// Find all documents in favorites that contain the users id
+	.then((userID) => db.collection('favorites')
+		.find({ userId: userID }))
+	// Return all favorited art back to client
+	.then((returnedFavorites) => res.send(returnedFavorites))
+})
+
 // Will add a favorite with userId and artId to the favorites collection if not already present.
 // If it is present it will remove the userId and artId from favorites collection
 app.post('/favorites/:artId', function(req, res) {
@@ -115,7 +136,8 @@ app.post('/favorites/:artId', function(req, res) {
       // False: add userId and artId to favorites collection
       if(!isEqual[0]) {
         db.collection('favorites')
-          .insert({ userId: userID, artId: artId })
+        .insert({ userId: userID, artId: artId })
+        res.send("Successfully added to favorites")
       } else {
         // True: remove userId and artId from favorites collection
         db.collection('favorites')
@@ -123,11 +145,11 @@ app.post('/favorites/:artId', function(req, res) {
         .then((returnedDocument) => {
           db.collection('favorites')
           .remove({ _id: returnedDocument[0]._id })
+          res.send("Successfully removed from favorites")
         })
       }
     })
   })
-  res.send()
 })
 
 // Run server on port 4040
