@@ -49,8 +49,6 @@ export default class App extends React.Component {
       <br/>
       <br/>
         <h2>Austin Art</h2>
-        
-        <AuthModal className="loginButton" login={this.login.bind(this)} signUp={this.signUp.bind(this)}/>
         <ArtWindow className="artGallery" gallery={this.state.artCollection} loggedIn={this.state.loggedIn} fetchArt={this.fetchArt.bind(this)}/>
       </div>
     )

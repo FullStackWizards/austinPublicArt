@@ -1,8 +1,32 @@
 import React from 'react'
 import {Link} from 'react-router' 
+import {ModalContainer, ModalDialog} from 'react-modal-dialog';
+import ReactSpinner from 'react-spinjs';
 
 
 export default class NavBar extends React.Component {
+  constructor() {
+    super()
+    this.state = {
+      showLogin: false,
+      showSignup: false
+    }
+  } 
+  
+  openLogin() {
+    this.setState({showLogin: true});
+  }
+  closeLogin() {
+    this.setState({showLogin: false});
+  }
+
+  openSignup() {
+    this.setState({showSignup: true});
+  }
+  closeSignup() {
+    this.setState({showSignup: false});
+  }
+
   render() {
     return(
       <div className="w3-top">
@@ -17,14 +41,104 @@ export default class NavBar extends React.Component {
           <li className="w3-hide-small w3-dropdown-hover">
             <a className="w3-hover-none w3-padding-large" title="More">ACCOUNT <i className="fa fa-caret-down"></i></a>
             <div className="w3-dropdown-content w3-white w3-card-4">
-              <a href="#">Login</a>
-              <a href="#">Signup</a>
+              <a href="#" onClick={this.openLogin.bind(this)}>Login</a>
+              <a href="#" onClick={this.openSignup.bind(this)}>Signup</a>
               <a href="#">Logout</a>
             </div>
           </li>
           <li className="w3-hide-small w3-right"><a href="javascript:void(0)" className="w3-padding-large w3-hover-red"><i className="fa fa-search"></i></a></li>
         </ul>
+        {this.state.showSignup ?
+          <SignUpModal onClose={this.closeSignup.bind(this)}/>
+        : null}
+        {this.state.showLogin ?
+          <LoginModal onClose={this.closeLogin.bind(this)}/>
+        : null}
       </div>
     ) 
+  }
+}
+
+class LoginModal extends React.Component {
+  constructor() {
+    super()
+
+    this.state = {
+      isLoading: false,
+      username: null,
+      password: null
+    }
+
+  }
+
+  load() {
+    this.setState({isLoading: true});
+    setTimeout(() => {
+      this.setState({isLoading: false});
+    }, 1500);
+  }
+
+  render() {
+    return <ModalContainer onClose={this.props.onClose}>
+      {this.state.isLoading ?
+        <ReactSpinner color="white"/>
+        :
+        <ModalDialog onClose={this.props.onClose} className="example-dialog">
+          <form name="loginForm" onSubmit={(e) => {
+            e.preventDefault(); 
+            this.load.call(this); 
+          }}>
+            <h1>Login</h1>
+            <p>Username:</p>
+            <input type="text" name="username" onChange={(e) => this.setState({username: e.target.value})}/>
+            <p>Password:</p>
+            <input type="password" name="password" onChange={(e) => this.setState({password: e.target.value})}/>
+            <p><button type="submit">Submit</button></p>
+          </form>
+        </ModalDialog>
+      }
+    </ModalContainer>;
+  }
+}
+
+class SignUpModal extends React.Component {
+  constructor() {
+    super()
+
+    this.state = {
+      isLoading: false,
+      username: null,
+      password: null
+    }
+
+  }
+
+  load() {
+    this.setState({isLoading: true});
+    setTimeout(() => {
+      this.setState({isLoading: false});
+    }, 1500);
+  }
+
+  render() {
+    return <ModalContainer onClose={this.props.onClose}>
+      {this.state.isLoading ?
+        <ReactSpinner color="white"/>
+        :
+        <ModalDialog onClose={this.props.onClose} className="example-dialog">
+          <form name="signUpForm" onSubmit={(e) => {
+            e.preventDefault(); 
+            this.load.call(this); 
+          }}>
+            <h1>SignUp</h1>
+            <p>Username:</p>
+            <input type="text" name="username" onChange={(e) => this.setState({username: e.target.value})}/>
+            <p>Password:</p>
+            <input type="password" name="password" onChange={(e) => this.setState({password: e.target.value})}/>
+            <p><button type="submit">Submit</button></p>
+          </form>
+        </ModalDialog>
+      }
+    </ModalContainer>;
   }
 }
