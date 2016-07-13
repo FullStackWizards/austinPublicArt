@@ -37,3 +37,33 @@ export function login(userData) {
       document.cookie = "sessionId=" + data + ";path=/";
     })
 }
+
+export function likePhoto(artId) {
+  console.log('logging in auth.js~~~~~', userData)
+  let obj = {
+    method: "POST",
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(userData)
+  }
+  return fetch(`/like/${artId}`, obj)
+    .then(function(data){
+      return data.json()
+    })
+}
+
+export function favoritePhoto(artId) {
+  console.log('logging in auth.js~~~~~', userData)
+  let obj = {
+    method: "POST",
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(userData)
+  }
+  return fetch(`/like/${artId}`, obj)
+    .then(function(data){
+      return data.json()
+    })
+}
