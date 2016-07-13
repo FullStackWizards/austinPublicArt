@@ -52,10 +52,10 @@ app.post('/signUp', function(req, res) {
  })
 })
 
+// Logs in current user as long as username is in users collection and provided a valid password
 app.post('/login', function(req, res) {
  var username = req.body.username;
  var password = req.body.password;
-
  var userID;
 
   db.collection('users')
@@ -70,68 +70,39 @@ app.post('/login', function(req, res) {
     })
     .then((isValidPassword) => {
       if(!isValidPassword) {
-        res.end(401, "Invalid Username/password");
+        res.sendStatus(401, "Invalid Username/password");
       } else {
         return db.collection('sessions')
-                 .insert({ id: userID, sessionId: Utils.createSessionId() })
+          .insert({ id: userID, sessionId: Utils.createSessionId() })
       }
     })
     .then((userObj) => {
       res.send(JSON.stringify(userObj.sessionId))
     })
 })
-/*
-  Data In: Art ID
-           Headers will have cookie
 
-  Create Favorites collection
-    -> User ID
-    -> Art ID
-
-  If we add total amount of favorites we also need to increment the favorite key of that specific art in the Art Collection
-
-  X 1) Check UUID to see if it is in the Sessions, half ass authentication
-    X 1) True: Grab _id for the UUID
-      X 1) Add an entry to Favorites collection with _id and art ID
-    2) False: return error 403
-  2) Return something here if success or error if fail
-
- */
-app.get('/getUsers', function(req, res) {
-  db.collection('users').find()
-  .then((data) => res.send(data))
-})
-
-app.get('/getArt', function(req, res) {
-    db.collection('art').find()
-    .then((data) => res.send(data))
-})
-
-app.get('/getSessions', function(req, res) {
-    db.collection('sessions').find()
-    .then((data) => res.send(data))
-})
-
-app.get('/getFavorites', function(req, res) {
-    db.collection('favorites').find()
-    .then((data) => res.send(data))
-})
-
-app.post('/param/:id', function(req, res) {
-  console.log("params")
-  res.send(req.params.id)
-})
-
-app.post('/favorites/:id', function(req, res) {
-  console.log("HIT")
+// Will add a favorite with userId and artId to the favorites collection if not already present.
+// If it is present it will remove the userId and artId from favorites collection
+app.post('/favorites/:artId', function(req, res) {
   var artId = req.params.artId;
-  console.log("artID: ", artId)
-  var sessionId = req.headers.cookie.substring(10);
+  var sessionId;
   var userID = '';
 
+  // Checks to see if user has a cookie.
+  //  True : assign cookie to sessionID
+  //  False: send a 403("Forbidden") status back to client
+  if(req.headers.cookie) {
+    sessionId = req.headers.cookie.substring(10);
+  } else {
+    res.sendStatus(403)
+  }
+
+  // Finds the users session object using sessionId from cookie
   db.collection('sessions')
     .find({sessionId: sessionId})
-    .then((returnedSession) => userID = returnedSession[0].id)
+    .then((returnedSession) => {
+      userID = returnedSession[0].id
+    })
     .then(() => {
       //Check to see if the user has already favorited the artwork
       return db.collection('favorites').find({
@@ -140,15 +111,21 @@ app.post('/favorites/:id', function(req, res) {
         { artId : { $eq: artId } } ]
       })
     .then((isEqual) => {
+      // Checks to see if user has already favorited :artId
+      // False: add userId and artId to favorites collection
       if(!isEqual[0]) {
-        return db.collection('favorites')
+        db.collection('favorites')
           .insert({ userId: userID, artId: artId })
       } else {
-        return db.collection('favorites')
-          .delete({ userID: userID, artId: artId })  
+        // True: remove userId and artId from favorites collection
+        db.collection('favorites')
+        .find({ userId: userID, artId: artId })
+        .then((returnedDocument) => {
+          db.collection('favorites')
+          .remove({ _id: returnedDocument[0]._id })
+        })
       }
     })
-    .then((data) => console.log(data))
   })
   res.send()
 })
