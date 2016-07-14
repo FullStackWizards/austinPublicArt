@@ -10,10 +10,6 @@ var app        = express();
 
 app.use(express.static(path.join(__dirname, "../client/public")));
 app.use(bodyParser.json());
-app.use(function(err, req, res, next){
-  console.log("Error!", err);
-  next();
-})
 
 app.get('/app-bundle.js',
 browserify(path.join(__dirname, '../client/main.js'), {
