@@ -10,6 +10,10 @@ var app        = express();
 
 app.use(express.static(path.join(__dirname, "../client/public")));
 app.use(bodyParser.json());
+app.use(function(err, req, res, next){
+  console.log("Error!", err);
+  next();
+})
 
 app.get('/app-bundle.js',
 browserify(path.join(__dirname, '../client/main.js'), {
@@ -129,6 +133,32 @@ app.post('/favorites/:artId', function(req, res) {
   })
   res.send()
 })
+
+// asdf: d4441c0b-1fd6-4ac4-91a9-9245f8cca721
+
+app.post('/like/:id', function(req, res){
+  var artId = req.params.artId;
+  var sessionId = req.body.cookie.substring(10);
+  console.log("headers", req.headers);
+  console.log("body", req.body);
+
+  if(!sessionId){
+    res.sendStatus(401)
+  } else {
+    // Get user id from session
+    db.collection('sessions').find({ id: sessionId })
+
+    // Check if user exists
+    db.collection('users').find({})
+
+    // Check if user has already liked the art
+      // if so then the user will unlike the art
+
+      // if not then the user will like the art
+
+  }
+})
+
 
 // Run server on port 4040
 var port = 4040;
