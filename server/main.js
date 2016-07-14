@@ -169,7 +169,18 @@ app.post('/like/:id', function(req, res){
         }
 
     })
-    .then(() => {
+    .then((result) => {
+      console.log('Result after liking and disliking', result, artId)
+      if(result.userId){
+        // We have liked an art piece
+        return db.collection('art').update({ _id: db.ObjectId(artId) }, { $inc: { likeCount: 1 } })
+      } else {
+        // We have disliked an art piece
+        return db.collection('art').update({ _id: db.ObjectId(artId) }, { $inc: { likeCount: -1 } })
+      }
+    })
+    .then((result) => {
+      console.log('Result like count:', result)
       res.send({"Status": "Success"});
     })
   }
