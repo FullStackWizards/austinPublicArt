@@ -134,8 +134,6 @@ app.post('/favorites/:artId', function(req, res) {
   res.send()
 })
 
-// asdf: d4441c0b-1fd6-4ac4-91a9-9245f8cca721
-
 app.post('/like/:id', function(req, res){
   var artId = req.params.id;
   var sessionId = req.body.cookie.substring(10);
@@ -144,9 +142,10 @@ app.post('/like/:id', function(req, res){
   if(!sessionId){
     res.sendStatus(401)
   } else {
-    // Get user id from session
-    db.collection('sessions').find({ sessionId: sessionId })
+    return db.collection('sessions').find({ sessionId: sessionId })
+    })
     .then((users) => {
+      // Get user id from session
       userId = users[0].id;
       return db.collection('users').find({ _id: userId })
     })
@@ -154,6 +153,9 @@ app.post('/like/:id', function(req, res){
       // Check if user exists
       if(users[0]){
         return db.collection('likes').find({ userId: userId, artId: artId })
+      } else {
+        // User doesn't exist, send back -bad request-
+        res.sendStatus(400)
       }
     })
     .then((likes) => {
