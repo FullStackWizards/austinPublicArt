@@ -137,25 +137,41 @@ app.post('/favorites/:artId', function(req, res) {
 // asdf: d4441c0b-1fd6-4ac4-91a9-9245f8cca721
 
 app.post('/like/:id', function(req, res){
-  var artId = req.params.artId;
+  var artId = req.params.id;
   var sessionId = req.body.cookie.substring(10);
-  console.log("headers", req.headers);
-  console.log("body", req.body);
+  var userId;
 
   if(!sessionId){
     res.sendStatus(401)
   } else {
     // Get user id from session
-    db.collection('sessions').find({ id: sessionId })
+    db.collection('sessions').find({ sessionId: sessionId })
+    .then((users) => {
+      userId = users[0].id;
+      return db.collection('users').find({ _id: userId })
+    })
+    .then((users) => {
+      // Check if user exists
+      if(users[0]){
+        return db.collection('likes').find({ userId: userId, artId: artId })
+      }
+    })
+    .then((likes) => {
+      // Check if user has already liked the art
+        if(likes[0]){
+          // if so then the user will unlike the art
+          console.log("Remove like:", likes)
+          return db.collection('likes').remove({ userId: userId, artId: artId })
+        } else {
+          // if not then the user will like the art
+          console.log("Add like:", likes)
+          return db.collection('likes').insert({ userId: userId, artId: artId })
+        }
 
-    // Check if user exists
-    db.collection('users').find({})
-
-    // Check if user has already liked the art
-      // if so then the user will unlike the art
-
-      // if not then the user will like the art
-
+    })
+    .then(() => {
+      res.send({"Status": "Success"});
+    })
   }
 })
 
