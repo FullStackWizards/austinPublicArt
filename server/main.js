@@ -160,28 +160,15 @@ app.post('/like/:id', function(req, res){
       // Check if user has already liked the art
         if(likes[0]){
           // if so then the user will unlike the art
-          console.log("Remove like:", likes)
           return db.collection('likes').remove({ userId: userId, artId: artId })
         } else {
           // if not then the user will like the art
-          console.log("Add like:", likes)
           return db.collection('likes').insert({ userId: userId, artId: artId })
         }
 
     })
     .then((result) => {
-      console.log('Result after liking and disliking', result, artId)
-      if(result.userId){
-        // We have liked an art piece
-        return db.collection('art').update({ _id: db.ObjectId(artId) }, { $inc: { likeCount: 1 } })
-      } else {
-        // We have disliked an art piece
-        return db.collection('art').update({ _id: db.ObjectId(artId) }, { $inc: { likeCount: -1 } })
-      }
-    })
-    .then((result) => {
-      console.log('Result like count:', result)
-      res.send({"Status": "Success"});
+      res.send({ "Status": "Success" })
     })
   }
 })
