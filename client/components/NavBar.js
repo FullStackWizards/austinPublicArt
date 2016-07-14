@@ -12,16 +12,19 @@ export default class NavBar extends React.Component {
     this.state = {
       showLogin: false,
       showSignup: false,
-      showError: false
+      showError: false,
+      loggedIn: document.cookie
     }
   } 
   componentWillMount() {
+    console.log('component mounting', document.cookie)
     if (document.cookie) {
       this.setState({loggedin: true})
     }
     else {
       this.setState({loggedIn: false})
     }
+    console.log(this.state)
   }
   
   openLogin() {
@@ -58,10 +61,9 @@ export default class NavBar extends React.Component {
           </li>
           {/* Populate the navbar items. Use <Link /> from react router to add links to different views. */}
           <li><Link to={'/'} className="w3-hover-none w3-hover-text-grey w3-padding-large">HOME</Link></li>
-          <li className="w3-hide-small"><Link className="w3-padding-large" to={`artists`}>ARTISTS</Link></li>
+          <li className="w3-hide-small"><Link to={`artists`} className="w3-padding-large" >ARTISTS</Link></li>
           <li className="w3-hide-small"><Link to={`gallery`} className="w3-padding-large">GALLERY</Link></li>
-          <li className="w3-hide-small"><a href="#" className=" w3-padding-large">CONTACT</a></li>
-          {this.state.loggedIn ? <li className="w3-hide-small"><a href="#" className=" w3-padding-large">FAVORITES</a></li> : ''}
+          {this.state.loggedIn ? <li className="w3-hide-small"><Link to={`favorites`} className=" w3-padding-large">FAVORITES</Link></li> : null}
           <li className="w3-hide-small w3-dropdown-hover">
             <a className="w3-hover-none w3-padding-large" title="More">ACCOUNT <i className="fa fa-caret-down"></i></a>
             <div className="w3-dropdown-content w3-white w3-card-4">
