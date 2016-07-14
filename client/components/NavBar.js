@@ -3,6 +3,8 @@ import {Link} from 'react-router'
 import {ModalContainer, ModalDialog} from 'react-modal-dialog';
 import ReactSpinner from 'react-spinjs';
 
+import * as auth from '../models/auth'
+
 
 export default class NavBar extends React.Component {
   constructor() {
@@ -26,7 +28,12 @@ export default class NavBar extends React.Component {
   closeSignup() {
     this.setState({showSignup: false});
   }
+  logout(name) {
+    document.cookie = 'sessionId' + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    console.log('logging out')
+  }
 
+  //Render the navbar 
   render() {
     return(
       <div className="w3-top">
@@ -34,16 +41,17 @@ export default class NavBar extends React.Component {
           <li className="w3-hide-medium w3-hide-large w3-opennav w3-right">
             <a className="w3-padding-large" href="javascript:void(0)" title="Toggle Navigation Menu"><i className="fa fa-bars"></i></a>
           </li>
+          {/* Populate the navbar items. Use <Link /> from react router to add links to different views. */}
           <li><Link to={'/'} className="w3-hover-none w3-hover-text-grey w3-padding-large">HOME</Link></li>
-          <li className="w3-hide-small"><Link className="w3-padding-large" to={`/artists`}>ARTISTS</Link></li>
-          <li className="w3-hide-small"><Link to={`/gallery`} className="w3-padding-large">GALLERY</Link></li>
+          <li className="w3-hide-small"><Link className="w3-padding-large" to={`artists`}>ARTISTS</Link></li>
+          <li className="w3-hide-small"><Link to={`gallery`} className="w3-padding-large">GALLERY</Link></li>
           <li className="w3-hide-small"><a href="#" className=" w3-padding-large">CONTACT</a></li>
           <li className="w3-hide-small w3-dropdown-hover">
             <a className="w3-hover-none w3-padding-large" title="More">ACCOUNT <i className="fa fa-caret-down"></i></a>
             <div className="w3-dropdown-content w3-white w3-card-4">
               <a href="#" onClick={this.openLogin.bind(this)}>Login</a>
               <a href="#" onClick={this.openSignup.bind(this)}>Signup</a>
-              <a href="#">Logout</a>
+              <a href="#" onClick={this.logout}>Logout</a>
             </div>
           </li>
           <li className="w3-hide-small w3-right"><a href="javascript:void(0)" className="w3-padding-large w3-hover-red"><i className="fa fa-search"></i></a></li>
@@ -86,6 +94,7 @@ class LoginModal extends React.Component {
         <ModalDialog onClose={this.props.onClose} className="example-dialog">
           <form name="loginForm" onSubmit={(e) => {
             e.preventDefault(); 
+            auth.login({username: this.state.username, password: this.state.password})
             this.load.call(this); 
           }}>
             <h1>Login</h1>
@@ -128,6 +137,7 @@ class SignUpModal extends React.Component {
         <ModalDialog onClose={this.props.onClose} className="example-dialog">
           <form name="signUpForm" onSubmit={(e) => {
             e.preventDefault(); 
+            auth.signUp({username: this.state.username, password: this.state.password})
             this.load.call(this); 
           }}>
             <h1>SignUp</h1>

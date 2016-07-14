@@ -1,5 +1,4 @@
 import React from 'react'
-import AuthModal from './AuthModal'
 import ArtWindow from './ArtWindow'
 import * as auth from '../models/auth'
 import * as art from '../models/art'
@@ -9,7 +8,6 @@ export default class App extends React.Component {
     super(props);
 
     this.state = {
-      loggedIn: false,
       artCollection: []
     }
   }
@@ -20,17 +18,12 @@ export default class App extends React.Component {
   signUp(userData) {
     console.log('signing up in~~~app.js')
     auth.signUp(userData)
-    this.setState({loggedIn: true})
   }
   login(userData) {
     console.log('logging in~~~app.js')
     auth.login(userData)
-    this.setState({loggedIn: true})
   }
-  logout() {
-    console.log('logging out')
-    this.setState({loggedIn: false})
-  }
+
   fetchArt(artist) {
     art.getArt()
     .then((artwork) => {

@@ -34,7 +34,7 @@ app.post('/signUp', function(req, res) {
  .then((user) => {
    if(user[0]){
     console.log('bad request');
-     res.status(400).end("bad request");
+     res.status(400).send("bad request");
      res.set("Connection", "close");
    } else {
      return Utils.hashPassword(password)
@@ -57,12 +57,13 @@ app.post('/login', function(req, res) {
  var username = req.body.username;
  var password = req.body.password;
  var userID;
-
+console.log('in login', req.body)
   db.collection('users')
     .find({username: username})
     .then((userObj) => {
-      if(!userObj) {
-        res.end(400, "Invalid username/Password")
+      console.log('in login', userObj[0])
+      if(!userObj[0]) {
+        res.status(400).send("Invalid username/Password")
       } else {
         userID = userObj[0]._id;
         return Utils.comparePassword(userObj[0].password, password)
@@ -70,7 +71,7 @@ app.post('/login', function(req, res) {
     })
     .then((isValidPassword) => {
       if(!isValidPassword) {
-        res.sendStatus(401, "Invalid Username/password");
+        res.status(401).send("Invalid Username/password");
       } else {
         return db.collection('sessions')
           .insert({ id: userID, sessionId: Utils.createSessionId() })

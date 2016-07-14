@@ -1,9 +1,10 @@
 import React, {PropTypes} from 'react';
-import {Link} from 'react-router' 
-import NavBar from './NavBar'
+import {Link} from 'react-router';
 
 export default class HomePage extends React.Component {
 
+
+  //The homepage component with links to gallery and artists page on the two buttons.
   render() {
     return (
         <section id="home" className="parallax-section">
