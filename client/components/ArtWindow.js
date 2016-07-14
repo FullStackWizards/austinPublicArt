@@ -71,7 +71,7 @@ class Info extends React.Component {
             <img src={this.props.parseImageUrl(this.props.currentArt.Images)[2]}/>
             {document.cookie ?
               <div className="userFeatures">
-              <button onClick={() => auth.likePhoto(this.props.currentArt._id)}>Like</button>
+              <button onClick={() => auth.likePhoto(this.props.currentArt._id).then((x) => console.log('x in info modal', x))}>Like</button>
               <button>Fav!</button>
               </div> 
               : ''}

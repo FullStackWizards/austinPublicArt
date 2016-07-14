@@ -15,6 +15,7 @@ export function signUp(userData) {
       console.log('after login data', data)
       if(data.status < 400) {
         data.json().then((data) => document.cookie = "sessionId=" + data + ";path=/")
+        return "Success"
       } else return data
     })
 }
@@ -34,6 +35,7 @@ export function login(userData) {
       console.log('after login data', data)
       if(data.status < 400) {
         data.json().then((data) => document.cookie = "sessionId=" + data + ";path=/")
+        return "Success"
       } else return data
     })
 }
