@@ -62,7 +62,7 @@ app.post('/login', function(req, res) {
     .find({username: username})
     .then((userObj) => {
       if(!userObj) {
-        res.end(400, "Invalid username/Password")
+        res.sendStatus(401)
       } else {
         userID = userObj[0]._id;
         return Utils.comparePassword(userObj[0].password, password)
@@ -70,7 +70,7 @@ app.post('/login', function(req, res) {
     })
     .then((isValidPassword) => {
       if(!isValidPassword) {
-        res.sendStatus(401, "Invalid Username/password");
+        res.sendStatus(401)
       } else {
         return db.collection('sessions')
           .insert({ id: userID, sessionId: Utils.createSessionId() })
@@ -88,7 +88,7 @@ app.get('/favorites', function(req, res) {
 	if(req.headers.cookie) {
 		sessionId = req.headers.cookie.substring(10);
 	} else {
-		res.sendStatus(403);
+		res.sendStatus(401);
 	}
 	// Find the sessionId in sessions collection
 	db.collection('sessions')
@@ -115,7 +115,7 @@ app.post('/favorites/:artId', function(req, res) {
   if(req.headers.cookie) {
     sessionId = req.headers.cookie.substring(10);
   } else {
-    res.sendStatus(403)
+    res.sendStatus(401)
   }
 
   // Finds the users session object using sessionId from cookie
@@ -151,7 +151,6 @@ app.post('/favorites/:artId', function(req, res) {
     })
   })
 })
-
 // Run server on port 4040
 var port = 4040;
 app.listen(port);
