@@ -192,6 +192,19 @@ app.post('/like/:id', function(req, res){
   }
 })
 
+app.get('/likes/:id', function(req, res){
+  var artId = req.params.id;
+
+  if(!artId){
+    res.status(400).send({"Error": "No art id... Come on now"})
+  } else {
+    db.collection("likes").find({ artId: artId })
+    .then((likes) => {
+      res.send({ likeCount: likes.length })
+    })
+  }
+})
+
 
 // Run server on port 4040
 var port = 4040;
