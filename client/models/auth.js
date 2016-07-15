@@ -39,13 +39,13 @@ export function login(userData) {
 }
 
 export function likePhoto(artId) {
-  console.log('liking in auth.js~~~~~', artId)
+  console.log('liking in auth.js~~~~~', artId, document.cookie)
   let obj = {
     method: "POST",
     headers: {
       'Content-Type': 'application/json'
     },
-    body: artId
+    body: JSON.stringify({cookie: document.cookie})
   }
   return fetch(`/like/${artId}`, obj)
     .then(function(data){
