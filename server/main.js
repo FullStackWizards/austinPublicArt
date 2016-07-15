@@ -160,8 +160,7 @@ app.post('/like/:id', function(req, res){
   if(!sessionId){
     res.sendStatus(401)
   } else {
-    return db.collection('sessions').find({ sessionId: sessionId })
-    })
+    db.collection('sessions').find({ sessionId: sessionId })
     .then((users) => {
       // Get user id from session
       userId = users[0].id;
