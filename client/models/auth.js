@@ -39,13 +39,13 @@ export function login(userData) {
 }
 
 export function likePhoto(artId) {
-  console.log('logging in auth.js~~~~~', userData)
+  console.log('liking in auth.js~~~~~', artId, document.cookie)
   let obj = {
     method: "POST",
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify(userData)
+    body: JSON.stringify({cookie: document.cookie})
   }
   return fetch(`/like/${artId}`, obj)
     .then(function(data){
@@ -54,13 +54,13 @@ export function likePhoto(artId) {
 }
 
 export function favoritePhoto(artId) {
-  console.log('logging in auth.js~~~~~', userData)
+  console.log('favoriting photo', artId)
   let obj = {
     method: "POST",
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify(userData)
+    body: JSON.stringify(artId)
   }
   return fetch(`/like/${artId}`, obj)
     .then(function(data){

@@ -151,6 +151,61 @@ app.post('/favorites/:artId', function(req, res) {
     })
   })
 })
+
+app.post('/like/:id', function(req, res){
+  var artId = req.params.id;
+  var sessionId = req.body.cookie.substring(10);
+  var userId;
+
+  if(!sessionId){
+    res.sendStatus(401)
+  } else {
+    db.collection('sessions').find({ sessionId: sessionId })
+    .then((users) => {
+      // Get user id from session
+      userId = users[0].id;
+      return db.collection('users').find({ _id: userId })
+    })
+    .then((users) => {
+      // Check if user exists
+      if(users[0]){
+        return db.collection('likes').find({ userId: userId, artId: artId })
+      } else {
+        // User doesn't exist, send back -bad request-
+        res.sendStatus(400)
+      }
+    })
+    .then((likes) => {
+      // Check if user has already liked the art
+        if(likes[0]){
+          // if so then the user will unlike the art
+          return db.collection('likes').remove({ userId: userId, artId: artId })
+        } else {
+          // if not then the user will like the art
+          return db.collection('likes').insert({ userId: userId, artId: artId })
+        }
+
+    })
+    .then((result) => {
+      res.send({ "Status": "Success" })
+    })
+  }
+})
+
+app.get('/likes/:id', function(req, res){
+  var artId = req.params.id;
+
+  if(!artId){
+    res.status(400).send({"Error": "No art id... Come on now"})
+  } else {
+    db.collection("likes").find({ artId: artId })
+    .then((likes) => {
+      res.send({ likeCount: likes.length })
+    })
+  }
+})
+
+
 // Run server on port 4040
 var port = 4040;
 app.listen(port);
