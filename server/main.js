@@ -61,6 +61,7 @@ console.log('in login', req.body)
   db.collection('users')
     .find({username: username})
     .then((userObj) => {
+
       console.log('in login', userObj[0])
       if(!userObj[0]) {
         res.status(400).send("Invalid username/Password")
@@ -89,7 +90,7 @@ app.get('/favorites', function(req, res) {
 	if(req.headers.cookie) {
 		sessionId = req.headers.cookie.substring(10);
 	} else {
-		res.sendStatus(403);
+		res.sendStatus(401);
 	}
 	// Find the sessionId in sessions collection
 	db.collection('sessions')
@@ -116,7 +117,7 @@ app.post('/favorites/:artId', function(req, res) {
   if(req.headers.cookie) {
     sessionId = req.headers.cookie.substring(10);
   } else {
-    res.sendStatus(403)
+    res.sendStatus(401)
   }
 
   // Finds the users session object using sessionId from cookie
@@ -161,8 +162,7 @@ app.post('/like/:id', function(req, res){
   if(!sessionId){
     res.sendStatus(401)
   } else {
-    return db.collection('sessions').find({ sessionId: sessionId })
-    })
+    db.collection('sessions').find({ sessionId: sessionId })
     .then((users) => {
       // Get user id from session
       userId = users[0].id;
@@ -194,6 +194,63 @@ app.post('/like/:id', function(req, res){
   }
 })
 
+app.get('/likes/:id', function(req, res){
+  var artId = req.params.id;
+
+  if(!artId){
+    res.status(400).send({"Error": "No art id... Come on now"})
+  } else {
+    db.collection("likes").find({ artId: artId })
+    .then((likes) => {
+      res.send({ likeCount: likes.length })
+    })
+  }
+})
+
+/*
+  General testing endpoints
+
+  ------------------------
+
+  REMOVE BEFORE DEPLOYING
+
+  ------------------------
+*/
+
+app.get('/getLikes', function(req, res) {
+  db.collection('likes').find()
+  .then((data) => res.send(data))
+})
+
+app.get('/getArt', function(req,res) {
+  db.collection('art').find()
+  .then((data) => res.send(data))
+})
+
+app.get('/getFavorites', function(req,res) {
+  db.collection('favorites').find()
+  .then((data) => res.send(data))
+})
+
+app.get('/getUsers', function(req,res) {
+  db.collection('users').find()
+  .then((data) => res.send(data))
+})
+
+app.get('/getSessions', function(req,res) {
+  db.collection('sessions').find()
+  .then((data) => res.send(data))
+})
+
+/*
+  General testing endpoints
+
+  ------------------------
+
+  REMOVE BEFORE DEPLOYING
+
+  ------------------------
+*/
 
 // Run server on port 4040
 var port = 4040;
