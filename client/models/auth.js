@@ -36,6 +36,7 @@ export function login(userData) {
     .then(function(data) {
       document.cookie = "sessionId=" + data + ";path=/";
     })
+  })
 }
 
 export function likePhoto(artId) {

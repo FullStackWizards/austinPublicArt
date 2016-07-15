@@ -62,21 +62,23 @@ app.post('/login', function(req, res) {
     .find({username: username})
     .then((userObj) => {
       if(!userObj) {
-        res.sendStatus(401)
+        res.status(401).send({ error: "Invalid Username/password" })
       } else {
+        console.log("b")
         userID = userObj[0]._id;
         return Utils.comparePassword(userObj[0].password, password)
       }
     })
     .then((isValidPassword) => {
       if(!isValidPassword) {
-        res.sendStatus(401)
+        res.status(401).send({ error: "Invalid username/Password" })
       } else {
         return db.collection('sessions')
           .insert({ id: userID, sessionId: Utils.createSessionId() })
       }
     })
     .then((userObj) => {
+      // res.cookie('sessionId', userObj.sessionId, { path: '/' }).send("cookie set")
       res.send(JSON.stringify(userObj.sessionId))
     })
 })
@@ -88,7 +90,7 @@ app.get('/favorites', function(req, res) {
 	if(req.headers.cookie) {
 		sessionId = req.headers.cookie.substring(10);
 	} else {
-		res.sendStatus(401);
+    res.status(401).send({ error: "User is not signed in"})
 	}
 	// Find the sessionId in sessions collection
 	db.collection('sessions')
@@ -99,12 +101,13 @@ app.get('/favorites', function(req, res) {
 	.then((userID) => db.collection('favorites')
 		.find({ userId: userID }))
 	// Return all favorited art back to client
-	.then((returnedFavorites) => res.send(returnedFavorites))
+	.then((returnedFavorites) => res.status(200).send(returnedFavorites))
 })
 
 // Will add a favorite with userId and artId to the favorites collection if not already present.
 // If it is present it will remove the userId and artId from favorites collection
 app.post('/favorites/:artId', function(req, res) {
+  console.log("A")
   var artId = req.params.artId;
   var sessionId;
   var userID = '';
@@ -115,7 +118,7 @@ app.post('/favorites/:artId', function(req, res) {
   if(req.headers.cookie) {
     sessionId = req.headers.cookie.substring(10);
   } else {
-    res.sendStatus(401)
+    res.status(401).send({ error: "User is not signed in" })
   }
 
   // Finds the users session object using sessionId from cookie
@@ -137,7 +140,7 @@ app.post('/favorites/:artId', function(req, res) {
       if(!isEqual[0]) {
         db.collection('favorites')
         .insert({ userId: userID, artId: artId })
-        res.send("Successfully added to favorites")
+        res.sendStatus(200);
       } else {
         // True: remove userId and artId from favorites collection
         db.collection('favorites')
@@ -145,7 +148,7 @@ app.post('/favorites/:artId', function(req, res) {
         .then((returnedDocument) => {
           db.collection('favorites')
           .remove({ _id: returnedDocument[0]._id })
-          res.send("Successfully removed from favorites")
+          res.sendStatus(200);
         })
       }
     })
