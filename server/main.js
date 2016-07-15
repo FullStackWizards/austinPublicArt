@@ -205,6 +205,50 @@ app.get('/likes/:id', function(req, res){
   }
 })
 
+/*
+  General testing endpoints
+
+  ------------------------
+
+  REMOVE BEFORE DEPLOYING
+
+  ------------------------
+*/
+
+app.get('/getLikes', function(req, res) {
+  db.collection('likes').find()
+  .then((data) => res.send(data))
+})
+
+app.get('/getArt', function(req,res) {
+  db.collection('art').find()
+  .then((data) => res.send(data))
+})
+
+app.get('/getFavorites', function(req,res) {
+  db.collection('favorites').find()
+  .then((data) => res.send(data))
+})
+
+app.get('/getUsers', function(req,res) {
+  db.collection('users').find()
+  .then((data) => res.send(data))
+})
+
+app.get('/getSessions', function(req,res) {
+  db.collection('sessions').find()
+  .then((data) => res.send(data))
+})
+
+/*
+  General testing endpoints
+
+  ------------------------
+
+  REMOVE BEFORE DEPLOYING
+
+  ------------------------
+*/
 
 // Run server on port 4040
 var port = 4040;
