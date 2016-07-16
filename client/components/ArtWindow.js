@@ -56,7 +56,7 @@ export default class ArtGallery extends React.Component {
 }
 
 class Info extends React.Component {
-
+  //The info modal that pops up with the props currentArt set as the object of the work of art you clicked on
   render() {
     return (
       <ModalContainer onClose={this.props.onClose}>
@@ -69,9 +69,9 @@ class Info extends React.Component {
             <img src={this.props.parseImageUrl(this.props.currentArt.Images)[0]} />
             <img src={this.props.parseImageUrl(this.props.currentArt.Images)[1]} />
             <img src={this.props.parseImageUrl(this.props.currentArt.Images)[2]}/>
-            {this.props.loggedIn ?
+            {document.cookie ?
               <div className="userFeatures">
-              <button onClick={() => auth.likePhoto(this.props.currentArt._id)}>Like</button>
+              <button onClick={() => auth.likePhoto(this.props.currentArt._id).then((x) => console.log('x in info modal', x))}>Like</button>
               <button>Fav!</button>
               </div> 
               : ''}

@@ -12,12 +12,13 @@ export function signUp(userData) {
   }
   return fetch(`/signUp`, obj)
     .then(function(data){
-      return data.json()
+      console.log('after login data', data)
+      if(data.status < 400) {
+        data.json().then((data) => document.cookie = "sessionId=" + data + ";path=/")
+        return "Success"
+      } else return data
     })
-    .then(function(data){
-      document.cookie = "sessionId=" + data + ";path=/";
-    })
-  }
+}
 
 
 export function login(userData) {
@@ -31,10 +32,11 @@ export function login(userData) {
   }
   return fetch(`/login`, obj)
     .then(function(data){
-      return data.json()
-    })
-    .then(function(data) {
-      document.cookie = "sessionId=" + data + ";path=/";
+      console.log('after login data', data)
+      if(data.status < 400) {
+        data.json().then((data) => document.cookie = "sessionId=" + data + ";path=/")
+        return "Success"
+      } else return data
     })
 }
 

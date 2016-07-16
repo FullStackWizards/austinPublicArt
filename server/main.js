@@ -33,9 +33,8 @@ app.post('/signUp', function(req, res) {
  db.collection('users').find({username: username})
  .then((user) => {
    if(user[0]){
-    console.log('bad request');
-     res.status(400).end("bad request");
-     res.set("Connection", "close");
+     res.statusMessage = "Username taken."
+     res.status(400).end();
    } else {
      return Utils.hashPassword(password)
    }
@@ -57,12 +56,13 @@ app.post('/login', function(req, res) {
  var username = req.body.username;
  var password = req.body.password;
  var userID;
-
+console.log('in login', req.body)
   db.collection('users')
     .find({username: username})
     .then((userObj) => {
-      if(!userObj) {
-        res.sendStatus(401)
+      if(!userObj[0]) {
+        res.statusMessage = "Incorrect username or password"
+        res.status(400).end();
       } else {
         userID = userObj[0]._id;
         return Utils.comparePassword(userObj[0].password, password)
@@ -70,7 +70,8 @@ app.post('/login', function(req, res) {
     })
     .then((isValidPassword) => {
       if(!isValidPassword) {
-        res.sendStatus(401)
+        res.statusMessage = "Incorrect username or password"
+        res.status(401).end();
       } else {
         return db.collection('sessions')
           .insert({ id: userID, sessionId: Utils.createSessionId() })
