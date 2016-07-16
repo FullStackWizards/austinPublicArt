@@ -3,8 +3,8 @@ var path       = require('path');
 var browserify = require("browserify-middleware");
 var bodyParser = require('body-parser');
 
-var Utils      = require('./utils.js');
-var db         = require('./db.js');
+var Utils      = require(path.join(__dirname, './utils.js');
+var db         = require(path.join(__dirname, './db.js');
 
 var app        = express();
 
