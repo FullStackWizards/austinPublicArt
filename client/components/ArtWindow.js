@@ -79,17 +79,14 @@ class Info extends React.Component {
               <div className="userFeatures">
               <button onClick={() => auth.likePhoto(this.props.currentArt._id)
                 .then((x) => {
-                  console.log('x in info modal', x)
                   return art.getLikes(this.props.currentArt._id)
                 })
                 .then((likeCount) => {
-                  console.log(likeCount)
                   this.props.updateCurrent(likeCount)
                 })
               }>Like</button>
               <button onClick={() => auth.favoritePhoto(this.props.currentArt._id)
                 .then((x) => {
-                  console.log('x in info modal', x)
                 })
               }>Fav!</button>
               </div> 
