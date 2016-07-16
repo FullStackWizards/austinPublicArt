@@ -42,7 +42,6 @@ export default class ArtistPage extends React.Component {
         return (
 
           <div key={art._id} className="soloWork">
-           {console.log(art)}
             <h3 className="soloArtTitle">{art['Art Title']}</h3>
             <img src={this.parseImageUrl(art.Images)[0]} />
             <div className="soloArtInfo">

@@ -17,15 +17,15 @@ export default class Favorites extends React.Component {
 	render() {
 		return (
       <div>
-      <NavBar />
-      <br/>
-      <br/>
-  		<h3>Your Favs!</h3>
-  		<ul>
-  		  <li>
-        your favorite art here !
-        </li>
-   		</ul>
+        <NavBar />
+        <br/>
+        <br/>
+    		<h3>Your Favs!</h3>
+    		<ul>
+    		  <li>
+          your favorite art here !
+          </li>
+     		</ul>
   		</div>
     )
 	}

@@ -56,7 +56,6 @@ app.post('/login', function(req, res) {
  var username = req.body.username;
  var password = req.body.password;
  var userID;
-console.log('in login', req.body)
   db.collection('users')
     .find({username: username})
     .then((userObj) => {
@@ -201,7 +200,8 @@ app.get('/likes/:id', function(req, res){
   } else {
     db.collection("likes").find({ artId: artId })
     .then((likes) => {
-      res.send({ likeCount: likes.length })
+      console.log('likes', likes)
+      res.send({ likeCount: likes.map((x) => {likesArray: x.userId}) })
     })
   }
 })

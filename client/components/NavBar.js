@@ -17,14 +17,12 @@ export default class NavBar extends React.Component {
     }
   } 
   componentWillMount() {
-    console.log('component mounting', document.cookie)
     if (document.cookie) {
       this.setState({loggedin: true})
     }
     else {
       this.setState({loggedIn: false})
     }
-    console.log(this.state)
   }
   
   openLogin() {
@@ -46,9 +44,6 @@ export default class NavBar extends React.Component {
     document.cookie = 'sessionId' + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
     this.setState({loggedIn: false})
     console.log('logging out')
-  }
-  checker() {
-    console.log(this.state.loggedIn)
   }
 
   //Render the navbar 
@@ -118,7 +113,6 @@ class LoginModal extends React.Component {
             e.preventDefault(); 
             auth.login({username: this.state.username, password: this.state.password})
              .then((x) => {
-              console.log('x in info modal', x)
               if(x === 'Success') {
                 this.setState({showError: false})
                 this.props.onClose(true)
@@ -172,7 +166,6 @@ class SignUpModal extends React.Component {
             e.preventDefault(); 
             auth.signUp({username: this.state.username, password: this.state.password})
             .then((x) => {
-              console.log('x in info modal', x)
               if(x === 'Success') {
                 this.setState({showError: false})
                 this.props.onClose(true)

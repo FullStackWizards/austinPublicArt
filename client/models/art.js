@@ -9,3 +9,13 @@ export function getArt (){
     return artwork.json()
   })
 }
+
+export function getLikes(artId) {
+  let obj = {
+    method: 'GET'
+  };
+  return fetch(`/likes/${artId}`, obj)
+  .then((artwork) => {
+    return artwork.json()
+  })
+}
