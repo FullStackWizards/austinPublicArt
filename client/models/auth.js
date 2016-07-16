@@ -76,8 +76,10 @@ export function fetchFavs() {
     method: "GET",
     headers: {
       'Content-Type': 'application/json',
-      'cookie': JSON.stringify(document.cookie)
+      //'cookie': JSON.stringify(document.cookie)
+      'cookieHeader': document.cookie
     }
+    //body: JSON.stringify({ cookie: document.cookie })
   }
 return fetch(`/favorites`, obj)
   .then(function(resp) {

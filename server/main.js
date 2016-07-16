@@ -84,9 +84,9 @@ app.post('/login', function(req, res) {
 // Retrieve all favorited art for the current logged in user
 app.get('/favorites', function(req, res) {
 	var sessionId;
-  console.log(req.headers)
-	if(req.headers.cookie) {
-		sessionId = req.headers.cookie.substring(10);
+  
+	if(req.headers.cookieheader) {
+		sessionId = req.headers.cookieheader.substring(10);
 	} else {
 		res.sendStatus(401);
 	}
@@ -99,7 +99,10 @@ app.get('/favorites', function(req, res) {
 	.then((userID) => db.collection('favorites')
 		.find({ userId: userID }))
 	// Return all favorited art back to client
-	.then((returnedFavorites) => res.send(returnedFavorites))
+	.then((returnedFavorites) => {
+    console.log(returnedFavorites)
+    res.send(returnedFavorites)
+  })
 })
 
 // Will add a favorite with userId and artId to the favorites collection if not already present.
