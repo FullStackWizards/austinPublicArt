@@ -87,7 +87,11 @@ class Info extends React.Component {
                   this.props.updateCurrent(likeCount)
                 })
               }>Like</button>
-              <button>Fav!</button>
+              <button onClick={() => auth.favoritePhoto(this.props.currentArt._id)
+                .then((x) => {
+                  console.log('x in info modal', x)
+                })
+              }>Fav!</button>
               </div> 
               : ''}
                   

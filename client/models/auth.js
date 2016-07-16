@@ -61,11 +61,11 @@ export function favoritePhoto(artId) {
     method: "POST",
     headers: {
       'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(artId)
+    }
   }
-  return fetch(`/like/${artId}`, obj)
+  return fetch(`/favorites/${artId}`, obj)
     .then(function(data){
-      return data.json()
+      console.log('data in auth.js', data)
+      return data
     })
 }

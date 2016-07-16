@@ -106,12 +106,13 @@ app.get('/favorites', function(req, res) {
 // If it is present it will remove the userId and artId from favorites collection
 app.post('/favorites/:artId', function(req, res) {
   var artId = req.params.artId;
-  var sessionId;
+  var sessionId = req.body.cookie.substring(10);
   var userID = '';
 
   // Checks to see if user has a cookie.
   //  True : assign cookie to sessionID
   //  False: send a 403("Forbidden") status back to client
+  console.log(req)
   if(req.headers.cookie) {
     sessionId = req.headers.cookie.substring(10);
   } else {
@@ -122,6 +123,7 @@ app.post('/favorites/:artId', function(req, res) {
   db.collection('sessions')
     .find({sessionId: sessionId})
     .then((returnedSession) => {
+      console.log('returnedSession', returnedSession)
       userID = returnedSession[0].id
     })
     .then(() => {
@@ -137,7 +139,7 @@ app.post('/favorites/:artId', function(req, res) {
       if(!isEqual[0]) {
         db.collection('favorites')
         .insert({ userId: userID, artId: artId })
-        res.send("Successfully added to favorites")
+        res.send({Status: "Successfully added to favorites"})
       } else {
         // True: remove userId and artId from favorites collection
         db.collection('favorites')
@@ -145,7 +147,7 @@ app.post('/favorites/:artId', function(req, res) {
         .then((returnedDocument) => {
           db.collection('favorites')
           .remove({ _id: returnedDocument[0]._id })
-          res.send("Successfully removed from favorites")
+          res.send({Status: "Successfully removed from favorites"})
         })
       }
     })
@@ -200,8 +202,7 @@ app.get('/likes/:id', function(req, res){
   } else {
     db.collection("likes").find({ artId: artId })
     .then((likes) => {
-      console.log('likes', likes)
-      res.send({ likeCount: likes.map((x) => {likesArray: x.userId}) })
+      res.send({ likeCount: likes.map((x) =>  x.userId) })
     })
   }
 })
