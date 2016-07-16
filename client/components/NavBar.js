@@ -30,16 +30,16 @@ export default class NavBar extends React.Component {
   openLogin() {
     this.setState({showLogin: true});
   }
-  closeLogin() {
-    this.setState({loggedIn: true})
+  closeLogin(bool) {
+    this.setState({loggedIn: bool})
     this.setState({showLogin: false});
   }
 
   openSignup() {
     this.setState({showSignup: true});
   }
-  closeSignup() {
-    this.setState({loggedIn: true})
+  closeSignup(bool) {
+    this.setState({loggedIn: bool})
     this.setState({showSignup: false});
   }
   logout(name) {
@@ -121,7 +121,7 @@ class LoginModal extends React.Component {
               console.log('x in info modal', x)
               if(x === 'Success') {
                 this.setState({showError: false})
-                this.props.onClose()
+                this.props.onClose(true)
               } else {
                 this.setState({showError: true})
               }
@@ -175,7 +175,7 @@ class SignUpModal extends React.Component {
               console.log('x in info modal', x)
               if(x === 'Success') {
                 this.setState({showError: false})
-                this.props.onClose()
+                this.props.onClose(true)
               } else {
                 this.setState({showError: true})
               }
