@@ -17,14 +17,12 @@ export default class NavBar extends React.Component {
     }
   } 
   componentWillMount() {
-    console.log('component mounting', document.cookie)
     if (document.cookie) {
       this.setState({loggedin: true})
     }
     else {
       this.setState({loggedIn: false})
     }
-    console.log(this.state)
   }
   
   openLogin() {
@@ -45,10 +43,6 @@ export default class NavBar extends React.Component {
   logout(name) {
     document.cookie = 'sessionId' + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
     this.setState({loggedIn: false})
-    console.log('logging out')
-  }
-  checker() {
-    console.log(this.state.loggedIn)
   }
 
   //Render the navbar 
@@ -67,9 +61,9 @@ export default class NavBar extends React.Component {
           <li className="w3-hide-small w3-dropdown-hover">
             <a className="w3-hover-none w3-padding-large" title="More">ACCOUNT <i className="fa fa-caret-down"></i></a>
             <div className="w3-dropdown-content w3-white w3-card-4">
-              {!this.state.loggedIn ? <div><a href="#" onClick={this.openLogin.bind(this)}>Login</a>
-              <a href="#" onClick={this.openSignup.bind(this)}>Signup</a></div> :
-              <a href="#" onClick={this.logout.bind(this)}>Logout</a>} 
+              {!this.state.loggedIn ? <div><a href="javascript:void(0)" onClick={this.openLogin.bind(this)}>Login</a>
+              <a href="javascript:void(0)" onClick={this.openSignup.bind(this)}>Signup</a></div> :
+              <a href="javascript:void(0)" onClick={this.logout.bind(this)}>Logout</a>} 
             </div>
           </li>
           <li className="w3-hide-small w3-right"><a href="javascript:void(0)" className="w3-padding-large w3-hover-red"><i className="fa fa-search"></i></a></li>
@@ -118,7 +112,6 @@ class LoginModal extends React.Component {
             e.preventDefault(); 
             auth.login({username: this.state.username, password: this.state.password})
              .then((x) => {
-              console.log('x in info modal', x)
               if(x === 'Success') {
                 this.setState({showError: false})
                 this.props.onClose(true)
@@ -172,7 +165,6 @@ class SignUpModal extends React.Component {
             e.preventDefault(); 
             auth.signUp({username: this.state.username, password: this.state.password})
             .then((x) => {
-              console.log('x in info modal', x)
               if(x === 'Success') {
                 this.setState({showError: false})
                 this.props.onClose(true)

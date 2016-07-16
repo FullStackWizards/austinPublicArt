@@ -8,41 +8,59 @@ export default class App extends React.Component {
     super(props);
 
     this.state = {
+      tempCollection: [],
       artCollection: []
     }
   }
 
   componentWillMount() {
+    this.update()
+  }
+  update() {
     this.fetchArt(this.props.params.artistName)
+    .then(() => {
+      this.getLikes()
+    })
   }
   signUp(userData) {
-    console.log('signing up in~~~app.js')
     auth.signUp(userData)
   }
   login(userData) {
-    console.log('logging in~~~app.js')
     auth.login(userData)
   }
 
   fetchArt(artist) {
-    art.getArt()
+    return art.getArt()
     .then((artwork) => {
       if(artist) {
-        this.setState({artCollection: artwork.filter((art) => art['Artist Name'] == artist)})
+        this.setState({tempCollection: artwork.filter((art) => art['Artist Name'] == artist)})
       }
       else {
-        this.setState({artCollection: artwork})
+        this.setState({tempCollection: artwork})
       }   
     })
+  }
+
+  getLikes() {
+    var results = [];
+    this.state.tempCollection.forEach((artWork) => {
+      art.getLikes(artWork._id)
+      .then((likeCount) => {
+        results.push(Object.assign(artWork, {likeCount: likeCount.likeCount.length}))
+        if (results.length === this.state.tempCollection.length) {
+          this.setState({artCollection: results})
+        }
+      })
+    })  
   }
 
   render(){
     return (
       <div>
-      <br/>
-      <br/>
+        <br/>
+        <br/>
         <h2>Austin Art</h2>
-        <ArtWindow className="artGallery" gallery={this.state.artCollection} loggedIn={this.state.loggedIn} fetchArt={this.fetchArt.bind(this)}/>
+        <ArtWindow className="artGallery" update={this.update.bind(this)} gallery={this.state.artCollection} loggedIn={this.state.loggedIn} fetchArt={this.fetchArt.bind(this)}/>
       </div>
     )
   }

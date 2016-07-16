@@ -56,7 +56,6 @@ app.post('/login', function(req, res) {
  var username = req.body.username;
  var password = req.body.password;
  var userID;
-console.log('in login', req.body)
   db.collection('users')
     .find({username: username})
     .then((userObj) => {
@@ -86,8 +85,8 @@ console.log('in login', req.body)
 app.get('/favorites', function(req, res) {
 	var sessionId;
 
-	if(req.headers.cookie) {
-		sessionId = req.headers.cookie.substring(10);
+  if(req.headers.cookieheader) {
+		sessionId = req.headers.cookieheader.substring(10);
 	} else {
 		res.sendStatus(401);
 	}
@@ -107,24 +106,20 @@ app.get('/favorites', function(req, res) {
 // If it is present it will remove the userId and artId from favorites collection
 app.post('/favorites/:artId', function(req, res) {
   var artId = req.params.artId;
-  var sessionId;
+  var sessionId = req.body.cookie.substring(10);
   var userID = '';
 
   // Checks to see if user has a cookie.
   //  True : assign cookie to sessionID
-  //  False: send a 403("Forbidden") status back to client
-  if(req.headers.cookie) {
-    sessionId = req.headers.cookie.substring(10);
-  } else {
+  //  False: send a 401("Forbidden") status back to client
+  if(!sessionId) {
     res.sendStatus(401)
   }
 
   // Finds the users session object using sessionId from cookie
   db.collection('sessions')
     .find({sessionId: sessionId})
-    .then((returnedSession) => {
-      userID = returnedSession[0].id
-    })
+    .then((returnedSession) => userID = returnedSession[0].id)
     .then(() => {
       //Check to see if the user has already favorited the artwork
       return db.collection('favorites').find({
@@ -138,7 +133,7 @@ app.post('/favorites/:artId', function(req, res) {
       if(!isEqual[0]) {
         db.collection('favorites')
         .insert({ userId: userID, artId: artId })
-        res.send("Successfully added to favorites")
+        res.send({Status: "Successfully added to favorites"})
       } else {
         // True: remove userId and artId from favorites collection
         db.collection('favorites')
@@ -146,7 +141,7 @@ app.post('/favorites/:artId', function(req, res) {
         .then((returnedDocument) => {
           db.collection('favorites')
           .remove({ _id: returnedDocument[0]._id })
-          res.send("Successfully removed from favorites")
+          res.send({Status: "Successfully removed from favorites"})
         })
       }
     })
@@ -201,57 +196,11 @@ app.get('/likes/:id', function(req, res){
   } else {
     db.collection("likes").find({ artId: artId })
     .then((likes) => {
-      res.send({ likeCount: likes.length })
+      res.send({ likeCount: likes.map((x) =>  x.userId) })
     })
   }
 })
 
-/*
-  General testing endpoints
-
-  ------------------------
-
-  REMOVE BEFORE DEPLOYING
-
-  ------------------------
-*/
-
-app.get('/getLikes', function(req, res) {
-  db.collection('likes').find()
-  .then((data) => res.send(data))
-})
-
-app.get('/getArt', function(req,res) {
-  db.collection('art').find()
-  .then((data) => res.send(data))
-})
-
-app.get('/getFavorites', function(req,res) {
-  db.collection('favorites').find()
-  .then((data) => res.send(data))
-})
-
-app.get('/getUsers', function(req,res) {
-  db.collection('users').find()
-  .then((data) => res.send(data))
-})
-
-app.get('/getSessions', function(req,res) {
-  db.collection('sessions').find()
-  .then((data) => res.send(data))
-})
-
-/*
-  General testing endpoints
-
-  ------------------------
-
-  REMOVE BEFORE DEPLOYING
-
-  ------------------------
-*/
-
 // Run server on port 4040
 var port = 4040;
-app.listen(port);
-console.log('Server is listening to port: ' + port)
+app.listen(port)

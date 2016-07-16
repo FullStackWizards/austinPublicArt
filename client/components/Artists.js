@@ -19,7 +19,6 @@ export default class Artists extends React.Component {
 		art.getArt()
 		.then((res) => {
 			this.setState({artists: res.map((obj) => obj['Artist Name']).filter(this.onlyUnique)})
-			console.log(this.state)
 		})
 	}
 	render() {
