@@ -14,10 +14,20 @@ export default class ArtGallery extends React.Component {
 
     this.state = {
       showInfo: false,
-      searchTerm: ''
+      searchTerm: '',
+      isLoading: false
     }
   }
-
+  componentWillMount() {
+    this.load.call(this)
+  }
+  load() {
+    console.log('loading')
+    this.setState({isLoading: true});
+    setTimeout(() => {
+      this.setState({isLoading: false});
+    }, 6000);
+  }
   parseImageUrl(imgUrl) {
     imgUrl = imgUrl.split(';')
     return imgUrl
@@ -40,6 +50,11 @@ export default class ArtGallery extends React.Component {
     const filteredArt = this.props.gallery.filter(createFilter(this.state.searchTerm, KEYS_TO_FILTERS))
     return (
       <div>
+      {this.state.isLoading ?
+        <ReactSpinner config={{color: "blue", left: "98%"}}/>
+        : 
+        <div>
+        <h2>Austin Art</h2>
         <SearchInput className="search-input" onChange={this.searchUpdated.bind(this)} />
         <div className="artGallery">
           <NavBar />
@@ -55,6 +70,7 @@ export default class ArtGallery extends React.Component {
             )
           })}
         </div>
+        </div>}
       </div>
     )
   }
