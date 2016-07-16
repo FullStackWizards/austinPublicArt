@@ -84,8 +84,8 @@ app.post('/login', function(req, res) {
 // Retrieve all favorited art for the current logged in user
 app.get('/favorites', function(req, res) {
 	var sessionId;
-  
-	if(req.headers.cookieheader) {
+
+  if(req.headers.cookieheader) {
 		sessionId = req.headers.cookieheader.substring(10);
 	} else {
 		res.sendStatus(401);
@@ -99,10 +99,7 @@ app.get('/favorites', function(req, res) {
 	.then((userID) => db.collection('favorites')
 		.find({ userId: userID }))
 	// Return all favorited art back to client
-	.then((returnedFavorites) => {
-    console.log(returnedFavorites)
-    res.send(returnedFavorites)
-  })
+	.then((returnedFavorites) => res.send(returnedFavorites))
 })
 
 // Will add a favorite with userId and artId to the favorites collection if not already present.
@@ -122,10 +119,7 @@ app.post('/favorites/:artId', function(req, res) {
   // Finds the users session object using sessionId from cookie
   db.collection('sessions')
     .find({sessionId: sessionId})
-    .then((returnedSession) => {
-      console.log('returnedSession', returnedSession)
-      userID = returnedSession[0].id
-    })
+    .then((returnedSession) => userID = returnedSession[0].id)
     .then(() => {
       //Check to see if the user has already favorited the artwork
       return db.collection('favorites').find({
@@ -207,52 +201,6 @@ app.get('/likes/:id', function(req, res){
   }
 })
 
-/*
-  General testing endpoints
-
-  ------------------------
-
-  REMOVE BEFORE DEPLOYING
-
-  ------------------------
-*/
-
-app.get('/getLikes', function(req, res) {
-  db.collection('likes').find()
-  .then((data) => res.send(data))
-})
-
-app.get('/getArt', function(req,res) {
-  db.collection('art').find()
-  .then((data) => res.send(data))
-})
-
-app.get('/getFavorites', function(req,res) {
-  db.collection('favorites').find()
-  .then((data) => res.send(data))
-})
-
-app.get('/getUsers', function(req,res) {
-  db.collection('users').find()
-  .then((data) => res.send(data))
-})
-
-app.get('/getSessions', function(req,res) {
-  db.collection('sessions').find()
-  .then((data) => res.send(data))
-})
-
-/*
-  General testing endpoints
-
-  ------------------------
-
-  REMOVE BEFORE DEPLOYING
-
-  ------------------------
-*/
-
 // Run server on port 4040
 var port = 4040;
-app.listen(port);
-console.log('Server is listening to port: ' + port)
+app.listen(port)
