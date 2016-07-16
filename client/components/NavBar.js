@@ -123,7 +123,7 @@ class LoginModal extends React.Component {
                 this.setState({showError: false})
                 this.props.onClose(true)
               } else {
-                this.setState({showError: true})
+                this.setState({showError: x.statusText})
               }
           }) 
             this.load.call(this); 
@@ -131,7 +131,7 @@ class LoginModal extends React.Component {
             <h1>Login</h1>
             <p>Username:</p>
             <input type="text" name="username" onChange={(e) => this.setState({username: e.target.value})}/>
-            {this.state.showError ? <p className="errorMessage">Error</p> : ''}
+            {this.state.showError ? <p className="errorMessage">{this.state.showError}</p> : ''}
             <p>Password:</p>
             <input type="password" name="password" onChange={(e) => this.setState({password: e.target.value})}/>
             <p><button type="submit">Submit</button></p>
@@ -177,7 +177,7 @@ class SignUpModal extends React.Component {
                 this.setState({showError: false})
                 this.props.onClose(true)
               } else {
-                this.setState({showError: true})
+                this.setState({showError: x.statusText})
               }
           })
             this.load.call(this); 
@@ -185,7 +185,7 @@ class SignUpModal extends React.Component {
             <h1>SignUp</h1>
             <p>Username:</p>
             <input type="text" name="username" onChange={(e) => this.setState({username: e.target.value})}/>
-            {this.state.showError ? <p className="errorMessage">Error</p> : ''}
+            {this.state.showError ? <p className="errorMessage">{this.state.showError}</p> : ''}
             <p>Password:</p>
             <input type="password" name="password" onChange={(e) => this.setState({password: e.target.value})}/>
             <p><button type="submit">Submit</button></p>
