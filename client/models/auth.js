@@ -61,7 +61,8 @@ export function favoritePhoto(artId) {
     method: "POST",
     headers: {
       'Content-Type': 'application/json'
-    }
+    },
+    body: JSON.stringify({cookie: document.cookie})
   }
   return fetch(`/favorites/${artId}`, obj)
     .then(function(data){
@@ -69,3 +70,19 @@ export function favoritePhoto(artId) {
       return data
     })
 }
+
+export function fetchFavs() {
+  let obj = {
+    method: "GET",
+    headers: {
+      'Content-Type': 'application/json',
+      'cookie': JSON.stringify(document.cookie)
+    }
+  }
+return fetch(`/favorites`, obj)
+  .then(function(resp) {
+    console.log('response', resp)
+    return resp
+  })
+}
+

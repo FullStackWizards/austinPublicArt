@@ -84,7 +84,7 @@ app.post('/login', function(req, res) {
 // Retrieve all favorited art for the current logged in user
 app.get('/favorites', function(req, res) {
 	var sessionId;
-
+  console.log(req.headers)
 	if(req.headers.cookie) {
 		sessionId = req.headers.cookie.substring(10);
 	} else {
@@ -111,11 +111,8 @@ app.post('/favorites/:artId', function(req, res) {
 
   // Checks to see if user has a cookie.
   //  True : assign cookie to sessionID
-  //  False: send a 403("Forbidden") status back to client
-  console.log(req)
-  if(req.headers.cookie) {
-    sessionId = req.headers.cookie.substring(10);
-  } else {
+  //  False: send a 401("Forbidden") status back to client
+  if(!sessionId) {
     res.sendStatus(401)
   }
 

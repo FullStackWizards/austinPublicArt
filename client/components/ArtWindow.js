@@ -50,7 +50,7 @@ export default class ArtGallery extends React.Component {
           {filteredArt.map((art) => {
             return (
               <div className="artwork" key={art._id}>
-                <img className="artImage" src={this.parseImageUrl(art.Images)[0]} onClick={(e) => this.openInfo(art)}/>      
+                <a href="javascript:void(0)" onClick={(e) => this.openInfo(art)} className="artImage"> <img className="artImage" src={this.parseImageUrl(art.Images)[0]} /> </a>     
               </div>
             )
           })}
