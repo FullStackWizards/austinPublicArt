@@ -43,7 +43,6 @@ export default class NavBar extends React.Component {
   logout(name) {
     document.cookie = 'sessionId' + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
     this.setState({loggedIn: false})
-    console.log('logging out')
   }
 
   //Render the navbar 
