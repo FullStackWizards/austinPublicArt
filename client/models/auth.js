@@ -74,7 +74,7 @@ export function fetchFavs() {
   }
 return fetch(`/favorites`, obj)
   .then(function(resp) {
-    return resp
+    return resp.json()
   })
 }
 
