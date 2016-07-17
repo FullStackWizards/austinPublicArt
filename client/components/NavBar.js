@@ -85,7 +85,7 @@ export default class NavBar extends React.Component {
           <SignUpModal onClose={this.closeSignup.bind(this)}/>
         : null}
         {this.state.showLogin ?
-          <LoginModal onClose={this.closeLogin.bind(this)} fetch={this.fetchUser.bind(this)}/>
+          <LoginModal onClose={this.closeLogin.bind(this)} fetchUser={this.fetchUser.bind(this)}/>
         : null}
       </div>
     ) 
@@ -127,7 +127,7 @@ class LoginModal extends React.Component {
               if(x === 'Success') {
                 this.setState({showError: false})
                 this.props.onClose(true)
-                this.props.fetch()
+                this.props.fetchUser()
               } else {
                 this.setState({showError: x.statusText})
               }
