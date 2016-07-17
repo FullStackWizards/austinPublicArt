@@ -30,8 +30,10 @@ export function login(userData) {
   return fetch(`/login`, obj)
     .then(function(data){
       if(data.status < 400) {
-        data.json().then((data) => document.cookie = "sessionId=" + data + ";path=/")
-        return "Success"
+        return data.json().then((data) => {
+          document.cookie = "sessionId=" + data + ";path=/"
+          return "Success"
+        })
       } else return data
     })
 }
