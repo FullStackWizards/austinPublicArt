@@ -73,37 +73,33 @@ class Info extends React.Component {
   //The info modal that pops up with the props currentArt set as the object of the work of art you clicked on
   render() {
     return (
+
       <ModalContainer onClose={this.props.onClose}>
-     
         <ModalDialog onClose={this.props.onClose} className="info">
-         
-            <h2>{this.props.currentArt['Art Title']}</h2>
-            <p>By: {this.props.currentArt['Artist Name']}</p>
-            <p> Likes: {this.props.currentArt.likeCount}</p>
-   
-            <img src={this.props.parseImageUrl(this.props.currentArt.Images)[0]} />
-            <img src={this.props.parseImageUrl(this.props.currentArt.Images)[1]} />
-            <img src={this.props.parseImageUrl(this.props.currentArt.Images)[2]}/>
-            {document.cookie ?
-              <div className="userFeatures">
-              <button onClick={() => auth.likePhoto(this.props.currentArt._id)
-                .then((x) => {
-                  return art.getLikes(this.props.currentArt._id)
-                })
-                .then((likeCount) => {
-                  this.props.updateCurrent(likeCount)
-                })
-              }>Like</button>
-              <button onClick={() => auth.favoritePhoto(this.props.currentArt._id)
-                .then((x) => {
-                })
-              }>Fav!</button>
-              </div> 
-              : ''}
-                  
+          <h2>{this.props.currentArt['Art Title']}</h2>
+          <p>By: {this.props.currentArt['Artist Name']}</p>
+          <p> Likes: {this.props.currentArt.likeCount}</p>
+          <img src={this.props.parseImageUrl(this.props.currentArt.Images)[0]} />
+          <img src={this.props.parseImageUrl(this.props.currentArt.Images)[1]} />
+          <img src={this.props.parseImageUrl(this.props.currentArt.Images)[2]}/>
+          {document.cookie ?
+            <div className="userFeatures">
+            <button onClick={() => auth.likePhoto(this.props.currentArt._id)
+              .then((x) => {
+                return art.getLikes(this.props.currentArt._id)
+              })
+              .then((likeCount) => {
+                this.props.updateCurrent(likeCount)
+              })
+            }>Like</button>
+            <button onClick={() => auth.favoritePhoto(this.props.currentArt._id)
+              .then((x) => {
+              })
+            }>Fav!</button>
+            </div>
+            : ''}
         </ModalDialog>
-      
-    </ModalContainer>
+      </ModalContainer>
     )
   }
 }

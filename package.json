@@ -32,6 +32,7 @@
     "path": "^0.12.7",
     "promised-mongo": "github:makersquare/promised-mongo",
     "react": "^15.1.0",
+    "react-bootstrap": "^0.29.5",
     "react-dom": "^15.1.0",
     "react-modal-dialog": "^3.0.1",
     "react-router": "^2.5.2",
