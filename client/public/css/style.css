@@ -28,6 +28,9 @@
 -moz-column-count: 3;
 -webkit-column-count: 3;
 }
+.search-input {
+  margin: 0 0 10px 0;
+}
 .artistName{
   text-align: center;
 }
