@@ -16,8 +16,7 @@ export default class ArtGallery extends React.Component {
 
     this.state = {
       showInfo: false,
-      searchTerm: '',
-      isLoading: false
+      searchTerm: ''
     }
   }
   parseImageUrl(imgUrl) {
@@ -78,7 +77,6 @@ class Info extends React.Component {
       userId: null
     }
   }
-
   componentWillMount() {
     if(document.cookie) {
       this.findFavs()
@@ -99,7 +97,7 @@ class Info extends React.Component {
   }
   //The info modal that pops up with the props currentArt set as the object of the work of art you clicked on
   render() {
-    let images = this.props.parseImageUrl(this.props.currentArt.Images)
+    let images = this.props.parseImageUrl(this.props.currentArt.Images);
     let settings = {
       dots: true,
       speed: 500,
@@ -109,7 +107,6 @@ class Info extends React.Component {
     };
     return (
       <ModalContainer onClose={this.props.onClose}>
-     
         <ModalDialog onClose={this.props.onClose} className="info">
          
             <h2>{this.props.currentArt['Art Title']}</h2>
@@ -120,7 +117,7 @@ class Info extends React.Component {
                 {images.map((x) => <div key={images.indexOf(x)}><img className="slideshowPicture" src={x} /></div>)}
               </Slider>
             </div>
-
+          {/* Check if logged in (document.cookie?), if true display Like and Favorite button */}
             {document.cookie ?
               <div className="userFeatures">
                 
@@ -141,12 +138,12 @@ class Info extends React.Component {
                   })
                 }>{this.state.userFavs.includes(this.props.currentArt._id) ? "Unfav!" : "Fav!"}
                 </button>
+
               </div> 
               : ''}
                   
         </ModalDialog>
-      
-    </ModalContainer>
+      </ModalContainer>
     )
   }
 }
