@@ -18,16 +18,6 @@ export default class ArtGallery extends React.Component {
       isLoading: false
     }
   }
-  componentWillMount() {
-    this.load.call(this)
-  }
-  load() {
-    console.log('loading')
-    this.setState({isLoading: true});
-    setTimeout(() => {
-      this.setState({isLoading: false});
-    }, 6000);
-  }
   parseImageUrl(imgUrl) {
     imgUrl = imgUrl.split(';')
     return imgUrl
@@ -50,8 +40,11 @@ export default class ArtGallery extends React.Component {
     const filteredArt = this.props.gallery.filter(createFilter(this.state.searchTerm, KEYS_TO_FILTERS))
     return (
       <div>
-      {this.state.isLoading ?
-        <ReactSpinner config={{color: "blue", left: "98%"}}/>
+      {!this.props.gallery[0] ?
+        <div className="loadingDiv">
+          <p>Drawing pictures...</p>
+          <ReactSpinner config={{color: "blue"}}/>
+        </div>
         : 
         <div>
         <h2>Austin Art</h2>
