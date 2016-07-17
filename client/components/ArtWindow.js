@@ -3,8 +3,10 @@ import {ModalContainer, ModalDialog} from 'react-modal-dialog';
 import ReactSpinner from 'react-spinjs';
 import SearchInput, {createFilter} from 'react-search-input'
 import NavBar from './NavBar'
+import Slider from 'react-slick'
 import * as auth from '../models/auth'
 import * as art from '../models/art'
+
 
 const KEYS_TO_FILTERS = ['Artist Name', 'Art Title']
 
@@ -20,7 +22,7 @@ export default class ArtGallery extends React.Component {
   }
   parseImageUrl(imgUrl) {
     imgUrl = imgUrl.split(';')
-    return imgUrl
+    return imgUrl.filter((x) => x !== '')
   }
   openInfo(art) {
     this.setState({showInfo: true});
@@ -48,18 +50,21 @@ export default class ArtGallery extends React.Component {
         : 
         <div>
         <h2>Austin Art</h2>
+
         <SearchInput className="search-input" onChange={this.searchUpdated.bind(this)} />
+
         <div className="artGallery">
           <NavBar />
           {this.state.showInfo ?
             <Info onClose={this.closeInfo.bind(this)} loggedIn={this.props.loggedIn}  updateCurrent={this.updateCurrent.bind(this)} currentArt={this.state.currentArt} parseImageUrl={this.parseImageUrl.bind(this)}/>
           : null} 
 
+
           {filteredArt.map((art) => {
             return (
-              <div className="artwork" key={art._id}>
-                <a href="javascript:void(0)" onClick={(e) => this.openInfo(art)} className="artImage"> <img className="artImage" src={this.parseImageUrl(art.Images)[0]} /> </a>     
-              </div>
+                <div className="artwork" key={art._id}>
+                  <a href="javascript:void(0)" onClick={(e) => this.openInfo(art)} className="artImage"> <img className="artImage" src={this.parseImageUrl(art.Images)[0]} /> </a>
+                </div>
             )
           })}
         </div>
@@ -70,8 +75,32 @@ export default class ArtGallery extends React.Component {
 }
 
 class Info extends React.Component {
+  constructor() {
+    super()
+    this.state = {
+      userFavs: []
+    }
+  }
+
+  componentWillMount() {
+    this.findFavs()
+  }
+  findFavs() {
+    auth.fetchFavs()
+    .then((res) => {
+      this.setState({userFavs : res.map((obj) => obj.artId)})
+    })
+  }
   //The info modal that pops up with the props currentArt set as the object of the work of art you clicked on
   render() {
+    let images = this.props.parseImageUrl(this.props.currentArt.Images)
+    let settings = {
+      dots: true,
+      speed: 500,
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      fade: true
+    };
     return (
       <ModalContainer onClose={this.props.onClose}>
      
@@ -80,13 +109,15 @@ class Info extends React.Component {
             <h2>{this.props.currentArt['Art Title']}</h2>
             <p>By: {this.props.currentArt['Artist Name']}</p>
             <p> Likes: {this.props.currentArt.likeCount}</p>
-   
-            <img src={this.props.parseImageUrl(this.props.currentArt.Images)[0]} />
-            <img src={this.props.parseImageUrl(this.props.currentArt.Images)[1]} />
-            <img src={this.props.parseImageUrl(this.props.currentArt.Images)[2]}/>
+            <div className="slideContainer" >
+              <Slider {...settings}>
+                {images.map((x) => <div key={images.indexOf(x)}><img className="slideshowPicture" src={x} /></div>)}
+              </Slider>
+            </div>
+
             {document.cookie ?
               <div className="userFeatures">
-              <button onClick={() => auth.likePhoto(this.props.currentArt._id)
+              <button className="btn btn-primary btn-sm" onClick={() => auth.likePhoto(this.props.currentArt._id)
                 .then((x) => {
                   return art.getLikes(this.props.currentArt._id)
                 })
@@ -94,10 +125,17 @@ class Info extends React.Component {
                   this.props.updateCurrent(likeCount)
                 })
               }>Like</button>
-              <button onClick={() => auth.favoritePhoto(this.props.currentArt._id)
+              {this.state.userFavs.includes(this.props.currentArt._id) ? 
+                <button className="btn btn-secondary btn-sm" onClick={() => auth.favoritePhoto(this.props.currentArt._id)
                 .then((x) => {
+                  this.findFavs()
                 })
-              }>Fav!</button>
+              }>Unfav!</button> :
+              <button className="btn btn-secondary btn-sm" onClick={() => auth.favoritePhoto(this.props.currentArt._id)
+                .then((x) => {
+                  this.findFavs()
+                })
+              }>Fav!</button>}
               </div> 
               : ''}
                   
