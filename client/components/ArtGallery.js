@@ -59,7 +59,6 @@ export default class App extends React.Component {
       <div>
         <br/>
         <br/>
-        <h2>Austin Art</h2>
         <ArtWindow className="artGallery" update={this.update.bind(this)} gallery={this.state.artCollection} loggedIn={this.state.loggedIn} fetchArt={this.fetchArt.bind(this)}/>
       </div>
     )
