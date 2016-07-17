@@ -75,17 +75,32 @@ export default class ArtGallery extends React.Component {
 }
 
 class Info extends React.Component {
+  constructor() {
+    super()
+    this.state = {
+      userFavs: []
+    }
+  }
+
+  componentWillMount() {
+    this.findFavs()
+  }
+  findFavs() {
+    auth.fetchFavs()
+    .then((res) => {
+      this.setState({userFavs : res.map((obj) => obj.artId)})
+    })
+  }
   //The info modal that pops up with the props currentArt set as the object of the work of art you clicked on
   render() {
     let images = this.props.parseImageUrl(this.props.currentArt.Images)
-    var settings = {
+    let settings = {
       dots: true,
       speed: 500,
       slidesToShow: 1,
       slidesToScroll: 1,
       fade: true
     };
-    console.log(images)
     return (
       <ModalContainer onClose={this.props.onClose}>
      
@@ -96,7 +111,7 @@ class Info extends React.Component {
             <p> Likes: {this.props.currentArt.likeCount}</p>
             <div className="slideContainer" >
               <Slider {...settings}>
-                {images.map((x) => <div><img className="slideshowPicture" src={x} /></div>)}
+                {images.map((x) => <div key={images.indexOf(x)}><img className="slideshowPicture" src={x} /></div>)}
               </Slider>
             </div>
 
@@ -110,10 +125,17 @@ class Info extends React.Component {
                   this.props.updateCurrent(likeCount)
                 })
               }>Like</button>
+              {this.state.userFavs.includes(this.props.currentArt._id) ? 
+                <button className="btn btn-secondary btn-sm" onClick={() => auth.favoritePhoto(this.props.currentArt._id)
+                .then((x) => {
+                  this.findFavs()
+                })
+              }>Unfav!</button> :
               <button className="btn btn-secondary btn-sm" onClick={() => auth.favoritePhoto(this.props.currentArt._id)
                 .then((x) => {
+                  this.findFavs()
                 })
-              }>Fav!</button>
+              }>Fav!</button>}
               </div> 
               : ''}
                   
