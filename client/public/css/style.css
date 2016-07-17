@@ -1,3 +1,16 @@
+.slideshowPicture {
+  height:400px;
+  width:600px;
+  margin: auto;
+}
+.slideContainer {
+  margin: 0 auto;
+  padding: 40px;
+  width: 800px;
+  height: 1000px
+  color: #333;
+  background: black;
+}
 .loadingDiv {
   background-color: lightgrey;
   width: 300px;
