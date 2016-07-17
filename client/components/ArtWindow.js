@@ -35,7 +35,7 @@ export default class ArtGallery extends React.Component {
     this.setState({searchTerm: term})
   }
   updateCurrent(likeCount) {
-    this.setState({currentArt: Object.assign(this.state.currentArt, {likeCount: likeCount.likeCount.length})})
+    this.setState({currentArt: Object.assign(this.state.currentArt, {likeCount: likeCount.likeCount})})
   }
 
   render() {
@@ -50,24 +50,20 @@ export default class ArtGallery extends React.Component {
         : 
         <div>
         <h2>Austin Art</h2>
-
         <SearchInput className="search-input" onChange={this.searchUpdated.bind(this)} />
-
-        <div className="artGallery">
-          <NavBar />
-          {this.state.showInfo ?
-            <Info onClose={this.closeInfo.bind(this)} loggedIn={this.props.loggedIn}  updateCurrent={this.updateCurrent.bind(this)} currentArt={this.state.currentArt} parseImageUrl={this.parseImageUrl.bind(this)}/>
-          : null} 
-
-
-          {filteredArt.map((art) => {
-            return (
-                <div className="artwork" key={art._id}>
-                  <a href="javascript:void(0)" onClick={(e) => this.openInfo(art)} className="artImage"> <img className="artImage" src={this.parseImageUrl(art.Images)[0]} /> </a>
-                </div>
-            )
-          })}
-        </div>
+          <div className="artGallery">
+            <NavBar />
+            {this.state.showInfo ?
+              <Info onClose={this.closeInfo.bind(this)} loggedIn={this.props.loggedIn}  updateCurrent={this.updateCurrent.bind(this)} currentArt={this.state.currentArt} parseImageUrl={this.parseImageUrl.bind(this)}/>
+            : null} 
+            {filteredArt.map((art) => {
+              return (
+                  <div className="artwork" key={art._id}>
+                    <a href="javascript:void(0)" onClick={(e) => this.openInfo(art)} className="artImage"> <img className="artImage" src={this.parseImageUrl(art.Images)[0]} /> </a>
+                  </div>
+                )
+            })}
+          </div>
         </div>}
       </div>
     )
@@ -78,17 +74,27 @@ class Info extends React.Component {
   constructor() {
     super()
     this.state = {
-      userFavs: []
+      userFavs: [],
+      userId: null
     }
   }
 
   componentWillMount() {
-    this.findFavs()
+    if(document.cookie) {
+      this.findFavs()
+      this.getUserId()
+    }
   }
   findFavs() {
     auth.fetchFavs()
     .then((res) => {
       this.setState({userFavs : res.map((obj) => obj.artId)})
+    })
+  }
+  getUserId() {
+    auth.fetchUser()
+    .then((res) => {
+      this.setState({userId: res})
     })
   }
   //The info modal that pops up with the props currentArt set as the object of the work of art you clicked on
@@ -108,7 +114,7 @@ class Info extends React.Component {
          
             <h2>{this.props.currentArt['Art Title']}</h2>
             <p>By: {this.props.currentArt['Artist Name']}</p>
-            <p> Likes: {this.props.currentArt.likeCount}</p>
+            <p> Likes: {this.props.currentArt.likeCount.length}</p>
             <div className="slideContainer" >
               <Slider {...settings}>
                 {images.map((x) => <div key={images.indexOf(x)}><img className="slideshowPicture" src={x} /></div>)}
@@ -117,25 +123,36 @@ class Info extends React.Component {
 
             {document.cookie ?
               <div className="userFeatures">
-              <button className="btn btn-primary btn-sm" onClick={() => auth.likePhoto(this.props.currentArt._id)
-                .then((x) => {
-                  return art.getLikes(this.props.currentArt._id)
-                })
-                .then((likeCount) => {
-                  this.props.updateCurrent(likeCount)
-                })
-              }>Like</button>
-              {this.state.userFavs.includes(this.props.currentArt._id) ? 
+                {this.props.currentArt.likeCount.includes(this.state.userId) ?
+                  <button className="btn btn-primary btn-sm" onClick={() => auth.likePhoto(this.props.currentArt._id)
+                  .then((x) => {
+                    return art.getLikes(this.props.currentArt._id)
+                  })
+                  .then((likeCount) => {
+                    this.props.updateCurrent(likeCount)
+                  })
+                }>Unlike</button>
+                :
+                <button className="btn btn-primary btn-sm" onClick={() => auth.likePhoto(this.props.currentArt._id)
+                  .then((x) => {
+                    return art.getLikes(this.props.currentArt._id)
+                  })
+                  .then((likeCount) => {
+                    this.props.updateCurrent(likeCount)
+                  })
+                }>Like</button>}
+                
+                {this.state.userFavs.includes(this.props.currentArt._id) ? 
+                  <button className="btn btn-secondary btn-sm" onClick={() => auth.favoritePhoto(this.props.currentArt._id)
+                  .then((x) => {
+                    this.findFavs()
+                  })
+                }>Unfav!</button> :
                 <button className="btn btn-secondary btn-sm" onClick={() => auth.favoritePhoto(this.props.currentArt._id)
-                .then((x) => {
-                  this.findFavs()
-                })
-              }>Unfav!</button> :
-              <button className="btn btn-secondary btn-sm" onClick={() => auth.favoritePhoto(this.props.currentArt._id)
-                .then((x) => {
-                  this.findFavs()
-                })
-              }>Fav!</button>}
+                  .then((x) => {
+                    this.findFavs()
+                  })
+                }>Fav!</button>}
               </div> 
               : ''}
                   
