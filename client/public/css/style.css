@@ -1,3 +1,14 @@
+.loadingDiv {
+  background-color: lightgrey;
+  width: 300px;
+  border: 10px solid black;
+  padding: 25px;
+  margin: auto;
+}
+.loadingDiv p {
+  padding-top: 50px;
+  text-align: -webkit-center;
+}
 .errorMessage {
   color: red;
 }

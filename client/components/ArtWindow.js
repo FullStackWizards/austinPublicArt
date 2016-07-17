@@ -43,7 +43,7 @@ export default class ArtGallery extends React.Component {
       {!this.props.gallery[0] ?
         <div className="loadingDiv">
           <p>Drawing pictures...</p>
-          <ReactSpinner config={{color: "blue", left: "16.8%"}}/>
+          <ReactSpinner config={{color: "blue"}}/>
         </div>
         : 
         <div>
