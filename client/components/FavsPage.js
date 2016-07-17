@@ -20,10 +20,7 @@ export default class Favorites extends React.Component {
       return art.getArt();
     })
     .then((art) => {
-      console.log("Favs from server~~", favs)
-      console.log("Art from server~~", art)
       let favArtObjects = art.filter((piece) => favs.indexOf(piece._id) !== -1 ? true : false )
-      console.log("New OBJS~~", favArtObjects)
       this.setState({ favs: favArtObjects })
     })
 
@@ -45,9 +42,9 @@ export default class Favorites extends React.Component {
       })
     } else {
       return (
-          <li>
-            your favorite art here !
-          </li>
+          <span>
+            You don't have any favorites yet! 
+          </span>
         )
     }
   }
