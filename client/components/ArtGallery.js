@@ -46,7 +46,7 @@ export default class App extends React.Component {
     this.state.tempCollection.forEach((artWork) => {
       art.getLikes(artWork._id)
       .then((likeCount) => {
-        results.push(Object.assign(artWork, {likeCount: likeCount.likeCount.length}))
+        results.push(Object.assign(artWork, {likeCount: likeCount.likeCount}))
         if (results.length === this.state.tempCollection.length) {
           this.setState({artCollection: results})
         }

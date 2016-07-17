@@ -24,7 +24,6 @@ export default class NavBar extends React.Component {
       this.setState({loggedIn: false})
     }
   }
-  
   openLogin() {
     this.setState({showLogin: true});
   }
@@ -32,7 +31,6 @@ export default class NavBar extends React.Component {
     this.setState({loggedIn: bool})
     this.setState({showLogin: false});
   }
-
   openSignup() {
     this.setState({showSignup: true});
   }
@@ -94,7 +92,6 @@ class LoginModal extends React.Component {
   showError() {
     this.setState({showError: true})
   }
-
   load() {
     this.setState({isLoading: true});
     setTimeout(() => {
@@ -145,7 +142,6 @@ class SignUpModal extends React.Component {
       password: null,
       showError: false
     }
-
   }
 
   load() {

@@ -78,3 +78,17 @@ return fetch(`/favorites`, obj)
   })
 }
 
+export function fetchUser() {
+  let obj = {
+    method: "GET",
+    headers: {
+      'Content-Type': 'application/json',
+      'cookieHeader': document.cookie
+    }
+  }
+return fetch(`/user`, obj)
+  .then(function(resp) {
+    return resp.json()
+  })
+}
+
