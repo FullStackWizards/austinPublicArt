@@ -123,16 +123,7 @@ class Info extends React.Component {
 
             {document.cookie ?
               <div className="userFeatures">
-                {this.props.currentArt.likeCount.includes(this.state.userId) ?
-                  <button className="btn btn-primary btn-sm" onClick={() => auth.likePhoto(this.props.currentArt._id)
-                  .then((x) => {
-                    return art.getLikes(this.props.currentArt._id)
-                  })
-                  .then((likeCount) => {
-                    this.props.updateCurrent(likeCount)
-                  })
-                }>Unlike</button>
-                :
+                
                 <button className="btn btn-primary btn-sm" onClick={() => auth.likePhoto(this.props.currentArt._id)
                   .then((x) => {
                     return art.getLikes(this.props.currentArt._id)
@@ -140,19 +131,16 @@ class Info extends React.Component {
                   .then((likeCount) => {
                     this.props.updateCurrent(likeCount)
                   })
-                }>Like</button>}
-                
-                {this.state.userFavs.includes(this.props.currentArt._id) ? 
-                  <button className="btn btn-secondary btn-sm" onClick={() => auth.favoritePhoto(this.props.currentArt._id)
-                  .then((x) => {
-                    this.findFavs()
-                  })
-                }>Unfav!</button> :
+                }>
+                {this.props.currentArt.likeCount.includes(this.state.userId) ? "Unlike" : "Like"}
+                </button>
+               
                 <button className="btn btn-secondary btn-sm" onClick={() => auth.favoritePhoto(this.props.currentArt._id)
                   .then((x) => {
                     this.findFavs()
                   })
-                }>Fav!</button>}
+                }>{this.state.userFavs.includes(this.props.currentArt._id) ? "Unfav!" : "Fav!"}
+                </button>
               </div> 
               : ''}
                   
