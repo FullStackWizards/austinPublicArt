@@ -102,7 +102,7 @@ class Info extends React.Component {
 
             {document.cookie ?
               <div className="userFeatures">
-              <button onClick={() => auth.likePhoto(this.props.currentArt._id)
+              <button className="btn btn-primary btn-sm" onClick={() => auth.likePhoto(this.props.currentArt._id)
                 .then((x) => {
                   return art.getLikes(this.props.currentArt._id)
                 })
@@ -110,7 +110,7 @@ class Info extends React.Component {
                   this.props.updateCurrent(likeCount)
                 })
               }>Like</button>
-              <button onClick={() => auth.favoritePhoto(this.props.currentArt._id)
+              <button className="btn btn-secondary btn-sm" onClick={() => auth.favoritePhoto(this.props.currentArt._id)
                 .then((x) => {
                 })
               }>Fav!</button>
