@@ -92,3 +92,17 @@ return fetch(`/user`, obj)
   })
 }
 
+export function fetchUsername() {
+  let obj = {
+    method: "GET",
+    headers: {
+      'Content-Type': 'application/json',
+      'cookieHeader': document.cookie
+    }
+  }
+return fetch(`/username`, obj)
+  .then(function(resp) {
+    return resp.json()
+  })
+}
+

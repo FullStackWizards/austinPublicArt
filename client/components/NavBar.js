@@ -5,7 +5,6 @@ import ReactSpinner from 'react-spinjs';
 
 import * as auth from '../models/auth'
 
-
 export default class NavBar extends React.Component {
   constructor() {
     super()
@@ -13,12 +12,14 @@ export default class NavBar extends React.Component {
       showLogin: false,
       showSignup: false,
       showError: false,
-      loggedIn: document.cookie
+      loggedIn: document.cookie,
+      username: null
     }
   } 
   componentWillMount() {
     if (document.cookie) {
       this.setState({loggedin: true})
+      this.fetchUser();
     }
     else {
       this.setState({loggedIn: false})
@@ -41,10 +42,23 @@ export default class NavBar extends React.Component {
   logout(name) {
     document.cookie = 'sessionId' + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
     this.setState({loggedIn: false})
+    this.setState({username: null})
+  }
+  drawUsername() {
+    if(this.state.username) return ( <span className="usernameSpan">Welcome {this.state.username}</span> );
+      else return ( <span className="usernameSpan">Welcome Guest</span> )
+  }
+  fetchUser() {
+    auth.fetchUsername()
+      .then((res) => {
+        console.log("Fetch:", res)
+        this.setState({ username: res })
+      })
   }
 
   //Render the navbar 
   render() {
+    console.log("Running!");
     return(
       <div className="w3-top">
         <ul className="w3-navbar w3-black w3-card-2 w3-left-align">
@@ -65,6 +79,7 @@ export default class NavBar extends React.Component {
             </div>
           </li>
           <li className="w3-hide-small w3-right"><a href="javascript:void(0)" className="w3-padding-large w3-hover-red"><i className="fa fa-search"></i></a></li>
+          <li className="w3-hide-small w3-right">{this.drawUsername()}</li>
         </ul>
         {this.state.showSignup ?
           <SignUpModal onClose={this.closeSignup.bind(this)}/>
@@ -112,6 +127,7 @@ class LoginModal extends React.Component {
               if(x === 'Success') {
                 this.setState({showError: false})
                 this.props.onClose(true)
+                React.statics.fetchUser()
               } else {
                 this.setState({showError: x.statusText})
               }
