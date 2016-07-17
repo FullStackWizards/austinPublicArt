@@ -9,6 +9,9 @@
   padding-top: 50px;
   text-align: -webkit-center;
 }
+.closeButton--jss-0-1 {
+  display: none !important;
+}
 .errorMessage {
   color: red;
 }
