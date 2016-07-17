@@ -105,6 +105,7 @@ class Info extends React.Component {
       slidesToScroll: 1,
       fade: true
     };
+    if(images.length === 1) settings.arrows = false
     return (
       <ModalContainer onClose={this.props.onClose}>
         <ModalDialog onClose={this.props.onClose} className="info">
@@ -129,6 +130,7 @@ class Info extends React.Component {
                     this.props.updateCurrent(likeCount)
                   })
                 }>
+                {}
                 {this.props.currentArt.likeCount.includes(this.state.userId) ? "Unlike" : "Like"}
                 </button>
                
