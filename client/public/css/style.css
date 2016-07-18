@@ -182,6 +182,13 @@ p {
   background: #ffa400;
 }
 
+/* Navbar styles */
+/* ========================================= */
+.usernameSpan {
+  margin: 30px;
+  position: relative;
+  top: 11.5px;
+}
 
 
 

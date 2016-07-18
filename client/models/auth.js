@@ -12,8 +12,10 @@ export function signUp(userData) {
   return fetch(`/signUp`, obj)
     .then(function(data){
       if(data.status < 400) {
-        data.json().then((data) => document.cookie = "sessionId=" + data + ";path=/")
-        return "Success"
+        return data.json().then((data) => {
+          document.cookie = "sessionId=" + data + ";path=/"
+          return "Success"
+        })
       } else return data
     })
 }
@@ -30,8 +32,10 @@ export function login(userData) {
   return fetch(`/login`, obj)
     .then(function(data){
       if(data.status < 400) {
-        data.json().then((data) => document.cookie = "sessionId=" + data + ";path=/")
-        return "Success"
+        return data.json().then((data) => {
+          document.cookie = "sessionId=" + data + ";path=/"
+          return "Success"
+        })
       } else return data
     })
 }
@@ -87,6 +91,20 @@ export function fetchUser() {
     }
   }
 return fetch(`/user`, obj)
+  .then(function(resp) {
+    return resp.json()
+  })
+}
+
+export function fetchUsername() {
+  let obj = {
+    method: "GET",
+    headers: {
+      'Content-Type': 'application/json',
+      'cookieHeader': document.cookie
+    }
+  }
+return fetch(`/username`, obj)
   .then(function(resp) {
     return resp.json()
   })
