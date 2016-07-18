@@ -107,6 +107,7 @@ class Info extends React.Component {
     };
     if(images.length === 1) settings.arrows = false
     return (
+
       <ModalContainer onClose={this.props.onClose}>
         <ModalDialog onClose={this.props.onClose} className="info">
          
