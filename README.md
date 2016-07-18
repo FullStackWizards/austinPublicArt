@@ -1,7 +1,7 @@
-# austinPublicArt
+# Austin Public Art
 
 A cool way to discover public art in Austin.
-[austinPublicArt](http://austinpublicart.herokuapp.com/#/gallery?_k=xe6cks)
+[Austin Public Art](http://austinpublicart.herokuapp.com/#/gallery?_k=xe6cks)
 
 ## Technology
 
