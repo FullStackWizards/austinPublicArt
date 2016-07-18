@@ -14,7 +14,7 @@ import FavsPage from './components/FavsPage'
 render((
   <Router history={hashHistory}>
     <Route path="/" component={Home} />
-	    <Route path="artists" component={Artists} /> 
+    	<Route path="artists" component={Artists} /> 
 	    <Route path="gallery" component={Gallery} />     
       <Route path="favorites" component={FavsPage} />
       <Route path=":artistName" component={ArtistPage} />

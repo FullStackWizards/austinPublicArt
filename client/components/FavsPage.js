@@ -20,7 +20,7 @@ export default class Favorites extends React.Component {
       return art.getArt();
     })
     .then((art) => {
-      let favArtObjects = art.filter((piece) => favs.indexOf(piece._id) !== -1 ? true : false )
+      let favArtObjects = art.filter((piece) => favs.includes(piece._id))
       this.setState({ favs: favArtObjects })
     })
 

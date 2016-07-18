@@ -3,7 +3,6 @@ import {Link} from 'react-router';
 
 export default class HomePage extends React.Component {
 
-
   //The homepage component with links to gallery and artists page on the two buttons.
   render() {
     return (
