@@ -82,7 +82,7 @@ export default class NavBar extends React.Component {
           <li className="w3-hide-small w3-right">{this.drawUsername()}</li>
         </ul>
         {this.state.showSignup ?
-          <SignUpModal onClose={this.closeSignup.bind(this)}/>
+          <SignUpModal onClose={this.closeSignup.bind(this)} fetchUser={this.fetchUser.bind(this)}/>
         : null}
         {this.state.showLogin ?
           <LoginModal onClose={this.closeLogin.bind(this)} fetchUser={this.fetchUser.bind(this)}/>
@@ -180,6 +180,7 @@ class SignUpModal extends React.Component {
               if(x === 'Success') {
                 this.setState({showError: false})
                 this.props.onClose(true)
+                this.props.fetchUser()
               } else {
                 this.setState({showError: x.statusText})
               }
