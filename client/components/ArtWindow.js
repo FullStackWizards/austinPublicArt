@@ -98,7 +98,6 @@ class Info extends React.Component {
   }
   //The info modal that pops up with the props currentArt set as the object of the work of art you clicked on
   render() {
-    console.log(this.props.currentArt)
     let images = this.props.parseImageUrl(this.props.currentArt.Images);
     let settings = {
       dots: true,
