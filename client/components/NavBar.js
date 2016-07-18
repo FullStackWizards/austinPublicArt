@@ -58,7 +58,6 @@ export default class NavBar extends React.Component {
 
   //Render the navbar 
   render() {
-    console.log("Running!");
     return(
       <div className="w3-top">
         <ul className="w3-navbar w3-black w3-card-2 w3-left-align">
