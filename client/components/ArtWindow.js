@@ -46,15 +46,15 @@ export default class ArtGallery extends React.Component {
           <p>Drawing pictures...</p>
           <ReactSpinner config={{color: "blue"}}/>
         </div>
-        : 
+        :
         <div>
-        <h2>Austin Art</h2>
+        <br></br>
         <SearchInput className="search-input" onChange={this.searchUpdated.bind(this)} />
           <div className="artGallery">
             <NavBar />
             {this.state.showInfo ?
               <Info onClose={this.closeInfo.bind(this)} loggedIn={this.props.loggedIn}  updateCurrent={this.updateCurrent.bind(this)} currentArt={this.state.currentArt} parseImageUrl={this.parseImageUrl.bind(this)}/>
-            : null} 
+            : null}
             {filteredArt.map((art) => {
               return (
                   <div className="artwork" key={art._id}>
@@ -110,7 +110,7 @@ class Info extends React.Component {
 
       <ModalContainer onClose={this.props.onClose}>
         <ModalDialog onClose={this.props.onClose} className="info">
-         
+
             <h2>{this.props.currentArt['Art Title']}</h2>
             <p>By: {this.props.currentArt['Artist Name']}</p>
             <p> Likes: {this.props.currentArt.likeCount.length}</p>
@@ -122,7 +122,7 @@ class Info extends React.Component {
           {/* Check if logged in (document.cookie?), if true display Like and Favorite button */}
             {document.cookie ?
               <div className="userFeatures">
-                
+
                 <button className="btn btn-primary btn-sm" onClick={() => auth.likePhoto(this.props.currentArt._id)
                   .then((x) => {
                     return art.getLikes(this.props.currentArt._id)
@@ -134,7 +134,7 @@ class Info extends React.Component {
                 {}
                 {this.props.currentArt.likeCount.includes(this.state.userId) ? "Unlike" : "Like"}
                 </button>
-               
+
                 <button className="btn btn-secondary btn-sm" onClick={() => auth.favoritePhoto(this.props.currentArt._id)
                   .then((x) => {
                     this.findFavs()
@@ -142,9 +142,9 @@ class Info extends React.Component {
                 }>{this.state.userFavs.includes(this.props.currentArt._id) ? "Unfav!" : "Fav!"}
                 </button>
 
-              </div> 
+              </div>
               : ''}
-                  
+
         </ModalDialog>
       </ModalContainer>
     )

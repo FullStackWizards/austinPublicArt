@@ -31,9 +31,7 @@
 .artImage {
   height: 345px;
   width: 345px;
-  box-shadow: 5px 5px 2px black;
-  -moz-box-shadow: 5px 5px 2px black;
-  -webkit-box-shadow: 5px 5px 2px black;
+  border-radius: 100%;
   display: block;
   margin: 0 auto;
 }
@@ -42,7 +40,9 @@
 -webkit-column-count: 3;
 }
 .search-input {
-  margin: 0 0 10px 0;
+  margin: 0 100px 10px 100px;
+  position: relative;
+ text-align: right;
 }
 .artistName{
   text-align: center;
@@ -194,8 +194,3 @@ p {
   position: relative;
   top: 11.5px;
 }
-
-
-
-
-
