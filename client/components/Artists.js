@@ -24,11 +24,11 @@ export default class Artists extends React.Component {
 	render() {
 		return (
       <div>
-      <NavBar />
-  		<h3>Artist List</h3>
-  		<ul>
-  		{this.state.artists.map((name) => <li key={name}><Link to={`/${name}`}>{name}</Link></li>)}
-  		</ul>
+        <NavBar />
+    		<h3>Artist List</h3>
+    		<ul>
+    		{this.state.artists.map((name) => <li key={name}><Link to={`/${name}`}>{name}</Link></li>)}
+    		</ul>
   		</div>
     )
 	}

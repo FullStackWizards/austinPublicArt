@@ -41,6 +41,7 @@ export default class ArtGallery extends React.Component {
     const filteredArt = this.props.gallery.filter(createFilter(this.state.searchTerm, KEYS_TO_FILTERS))
     return (
       <div>
+    {/*If the gallery state is not populated, show the loading div. Else diaplay gallery*/}
       {!this.props.gallery[0] ?
         <div className="loadingDiv">
           <p>Drawing pictures...</p>
@@ -68,7 +69,7 @@ export default class ArtGallery extends React.Component {
     )
   }
 }
-
+//Create the info modal  
 class Info extends React.Component {
   constructor() {
     super()
@@ -97,6 +98,7 @@ class Info extends React.Component {
   }
   //The info modal that pops up with the props currentArt set as the object of the work of art you clicked on
   render() {
+    console.log(this.props.currentArt)
     let images = this.props.parseImageUrl(this.props.currentArt.Images);
     let settings = {
       dots: true,
@@ -113,6 +115,7 @@ class Info extends React.Component {
          
             <h2>{this.props.currentArt['Art Title']}</h2>
             <p>By: {this.props.currentArt['Artist Name']}</p>
+            <p>Location: {this.props.currentArt['Art Location Name']}</p>
             <p> Likes: {this.props.currentArt.likeCount.length}</p>
             <div className="slideContainer" >
               <Slider {...settings}>
@@ -131,7 +134,7 @@ class Info extends React.Component {
                     this.props.updateCurrent(likeCount)
                   })
                 }>
-                {}
+                {/*Change button text based upon if the user has already liked an image*/}
                 {this.props.currentArt.likeCount.includes(this.state.userId) ? "Unlike" : "Like"}
                 </button>
                
