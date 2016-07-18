@@ -46,7 +46,7 @@ app.post('/signUp', function(req, res) {
    var sessionId = Utils.createSessionId();
    return db.collection('sessions').insert({id: obj._id, sessionId: sessionId});
  })
- .then(function(obj){  
+ .then(function(obj){
    res.send(JSON.stringify(obj.sessionId));
  })
 })
@@ -238,4 +238,3 @@ var port = process.env.PORT || 4040;
 
 app.listen(port)
 console.log("Server is listening on port " + port)
-
