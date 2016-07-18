@@ -31,3 +31,7 @@ A cool way to discover public art in Austin.
 * David Lewallen @davidlewallen
 * Jordan Campbell @jc14
 
+## License
+Pipulate uses the (MIT License as defined by OpenSource.org)[http://opensource.org/licenses/MIT].
+This repository's copy of the license is [here](./LICENSE.md).
+
