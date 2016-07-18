@@ -22,6 +22,9 @@
   padding-top: 50px;
   text-align: -webkit-center;
 }
+.closeButton--jss-0-1 {
+  display: none !important;
+}
 .errorMessage {
   color: red;
 }
@@ -38,6 +41,9 @@
 -moz-column-count: 3;
 -webkit-column-count: 3;
 }
+.search-input {
+  margin: 0 0 10px 0;
+}
 .artistName{
   text-align: center;
 }
@@ -51,7 +57,6 @@
 .artTitle{
   text-align: center;
 }
-
 .mySlides {
   display:none;
 }
