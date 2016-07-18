@@ -5,7 +5,6 @@ import ReactSpinner from 'react-spinjs';
 
 import * as auth from '../models/auth'
 
-
 export default class NavBar extends React.Component {
   constructor() {
     super()
@@ -13,18 +12,19 @@ export default class NavBar extends React.Component {
       showLogin: false,
       showSignup: false,
       showError: false,
-      loggedIn: document.cookie
+      loggedIn: document.cookie,
+      username: null
     }
   } 
   componentWillMount() {
     if (document.cookie) {
       this.setState({loggedin: true})
+      this.fetchUser();
     }
     else {
       this.setState({loggedIn: false})
     }
   }
-  
   openLogin() {
     this.setState({showLogin: true});
   }
@@ -32,7 +32,6 @@ export default class NavBar extends React.Component {
     this.setState({loggedIn: bool})
     this.setState({showLogin: false});
   }
-
   openSignup() {
     this.setState({showSignup: true});
   }
@@ -43,6 +42,18 @@ export default class NavBar extends React.Component {
   logout(name) {
     document.cookie = 'sessionId' + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
     this.setState({loggedIn: false})
+    this.setState({username: null})
+  }
+  drawUsername() {
+    if(this.state.username) return ( <span className="usernameSpan">Welcome {this.state.username}</span> );
+      else return ( <span className="usernameSpan">Welcome Guest</span> )
+  }
+  fetchUser() {
+    auth.fetchUsername()
+      .then((res) => {
+        console.log("Fetch:", res)
+        this.setState({ username: res })
+      })
   }
 
   //Render the navbar 
@@ -67,12 +78,13 @@ export default class NavBar extends React.Component {
             </div>
           </li>
           <li className="w3-hide-small w3-right"><a href="javascript:void(0)" className="w3-padding-large w3-hover-red"><i className="fa fa-search"></i></a></li>
+          <li className="w3-hide-small w3-right">{this.drawUsername()}</li>
         </ul>
         {this.state.showSignup ?
-          <SignUpModal onClose={this.closeSignup.bind(this)}/>
+          <SignUpModal onClose={this.closeSignup.bind(this)} fetchUser={this.fetchUser.bind(this)}/>
         : null}
         {this.state.showLogin ?
-          <LoginModal onClose={this.closeLogin.bind(this)}/>
+          <LoginModal onClose={this.closeLogin.bind(this)} fetchUser={this.fetchUser.bind(this)}/>
         : null}
       </div>
     ) 
@@ -94,7 +106,6 @@ class LoginModal extends React.Component {
   showError() {
     this.setState({showError: true})
   }
-
   load() {
     this.setState({isLoading: true});
     setTimeout(() => {
@@ -115,6 +126,7 @@ class LoginModal extends React.Component {
               if(x === 'Success') {
                 this.setState({showError: false})
                 this.props.onClose(true)
+                this.props.fetchUser()
               } else {
                 this.setState({showError: x.statusText})
               }
@@ -145,7 +157,6 @@ class SignUpModal extends React.Component {
       password: null,
       showError: false
     }
-
   }
 
   load() {
@@ -168,6 +179,7 @@ class SignUpModal extends React.Component {
               if(x === 'Success') {
                 this.setState({showError: false})
                 this.props.onClose(true)
+                this.props.fetchUser()
               } else {
                 this.setState({showError: x.statusText})
               }

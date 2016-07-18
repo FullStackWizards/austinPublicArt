@@ -14,7 +14,6 @@ export default class ArtistPage extends React.Component {
 	componentWillMount() {
     this.fetchArt(this.props.params.artistName)
   }	
-
   fetchArt(artist) {
     art.getArt()
     .then((artwork) => {
@@ -26,7 +25,6 @@ export default class ArtistPage extends React.Component {
       }   
     })
   }
-
   parseImageUrl(imgUrl) {
     imgUrl = imgUrl.split(';')
     return imgUrl
@@ -35,21 +33,20 @@ export default class ArtistPage extends React.Component {
   render() {
     return (
       <div>
-      <NavBar />
-      <br/>
-      <br/>
-      {this.state.art.map(art => {
-        return (
-
-          <div key={art._id} className="soloWork">
-            <h3 className="soloArtTitle">{art['Art Title']}</h3>
-            <img src={this.parseImageUrl(art.Images)[0]} />
-            <div className="soloArtInfo">
-              <p>{art['Art Location Name']}</p>
+        <NavBar />
+        <br/>
+        <br/>
+        {this.state.art.map(art => {
+          return (
+            <div key={art._id} className="soloWork">
+              <h3 className="soloArtTitle">{art['Art Title']}</h3>
+              <img src={this.parseImageUrl(art.Images)[0]} />
+              <div className="soloArtInfo">
+                <p>{art['Art Location Name']}</p>
+              </div>
             </div>
-          </div>
-        )
-      })}
+          )
+        })}
       </div>
 
     )

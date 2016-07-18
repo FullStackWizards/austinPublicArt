@@ -102,6 +102,38 @@ app.get('/favorites', function(req, res) {
 	.then((returnedFavorites) => res.send(returnedFavorites))
 })
 
+app.get('/user', function(req, res) {
+  var sessionId;
+
+  if(req.headers.cookieheader) {
+    sessionId = req.headers.cookieheader.substring(10);
+  } else {
+    res.sendStatus(401);
+  }
+  // Find the sessionId in sessions collection
+  db.collection('sessions')
+  .find({ sessionId: sessionId })
+  // Grab the user id from the sessions collection
+  .then((returnedSession) => res.send(returnedSession[0].id))
+})
+
+app.get('/username', function(req, res) {
+  var sessionId;
+
+  if(req.headers.cookieheader) {
+    sessionId = req.headers.cookieheader.substring(10);
+    // Find the sessionId in sessions collection
+    db.collection('sessions')
+    .find({ sessionId: sessionId })
+    // User session id to grab user
+    .then((returnedSession) => db.collection('users').find({ _id: returnedSession[0].id }))
+    // Send back just the username to client
+    .then((user) => res.send(JSON.stringify(user[0].username)))
+  } else {
+    res.sendStatus(401);
+  }
+})
+
 // Will add a favorite with userId and artId to the favorites collection if not already present.
 // If it is present it will remove the userId and artId from favorites collection
 app.post('/favorites/:artId', function(req, res) {

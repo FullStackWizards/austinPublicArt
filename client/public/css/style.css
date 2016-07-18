@@ -1,3 +1,16 @@
+.slideshowPicture {
+  height:400px;
+  width:600px;
+  margin: auto;
+}
+.slideContainer {
+  margin: 0 auto;
+  padding: 40px;
+  width: 800px;
+  height: 1000px
+  color: #333;
+  background: black;
+}
 .loadingDiv {
   background-color: lightgrey;
   width: 300px;
@@ -121,71 +134,11 @@ p {
 
 /* All Section styles
 ------------------------------------- */
-#testimonial, #blog, #counter, #contact {
-   	padding-top: 120px;
-  	padding-bottom: 120px;
-}
-
-#about h3 {
-  	padding-bottom: 12px;
-}
 
 .parallax-section {
   	background-attachment: fixed !important;
   	background-size: cover !important;
 }
-
-
-/* navigation styles
-/* ========================================== */
-.navbar-default {
-    background: #fff;
-    border: none;
-    box-shadow: 0px 2px 8px 0px rgba(50, 50, 50, 0.04);
-    margin: 0 !important;
-  }
-.navbar-default .navbar-brand {
-  font-size: 20px;
-  font-weight: bold;
-  margin: 0;
-  }
-.navbar-default li {
-  margin: 15px 20px;
-}
-.navbar-default .navbar-nav li a {
-    color: #303030;
-    font-size: 12px;
-    font-weight: bold;
-    padding: 0px;
-  }
-.navbar-default .navbar-nav li a:hover {
-    color: #ffa400;
-  }
-.navbar-default .navbar-nav > li > a:hover,
-.navbar-default .navbar-nav > li > a:focus {
-  color: #303030;
-  background-color: transparent;
-}
-.navbar-default .navbar-nav > .active > a,
-.navbar-default .navbar-nav > .active > a:hover,
-.navbar-default .navbar-nav > .active > a:focus {
-  color: #ffa400;
-  background-color: transparent;
-}
-.navbar-default .navbar-toggle {
-     border: none;
-     padding-top: 12px;
-  }
-.navbar-default .navbar-toggle .icon-bar {
-    background: #ffa400;
-    border-color: transparent;
-  }
-.navbar-default .navbar-toggle:hover,
-.navbar-default .navbar-toggle:focus { 
-  background-color: transparent;
-}
-
-
 
 /* home section styles
 /* ========================================== */
@@ -234,6 +187,13 @@ p {
   background: #ffa400;
 }
 
+/* Navbar styles */
+/* ========================================= */
+.usernameSpan {
+  margin: 30px;
+  position: relative;
+  top: 11.5px;
+}
 
 
 
