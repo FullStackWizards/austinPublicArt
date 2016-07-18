@@ -32,6 +32,6 @@ A cool way to discover public art in Austin.
 * Jordan Campbell @jc14
 
 ## License
-Pipulate uses the (MIT License as defined by OpenSource.org)[http://opensource.org/licenses/MIT].
+Austin Public Art uses the (MIT License as defined by OpenSource.org)[http://opensource.org/licenses/MIT].
 This repository's copy of the license is [here](./LICENSE.md).
 
