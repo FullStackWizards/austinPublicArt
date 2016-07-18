@@ -23,9 +23,9 @@ A cool way to discover public art in Austin.
 
 ## Credits
 
-Caleb Anderson @calebanderson2014
-Carlo DiLorenzo @dilorc2
-Travers Pinkerton @traverspinkerton
-David Lewallen @davidlewallen
-Jordan Campbell @jc14
+* Caleb Anderson @calebanderson2014
+* Carlo DiLorenzo @dilorc2
+* Travers Pinkerton @traverspinkerton
+* David Lewallen @davidlewallen
+* Jordan Campbell @jc14
 
