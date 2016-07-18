@@ -2,7 +2,6 @@
 
 A cool way to discover public art in Austin.
 [Austin Public Art](http://austinpublicart.herokuapp.com)
-![alt tag](https://imgflip.com/gif/17ku58)
 
 ## Technology
 
