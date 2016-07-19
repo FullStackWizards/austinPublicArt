@@ -239,7 +239,7 @@ app.get('/likes/:id', function(req, res){
 var port = process.env.PORT || 4000;
 
 var options = {
-  pfx: fs.readFileSync('./c04ed613-4687-42a8-9993-508a11a34100.pfx'),
+  pfx: fs.readFileSync(path.join(__dirname, './c04ed613-4687-42a8-9993-508a11a34100.pfx')),
   passphrase: 'password'
 }
 https.createServer(options, app).listen(port);
