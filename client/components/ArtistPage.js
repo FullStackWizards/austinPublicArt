@@ -13,16 +13,16 @@ export default class ArtistPage extends React.Component {
 
 	componentWillMount() {
     this.fetchArt(this.props.params.artistName)
-  }	
+  }
   fetchArt(artist) {
     art.getArt()
     .then((artwork) => {
       if(artist) {
-        this.setState({art: artwork.filter((art) => art['Artist Name'] == artist)})
+        this.setState({art: artwork.filter((art) => art['Artist Full Name'] == artist)})
       }
       else {
         this.setState({art: artwork})
-      }   
+      }
     })
   }
   parseImageUrl(imgUrl) {
