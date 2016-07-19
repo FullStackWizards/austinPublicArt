@@ -14,7 +14,8 @@ app.use(bodyParser.json());
 // client asking for art data
 app.get('/art', function(req,res) {
   //retrieve all art from db
-  db.art.find()
+
+  db.art.find() //db.collection('art').find() --for deployment
   .then((art) => {
     res.send(art)
   })
