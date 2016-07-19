@@ -9,10 +9,12 @@ const routes = require('./routes');
 const app = express();
 const port = process.env.PORT || 4040;
 
-app.use(bodyParser.json());
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
 
 // Load Routes
 routes(app);
+
 
 app.use(history());
 app.use(express.static(path.join(__dirname, "../client/public")));
