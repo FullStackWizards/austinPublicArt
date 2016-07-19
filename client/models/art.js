@@ -19,3 +19,4 @@ export function getLikes(artId) {
     return artwork.json()
   })
 }
+

@@ -11,7 +11,12 @@ var app        = express();
 
 app.use(bodyParser.json());
 
-// client asking for art data
+app.get('/app-bundle.js',
+browserify(path.join(__dirname, '../client/main.js'), {
+   transform: [ [ require('babelify'), { presets: ["es2015", "react"] } ] ]
+ })
+);
+
 app.get('/art', function(req,res) {
   //retrieve all art from db
   db.art.find()

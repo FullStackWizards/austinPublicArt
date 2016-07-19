@@ -75,14 +75,17 @@ class Info extends React.Component {
     super()
     this.state = {
       userFavs: [],
-      userId: null
+      userId: null,
+      address: '',
     }
   }
   componentWillMount() {
     if(document.cookie) {
       this.findFavs()
       this.getUserId()
+      this.state.address = this.props.currentArt['Art Location Street Address'].replace(/ /g, '+').replace(/;/g, '+')
     }
+
   }
   findFavs() {
     auth.fetchFavs()
@@ -121,10 +124,6 @@ class Info extends React.Component {
                 {images.map((x) => <div key={images.indexOf(x)}><img className="slideshowPicture" src={x} /></div>)}
               </Slider>
             </div>
-          {/* Check if logged in (document.cookie?), if true display Like and Favorite button */}
-            {document.cookie ?
-              <div className="userFeatures">
-
                 <button className="btn btn-primary btn-sm" onClick={() => auth.likePhoto(this.props.currentArt._id)
                   .then((x) => {
                     return art.getLikes(this.props.currentArt._id)
@@ -143,6 +142,18 @@ class Info extends React.Component {
                   })
                 }>{this.state.userFavs.includes(this.props.currentArt._id) ? "Unfav!" : "Fav!"}
                 </button>
+            <div className="mapContainer">
+              <iframe
+                width="600"
+                height="450"
+                frameBorder="0"
+                src={"https://www.google.com/maps/embed/v1/place?key=AIzaSyASx8uyd5unDD_nox3grraxCR0hi2L9ZYg&q="+this.state.address+",Austin+TX"} allowFullScreen>
+              </iframe>
+            </div>
+          {/* Check if logged in (document.cookie?), if true display Like and Favorite button */}
+            {document.cookie ?
+              <div className="userFeatures">
+
 
               </div>
               : ''}

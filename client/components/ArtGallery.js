@@ -22,6 +22,7 @@ export default class App extends React.Component {
       this.getLikes()
     })
   }
+  
   signUp(userData) {
     auth.signUp(userData)
   }

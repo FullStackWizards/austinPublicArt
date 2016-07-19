@@ -10,6 +10,7 @@ import FavsPage from './components/FavsPage'
 
 
 
+
 //Create the route configuration
 render((
   <Router history={browserHistory}>
