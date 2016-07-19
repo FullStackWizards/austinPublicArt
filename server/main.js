@@ -234,7 +234,8 @@ app.get('/likes/:id', function(req, res){
 })
 
 // Run server on port 4040
-var port = process.env.PORT || 4040;
-
-app.listen(port)
-console.log("Server is listening on port " + port)
+app.listen = function() {
+  var server = http.createServer(this);
+  var port = process.env.PORT || 4000;
+  return server.listen.apply(server, port);
+};
