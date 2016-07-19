@@ -8,7 +8,7 @@ import * as auth from '../models/auth'
 import * as art from '../models/art'
 
 
-const KEYS_TO_FILTERS = ['Artist Name', 'Art Title']
+const KEYS_TO_FILTERS = ['Artist Full Name', 'Art Title']
 
 export default class ArtGallery extends React.Component {
   constructor(props) {
@@ -69,7 +69,7 @@ export default class ArtGallery extends React.Component {
     )
   }
 }
-//Create the info modal  
+//Create the info modal
 class Info extends React.Component {
   constructor() {
     super()
@@ -113,7 +113,7 @@ class Info extends React.Component {
         <ModalDialog onClose={this.props.onClose} className="info">
 
             <h2>{this.props.currentArt['Art Title']}</h2>
-            <p>By: {this.props.currentArt['Artist Name']}</p>
+            <p>By: {this.props.currentArt['Artist Full Name']}</p>
             <p>Location: {this.props.currentArt['Art Location Name']}</p>
             <p> Likes: {this.props.currentArt.likeCount.length}</p>
             <div className="slideContainer" >
