@@ -22,6 +22,7 @@ app.use(passport.session());
 // Load Routes
 routes(app);
 
+
 app.use(history());
 app.use(express.static(path.join(__dirname, "../client/public")));
 
