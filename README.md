@@ -4,10 +4,9 @@ A cool way to discover public art in Austin.
 [Austin Public Art](http://austinpublicart.herokuapp.com)
 
 ## Starting on localhost
-```git clone https://github.com/FullStackWizards/austinPublicArt.git
-git cd austinPublicArt
-npm install 
-```
+    git clone https://github.com/FullStackWizards/austinPublicArt.git
+    git cd austinPublicArt
+    npm install 
 
  If art work will not load change line 23 in server/main.js to db.art.find()
  There is an issue with Pmongo that causes an error on some machines to not work with db.collection('collection_name')
