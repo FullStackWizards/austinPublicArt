@@ -6,6 +6,7 @@ import Home from './components/HomePage'
 import Gallery from './components/ArtGallery'
 import ArtistPage from './components/ArtistPage'
 import FavsPage from './components/FavsPage'
+// import Locations from './component/Locations'
 
 
 
