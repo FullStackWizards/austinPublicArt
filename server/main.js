@@ -2,6 +2,7 @@ var express    = require('express');
 var path       = require('path');
 var browserify = require("browserify-middleware");
 var bodyParser = require('body-parser');
+var https      = require('https');
 
 var Utils      = require(path.join(__dirname, './utils.js'));
 var db         = require(path.join(__dirname, './db.js'));
@@ -235,7 +236,7 @@ app.get('/likes/:id', function(req, res){
 
 // Run server on port 4040
 app.listen = function() {
-  var server = http.createServer(this);
+  var server = https.createServer(this);
   var port = process.env.PORT || 4000;
   return server.listen.apply(server, port);
 };
