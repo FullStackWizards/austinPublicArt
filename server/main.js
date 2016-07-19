@@ -2,13 +2,13 @@ var express    = require('express');
 var path       = require('path');
 var browserify = require("browserify-middleware");
 var bodyParser = require('body-parser');
+var history    = require('connect-history-api-fallback');
 
 var Utils      = require(path.join(__dirname, './utils.js'));
 var db         = require(path.join(__dirname, './db.js'));
 
 var app        = express();
 
-app.use(express.static(path.join(__dirname, "../client/public")));
 app.use(bodyParser.json());
 
 app.get('/app-bundle.js',
@@ -17,10 +17,9 @@ browserify(path.join(__dirname, '../client/main.js'), {
  })
 );
 
-// client asking for art data
 app.get('/art', function(req,res) {
   //retrieve all art from db
-  db.collection('art').find()
+  db.art.find()
   .then((art) => {
     res.send(art)
   })
@@ -232,6 +231,15 @@ app.get('/likes/:id', function(req, res){
     })
   }
 })
+
+app.use(history());
+app.use(express.static(path.join(__dirname, "../client/public")));
+
+app.get('/app-bundle.js',
+browserify(path.join(__dirname, '../client/main.js'), {
+   transform: [ [ require('babelify'), { presets: ["es2015", "react"] } ] ]
+ })
+);
 
 // Run server on port 4040
 var port = process.env.PORT || 4040;
