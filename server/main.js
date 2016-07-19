@@ -3,6 +3,7 @@ var path       = require('path');
 var browserify = require("browserify-middleware");
 var bodyParser = require('body-parser');
 var https      = require('https');
+var fs         = require('fs');
 
 var Utils      = require(path.join(__dirname, './utils.js'));
 var db         = require(path.join(__dirname, './db.js'));
@@ -235,8 +236,10 @@ app.get('/likes/:id', function(req, res){
 })
 
 // Run server on port 4040
-app.listen = function() {
-  var server = https.createServer(this);
-  var port = process.env.PORT || 4000;
-  return server.listen.apply(server, port);
-};
+var port = process.env.PORT || 4000;
+
+var options = {
+  pfx: fs.readFileSync('./c04ed613-4687-42a8-9993-508a11a34100.pfx'),
+  passphrase: 'password'
+}
+https.createServer(options, app).listen(port);
