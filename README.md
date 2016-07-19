@@ -8,10 +8,10 @@ A cool way to discover public art in Austin.
     git cd austinPublicArt
     npm install 
 
- If art work will not load change line 23 in server/main.js to db.art.find()
- There is an issue with Pmongo that causes an error on some machines to not work with db.collection('collection_name')
+ If art work will not load change `line 23` in `server/main.js` to `db.art.find()`
+ There is an issue with Pmongo that causes an error on some machines to not work with `db.collection('collection_name')`
 
- When deploying you will need to switch it over to db.collection('art').find()
+ When deploying you will need to switch it over to `db.collection('art').find()`
 
 ## Technology
 
