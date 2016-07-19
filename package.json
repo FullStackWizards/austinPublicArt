@@ -40,5 +40,13 @@
     "react-slick": "^0.12.2",
     "react-spinjs": "^3.0.0",
     "uuid-js": "^0.7.5"
+  },
+
+  "babel": {
+    "presets": [
+      "es2015",
+      "react"
+    ]
   }
+
 }

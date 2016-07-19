@@ -18,7 +18,7 @@ export default class ArtistPage extends React.Component {
     art.getArt()
     .then((artwork) => {
       if(artist) {
-        this.setState({art: artwork.filter((art) => art['Artist Name'] == artist)})
+        this.setState({art: artwork.filter((art) => art['Artist Full Name'] == artist)})
       }
       else {
         this.setState({art: artwork})

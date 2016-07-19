@@ -33,7 +33,7 @@ export default class App extends React.Component {
     return art.getArt()
     .then((artwork) => {
       if(artist) {
-        this.setState({tempCollection: artwork.filter((art) => art['Artist Name'] == artist)})
+        this.setState({tempCollection: artwork.filter((art) => art['Artist Full Name'] == artist)})
       }
       else {
         this.setState({tempCollection: artwork})
