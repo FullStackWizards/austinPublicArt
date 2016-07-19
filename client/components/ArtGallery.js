@@ -21,11 +21,8 @@ export default class App extends React.Component {
     .then(() => {
       this.getLikes()
     })
-    // art.getAddress().then(art.getCoords())
-    // art.getCoords().then((data) => {
-    //   console.log("latitude of CA", data.results[0].geometry.location)
-    // })
   }
+  
   signUp(userData) {
     auth.signUp(userData)
   }
