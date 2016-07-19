@@ -10,7 +10,7 @@ import FavsPage from './components/FavsPage'
 
 
 
-//Create the route configuration
+//Create the route configuration test
 render((
   <Router history={hashHistory}>
     <Route path="/" component={Home} />
