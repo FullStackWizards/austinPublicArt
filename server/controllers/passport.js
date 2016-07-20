@@ -1,22 +1,23 @@
-let passport = require('passport')
-let LocalStrategy = require('passport-local').Strategy;
+let FBOOK_ID = "272107173165519"
+let FBOOK_CALLBACK_URL = "http://localhost:4040/authFbook/facebook/callback"
+let FBOOK_SECRET = 	"75a8527949731f9c4794e8c5a0b9c01b"
+
+let passport = require('passport');
 let LocalStrategy = require('passport-local').Strategy;
 let FacebookStrategy = require('passport-facebook').Strategy;
+
 let configAuth = require('./authFbook')
+var Auth = require('../models/auth');
 
 
-// Remember:
- // If enabled, be sure to use express.session() before passport.session()
- // to ensure that the login session is restored in the correct order.
-
-
+////////////////////////////////////////////////////////////
+//////////////////// PASSPORT cereals //////////////////////////
+////////////////////////////////////////////////////////////
 
 module.exports = function (passport) {
 
-//---------------Serialize-----------------//
-//-----------------------------------------//
 	passport.serializeUser(function(user, done){
-		done(null, user.id);
+		done(null, user);
 	});
 
 	passport.deserializeUser(function(id, done) {
@@ -26,54 +27,62 @@ module.exports = function (passport) {
 	});
 
 
-//---------------Strategies----------------//
-//-----------------------------------------//
-	passport.use('local-signup', new LocalStrategy ({
-		usernameField: 'email',
-		passwordField: 'password',
-		passReqToCallback: true
-	},
-	function(req, email, password, done) {
-		process.nextTick(function(){
-			User.findOne({'local.username': email}, function(err, user){
-				if(err)
-					return done(err);
-				if(user) {
-					return done(null, false, req.flash('signupMessage', 'That email.,sdma.d'))
-				} else {
-					van newUser = new User();
-					newUser.local.username = emial;
-					newUser.local.password = newUser.generaateHash(password);
+////////////////////////////////////////////////////////////
+//////////////////// LOCAL STRATEGY //////////////////////////
+////////////////////////////////////////////////////////////
 
-					newUser.save(function(err){
-						if(err)
-							throw err;
-						return done(null, newUser);
-					})
-				}
-			})
-		});
-	}));
+	passport.use('local-signup', new LocalStrategy (
+    function(username, password, done) {
+    	Auth.getUser(username)
+    		.then(user => {
+    	  	if(user[0]){
+    	    	res.statusMessage = "Username taken."
+    	    	res.status(400).end();
+    	  	} else {
+    	    	return Auth.signUp(username, password);
+    	  	}
+    		})
+    		.then(user =>
+    	  	Auth.createSession(user._id)
+    		)
+    		.then(session => {
+    	 		res.send(JSON.stringify(session.sessionId))
+    	 	})
+    	 	.then(function(obj) {
+    	 		return done(null, {userID:obj})
+    	 	})
+    }));
 
-	passport.user('local-login', new LocalStrategy({
-		usernameField: 'email',
-		passwordField: 'password',
-		passReqToCallback: true
-	},
-	function(req, email, password, done){
-		process.nextTick(function(){
-			User.findOne({'local.username': email}, function(err, user){
-				if(err)
-					return done(err);
-				if(!user)
-					return done(null, false, req.flash('loginMessage', 'No user sdjfnskdn'))
-				if(!user.validPassword(password)){
-					return done(null, false, req.flash('loginMessage', 'Not real password asnjn'))
-				}
-				return done(null, user);
-			});
-		});
-	}));
+	passport.use('local-login', new LocalStrategy(
+		function(username, password, done) {
+			Auth.getUser(username)
+			  .then(user => {
+			    if(!user[0]) {
+			      res.statusMessage = "Incorrect username or password"
+			      res.status(400).end();
+			    } else {
+			      userId = user[0]._id;
+			      return utils.comparePassword(user[0].password, password)
+			    }
+			  })
+			  .then(isValidPassword => {
+			    if(!isValidPassword) {
+			      res.statusMessage = "Incorrect username or password"
+			      res.status(401).end();
+			    } else {
+			      return Auth.createSession(userId)
+			    }
+			  })
+			  .then(session => {
+			    res.send(JSON.stringify(session.sessionId))
+			  })
+			  // .then(function())
+		}))
+
+
+////////////////////////////////////////////////////////////
+//////////////////// FACEBOOK STRATEGY //////////////////////////
+////////////////////////////////////////////////////////////
 
 	passport.use(new FacebookStrategy({
 		clientID: configAuth.facebookAuth.clientID,
@@ -81,14 +90,29 @@ module.exports = function (passport) {
 		callbackURL: configAuth.facebookAuth.callbackURL
 	},
 	function(accessToken, refreshToken, profile, done) {
-		// User.findOrCreate(..., function(err, user) {
-		// 	if (err) {return done(err); }
-		// 	done(null, user);
-		process.nextTick(function(){
+	    	process.nextTick(function(){
+	    		User.findOne({'facebook.id': profile.id}, function(err, user){
+	    			if(err)
+	    				return done(err);
+	    			if(user)
+	    				return done(null, user);
+	    			else {
+	    				var newUser = new User();
+	    				newUser.facebook.id = profile.id;
+	    				newUser.facebook.token = accessToken;
+	    				newUser.facebook.name = profile.name.givenName + ' ' + profile.name.familyName;
+	    				newUser.facebook.email = profile.emails[0].value;
 
-		})
-		})
-	}
-	))
+	    				newUser.save(function(err){
+	    					if(err)
+	    						throw err;
+	    					return done(null, newUser);
+	    				})
+	    				console.log(profile);
+	    			}
+	    		});
+	    	});
+	    }
 
+	));
 };
