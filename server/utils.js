@@ -1,7 +1,7 @@
 var bcrypt = require('bcrypt-nodejs');
 var uuid = require('node-uuid');
 
-var Utils = {
+var utils = {
  hashPassword: function(password) {
    return new Promise(function(resolve, reject){
      bcrypt.hash(password, null, null, function(err, hash){
@@ -24,5 +24,5 @@ var Utils = {
    return uuid.v4();
  }
 }
-module.exports = Utils;
 
+module.exports = utils;
