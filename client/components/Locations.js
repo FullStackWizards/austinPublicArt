@@ -1,65 +1,69 @@
-// **********Issue3 - React Map - Fullstack React**********
+import React from 'react';
+import ReactDOM from 'react-dom';
+import {Gmaps, Marker, InfoWindow, Circle} from 'react-gmaps';
+import NavBar from './NavBar'
 
-import React from 'react'
-import GoogleApiComponent from 'google-map-react'
+const coords = {
+  lat: 30.268915,
+  lng: -97.740378
+};
 
-export class LocationsContainer extends React.Component {
-	constructor() {
-		super()
-	}
-  render() {
-  	const style = {
-  		width: '100vw',
-  		height: '100vh'
-  	}
-    return (
-      <div style={style}>
-      	<Map google={this.props.google} />
-      </div>
-    )
+export default class LocationsContainer extends React.Component{
+  constructor(props) {
+    super(props);
   }
-}
 
-export class Map extends React.Component {
-	componentDidUpdate(prevProps, prevState){
-		console.log('componentDidUpdate')
-		if (prevProps.google !== this.props.google){
-			this.loadMap();
-		}
-	}
-	componentDidMount(){
-		console.log('componentDidMount')
-		this.loadMap();
-	}
-	loadMap(){
-		console.log('ran loadMap')
-		if (this.props && this.props.google){
-			const {google} = this.props;
-			const maps = google.maps;
+  onMapCreated(map) {
+    map.setOptions({
+      disableDefaultUI: true
+    });
+  }
 
-			const mapRef = this.refs.map;
-			const node = ReactDOM.findDOMNode(mapRef);
+  onDragEnd(e) {
+    console.log('onDragEnd', e);
+  }
 
-			let zoom = 14;
-			let lat = 37.774929
-			let lng = 122.419416
-			const center = new maps.LatLng(lat, lng);
-			const mapConfig = Object.assign({}, {
-				center: center,
-				zoom: zoom
-			})
-			this.map = new maps.Map(node, mapConfig)
-		}
-	}
-	render() {
-		return (
-			<div ref='map'>
-				Loading map...
-			</div>
-		)
-	}
-}
+  onCloseClick() {
+    console.log('onCloseClick');
+  }
 
-export default new GoogleApiComponent({
-  bootStrapURLKeys: 'AIzaSyC6rf0MDdC4J0zkTH0fkm2lnBMMmLFElbY'
-})
+  onClick(e) {
+    console.log('onClick', e);
+  }
+
+  render() {
+    return (
+      <div>
+        <NavBar />
+        <Gmaps
+          width={'100vw'}
+          height={'100vh'}
+          lat={coords.lat}
+          lng={coords.lng}
+          zoom={12}
+          loadingMessage={'Be happy'}
+          params={{v: '3.exp', key: 'AIzaSyAzhwRABci2uwXxlC07KKYNmOzMde2Z1bY'}}
+          onMapCreated={this.onMapCreated}>
+          <Marker
+            lat={coords.lat}
+            lng={coords.lng}
+            draggable={true}
+            onDragEnd={this.onDragEnd} />
+          <InfoWindow
+            lat={coords.lat}
+            lng={coords.lng}
+            content={'Thanks Patrick!'}
+            onCloseClick={this.onCloseClick} />
+          <Circle
+            lat={coords.lat}
+            lng={coords.lng}
+            radius={500}
+            onClick={this.onClick} />
+        </Gmaps>
+      </div>
+    );
+  }
+
+};
+
+// ReactDOM.render(<App />, document.getElementById('gmaps'));

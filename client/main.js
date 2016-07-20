@@ -7,8 +7,17 @@ import Home from './components/Home'
 import Artists from './components/Artists'
 import Gallery from './components/Gallery'
 import ArtistPage from './components/ArtistPage'
+<<<<<<< 2bef10c1050339b50f985a1a8f636c0ff74333fc
 import Favorites from './components/Favorites'
 import Locations from './components/Locations'
+=======
+import FavsPage from './components/FavsPage'
+import LocationsContainer from './components/Locations'
+
+
+
+
+>>>>>>> Adds react-gmap to package.json. Locations renders map with single hardcoded marker to /locations : )
 
 //Create the route configuration
 render((
