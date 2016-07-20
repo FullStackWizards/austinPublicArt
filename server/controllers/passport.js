@@ -1,11 +1,20 @@
-let LocalStrategy = require('passport-local').LocalStrategy;
+let passport = require('passport')
+let LocalStrategy = require('passport-local').Strategy;
+let LocalStrategy = require('passport-local').Strategy;
 let FacebookStrategy = require('passport-facebook').Strategy;
-
-// COME BACK TO
-let User = require('../')
 let configAuth = require('./authFbook')
 
+
+// Remember:
+ // If enabled, be sure to use express.session() before passport.session()
+ // to ensure that the login session is restored in the correct order.
+
+
+
 module.exports = function (passport) {
+
+//---------------Serialize-----------------//
+//-----------------------------------------//
 	passport.serializeUser(function(user, done){
 		done(null, user.id);
 	});
@@ -16,8 +25,11 @@ module.exports = function (passport) {
 		});
 	});
 
+
+//---------------Strategies----------------//
+//-----------------------------------------//
 	passport.use('local-signup', new LocalStrategy ({
-		usernameField: 'email', 
+		usernameField: 'email',
 		passwordField: 'password',
 		passReqToCallback: true
 	},
