@@ -1,7 +1,6 @@
 let FBOOK_ID = "272107173165519"
 let FBOOK_CALLBACK_URL = "http://localhost:4040/authFbook/facebook/callback"
 let FBOOK_SECRET = 	"75a8527949731f9c4794e8c5a0b9c01b"
-
 let passport = require('passport');
 let LocalStrategy = require('passport-local').Strategy;
 let FacebookStrategy = require('passport-facebook').Strategy;
@@ -117,4 +116,3 @@ module.exports = function (passport) {
 
 	));
 };
-
