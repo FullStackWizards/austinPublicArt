@@ -7,14 +7,14 @@ export default class App extends React.Component {
 
     this.state = {
       tempCollection: [],
-      artCollection: [],
-      testProp: 'test'
+      artCollection: []
     }
   }
 
   componentDidMount() {
     this.update()
   }
+
   update() {
     this.fetchArt(this.props.params.artistName)
     .then(() => {
@@ -52,8 +52,7 @@ export default class App extends React.Component {
       <div>
         {this.props.children && React.cloneElement(this.props.children, {
           tempCollection: this.state.tempCollection,
-          gallery: this.state.artCollection,
-          testProp: this.state.testProp
+          gallery: this.state.artCollection
         })}
       </div>
     )
