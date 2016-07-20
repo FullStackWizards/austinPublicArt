@@ -1,4 +1,5 @@
-let LocalStrategy = require('passport-local').LocalStrategy
+let LocalStrategy = require('passport-local').LocalStrategy;
+let FacebookStrategy = require('passport-facebook').Strategy;
 
 // COME BACK TO
 let User = require('../')
@@ -54,16 +55,28 @@ module.exports = function (passport) {
 					return done(err);
 				if(!user)
 					return done(null, false, req.flash('loginMessage', 'No user sdjfnskdn'))
-				if(!user.valid)
-			})
+				if(!user.validPassword(password)){
+					return done(null, false, req.flash('loginMessage', 'Not real password asnjn'))
+				}
+				return done(null, user);
+			});
+		});
+	}));
+
+	passport.use(new FacebookStrategy({
+		clientID: configAuth.facebookAuth.clientID,
+		clientSecret: configAuth.facebookAuth.clientSecret,
+		callbackURL: configAuth.facebookAuth.callbackURL
+	},
+	function(accessToken, refreshToken, profile, done) {
+		// User.findOrCreate(..., function(err, user) {
+		// 	if (err) {return done(err); }
+		// 	done(null, user);
+		process.nextTick(function(){
+
+		})
 		})
 	}
-	}))
+	))
 
-
-
-
-
-
-
-}
+};
