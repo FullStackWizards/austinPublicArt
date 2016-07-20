@@ -48,4 +48,19 @@ app.get('/auth/provider', passport.authenticate('provider'));
 // Otherwise, authentication has failed.
 app.get('/auth/provider/callback',
   passport.authenticate('provider', { successRedirect: '/',
-                                      failureRedirect: '/login' }));
+                                      failureRedirect: '/' }));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
