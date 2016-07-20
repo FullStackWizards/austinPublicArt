@@ -1,5 +1,5 @@
 import React from 'react'
-import * as art from '../models/art'
+
 import Info from './Info'
 import NavBar from './NavBar'
 
@@ -8,26 +8,9 @@ export default class ArtistPage extends React.Component {
 		super(props)
 
 		this.state = {
-			art: [],
       showInfo: false
 		}
 	}
-
-	componentWillMount() {
-    this.fetchArt(this.props.params.artistName)
-  }
-
-  fetchArt(artist) {
-    art.getArt()
-    .then((artwork) => {
-      if(artist) {
-        this.setState({art: artwork.filter((art) => art['Artist Full Name'] == artist)})
-      }
-      else {
-        this.setState({art: artwork})
-      }
-    })
-  }
 
   openInfo(art) {
     this.setState({showInfo: true});
@@ -44,6 +27,10 @@ export default class ArtistPage extends React.Component {
   }
 
   render() {
+    let arts = this.props.gallery.filter(art => 
+      art['Artist Full Name'] === this.props.params.artistName
+    )
+
     return (
       <div>
         <NavBar />
@@ -58,19 +45,17 @@ export default class ArtistPage extends React.Component {
           null}
         <br/>
         <br/>
-        {this.state.art.map(art => {
-          return (
-            <div key={art._id} className="soloWork">
-              <h3 className="soloArtTitle">{art['Art Title']}</h3>
-              <a href="javascript:void(0)" onClick={(e) => this.openInfo(art)} className="artImage">
-                <img className='artImage' src={parseImageUrl(art.Images)[0]} />
-              </a>
-              <div className="soloArtInfo">
-                <p>{art['Art Location Name']}</p>
-              </div>
+        {arts.map(art => 
+          <div key={art._id} className="soloWork">
+            <h3 className="soloArtTitle">{art['Art Title']}</h3>
+            <a href="javascript:void(0)" onClick={(e) => this.openInfo(art)} className="artImage">
+              <img className='artImage' src={parseImageUrl(art.Images)[0]} />
+            </a>
+            <div className="soloArtInfo">
+              <p>{art['Art Location Name']}</p>
             </div>
-          )
-        })}
+          </div>
+        )}
       </div>
     );
   }

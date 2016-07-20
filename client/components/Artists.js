@@ -1,8 +1,7 @@
-import React from 'react'
-import {Link} from 'react-router'
-import NavBar from './NavBar'
+import React from 'react';
+import {Link} from 'react-router';
 
-import * as art from '../models/art'
+import NavBar from './NavBar';
 
 export default class Artists extends React.Component {
 	render() {
@@ -15,11 +14,11 @@ export default class Artists extends React.Component {
         <NavBar />
     		<h3>Artist List</h3>
     		<ul>
-    		{artists.map(name => 
-          <li key={name}>
-            <Link to={`/${name}`}>{name}</Link>
-          </li>
-        )}
+          {artists.map(name => 
+            <li key={name}>
+              <Link to={`/${name}`}>{name}</Link>
+            </li>
+          )}
     		</ul>
   		</div>
     )
