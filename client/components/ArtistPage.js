@@ -1,6 +1,7 @@
 import React from 'react'
 import NavBar from './NavBar'
 import * as art from '../models/art'
+import Info from './Info'
 
 export default class ArtistPage extends React.Component {
 	constructor(props) {
@@ -8,7 +9,7 @@ export default class ArtistPage extends React.Component {
 
 		this.state = {
 			art: [],
-      showInfo: false,
+      // showInfo: false,
 		}
 	}
 
@@ -30,13 +31,43 @@ export default class ArtistPage extends React.Component {
     imgUrl = imgUrl.split(';')
     return imgUrl
   }
+  update() {
+    this.fetchArt(this.props.params.artistName)
+    .then(() => {
+      this.getLikes()
+    })
+  }
+  getLikes() {
+    var results = [];
+    this.state.tempCollection.forEach((artWork) => {
+      art.getLikes(artWork._id)
+      .then((likeCount) => {
+        results.push(Object.assign(artWork, {likeCount: likeCount.likeCount}))
+        if (results.length === this.state.tempCollection.length) {
+          this.setState({artCollection: results})
+        }
+      })
+    })
+  }
+  openInfo(art) {
+    this.setState({showInfo: true});
+    this.setState({currentArt: art})
+    console.log("openInfo has been called",art)
+  }
+  closeInfo() {
+    this.setState({showInfo: false});
+  }
+  updateCurrent(likeCount) {
+    this.setState({currentArt: Object.assign(this.state.currentArt, {likeCount: likeCount.likeCount})})
+  }
 
   render() {
     return (
       <div>
         <NavBar />
         {this.state.showInfo ?
-          <Info onClose={this.closeInfo.bind(this)} loggedIn={this.props.loggedIn} updateCurrent={this.updateCurrent.bind(this)} currentArt={this.state.currentArt} parseImageUrl={this.parseImageUrl.bind(this)}/>
+          <div><Info onClose={this.closeInfo.bind(this)} loggedIn={this.props.loggedIn} updateCurrent={this.updateCurrent.bind(this)} currentArt={this.state.currentArt} parseImageUrl={this.parseImageUrl.bind(this)}/>
+          <div>{console.log("show info was tru")}</div></div>
           : null}
         <br/>
         <br/>

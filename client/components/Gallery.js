@@ -1,5 +1,4 @@
 import React from 'react'
-import {ModalContainer, ModalDialog} from 'react-modal-dialog';
 import ReactSpinner from 'react-spinjs';
 import SearchInput, {createFilter} from 'react-search-input'
 import NavBar from './NavBar'
