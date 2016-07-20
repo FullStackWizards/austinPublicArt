@@ -51,6 +51,8 @@ export default class App extends React.Component {
     return (
       <div>
         {this.props.children && React.cloneElement(this.props.children, {
+          tempCollection: this.state.tempCollection,
+          gallery: this.state.artCollection,
           testProp: this.state.testProp
         })}
       </div>
