@@ -48,7 +48,31 @@ app.get('/auth/facebook', passport.authenticate('facebook'));
 // Finish the authentication process by attempting to obtain an access
 // token.  If authorization was granted, the user will be logged in.
 // Otherwise, authentication has failed.
+<<<<<<< 5158a1e0936f0265d3d1e04fc8cd79579b3f7ad9
 app.get('/auth/facebook/callback',
   passport.authenticate('facebook', { successRedirect: '/',
                                       failureRedirect: '/' }));
+<<<<<<< f47bec5a9c0d9848fd62ac16b0ef306e3026c367
 >>>>>>> working in passport.js
+=======
+=======
+app.get('/auth/provider/callback',
+  passport.authenticate('provider', { successRedirect: '/',
+                                      failureRedirect: '/' }));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+>>>>>>> attempting to implemet with shane
+>>>>>>> attempting to implemet with shane
