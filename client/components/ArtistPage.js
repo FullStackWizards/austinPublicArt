@@ -1,7 +1,7 @@
 import React from 'react'
-import NavBar from './NavBar'
 import * as art from '../models/art'
 import Info from './Info'
+import NavBar from './NavBar'
 
 export default class ArtistPage extends React.Component {
 	constructor(props) {
