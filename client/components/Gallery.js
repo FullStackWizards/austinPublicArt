@@ -26,6 +26,7 @@ export default class ArtWindow extends React.Component {
   openInfo(art) {
     this.setState({showInfo: true});
     this.setState({currentArt: art})
+    console.log("openinfogallery", art)
   }
   closeInfo() {
     this.setState({showInfo: false});
@@ -72,98 +73,3 @@ export default class ArtWindow extends React.Component {
     )
   }
 }
-//Create the info modal
-// class Info extends React.Component {
-//   constructor() {
-//     super()
-//     this.state = {
-//       userFavs: [],
-//       userId: null,
-//       address: '',
-//     }
-//   }
-//   componentWillMount() {
-//     if(document.cookie) {
-//       this.findFavs()
-//       this.getUserId()
-//       this.state.address = this.props.currentArt['Art Location Street Address'].replace(/ /g, '+').replace(/;/g, '+')
-//     }
-
-//   }
-//   findFavs() {
-//     auth.fetchFavs()
-//     .then((res) => {
-//       this.setState({userFavs : res.map((obj) => obj.artId)})
-//     })
-//   }
-//   getUserId() {
-//     auth.fetchUser()
-//     .then((res) => {
-//       this.setState({userId: res})
-//     })
-//   }
-//   //The info modal that pops up with the props currentArt set as the object of the work of art you clicked on
-//   render() {
-//     let images = this.props.parseImageUrl(this.props.currentArt.Images);
-//     let settings = {
-//       dots: true,
-//       speed: 500,
-//       slidesToShow: 1,
-//       slidesToScroll: 1,
-//       fade: true
-//     };
-//     if(images.length === 1) settings.arrows = false
-//     return (
-
-//       <ModalContainer onClose={this.props.onClose}>
-//         <ModalDialog onClose={this.props.onClose} className="info">
-
-//             <h2>{this.props.currentArt['Art Title']}</h2>
-//             <p>By: {this.props.currentArt['Artist Full Name']}</p>
-//             <p>Location: {this.props.currentArt['Art Location Name']}</p>
-//             <p> Likes: {this.props.currentArt.likeCount.length}</p>
-//             <div className="slideContainer" >
-//               <Slider {...settings}>
-//                 {images.map((x) => <div key={images.indexOf(x)}><img className="slideshowPicture" src={x} /></div>)}
-//               </Slider>
-//             </div>
-//                 <button className="btn btn-primary btn-sm" onClick={() => auth.likePhoto(this.props.currentArt._id)
-//                   .then((x) => {
-//                     return art.getLikes(this.props.currentArt._id)
-//                   })
-//                   .then((likeCount) => {
-//                     this.props.updateCurrent(likeCount)
-//                   })
-//                 }>
-//                 {/*Change button text based upon if the user has already liked an image*/}
-//                 {this.props.currentArt.likeCount.includes(this.state.userId) ? "Unlike" : "Like"}
-//                 </button>
-
-//                 <button className="btn btn-secondary btn-sm" onClick={() => auth.favoritePhoto(this.props.currentArt._id)
-//                   .then((x) => {
-//                     this.findFavs()
-//                   })
-//                 }>{this.state.userFavs.includes(this.props.currentArt._id) ? "Unfav!" : "Fav!"}
-//                 </button>
-//             <div className="mapContainer">
-
-//               <iframe
-//                 width="600"
-//                 height="450"
-//                 frameBorder="0"
-//                 src={"https://www.google.com/maps/embed/v1/place?key=AIzaSyASx8uyd5unDD_nox3grraxCR0hi2L9ZYg&q="+this.state.address+",Austin+TX"} allowFullScreen>
-//               </iframe>
-//             </div>
-//           {/* Check if logged in (document.cookie?), if true display Like and Favorite button */}
-//             {document.cookie ?
-//               <div className="userFeatures">
-
-
-//               </div>
-//               : ''}
-
-//         </ModalDialog>
-//       </ModalContainer>
-//     )
-//   }
-// }

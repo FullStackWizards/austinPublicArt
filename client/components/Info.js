@@ -21,7 +21,6 @@ export default class Info extends React.Component {
       this.getUserId()
       this.state.address = this.props.currentArt['Art Location Street Address'].replace(/ /g, '+').replace(/;/g, '+')
     }
-
   }
   findFavs() {
     auth.fetchFavs()
@@ -54,12 +53,17 @@ export default class Info extends React.Component {
             <h2>{this.props.currentArt['Art Title']}</h2>
             <p>By: {this.props.currentArt['Artist Full Name']}</p>
             <p>Location: {this.props.currentArt['Art Location Name']}</p>
-            <p> Likes: {this.props.currentArt.likeCount.length}</p>
+            {this.props.currentArt.likeCount ? 
+              <p> Likes: {this.props.currentArt.likeCount.length}</p> : 
+              null}
+
             <div className="slideContainer" >
               <Slider {...settings}>
                 {images.map((x) => <div key={images.indexOf(x)}><img className="slideshowPicture" src={x} /></div>)}
               </Slider>
             </div>
+              
+              {this.props.currentArt.likeCount ? 
                 <button className="btn btn-primary btn-sm" onClick={() => auth.likePhoto(this.props.currentArt._id)
                   .then((x) => {
                     return art.getLikes(this.props.currentArt._id)
@@ -70,7 +74,9 @@ export default class Info extends React.Component {
                 }>
                 {/*Change button text based upon if the user has already liked an image*/}
                 {this.props.currentArt.likeCount.includes(this.state.userId) ? "Unlike" : "Like"}
-                </button>
+                </button> :
+                null}
+              
 
                 <button className="btn btn-secondary btn-sm" onClick={() => auth.favoritePhoto(this.props.currentArt._id)
                   .then((x) => {

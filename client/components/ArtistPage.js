@@ -9,7 +9,6 @@ export default class ArtistPage extends React.Component {
 
 		this.state = {
 			art: [],
-      // showInfo: false,
 		}
 	}
 
@@ -31,24 +30,7 @@ export default class ArtistPage extends React.Component {
     imgUrl = imgUrl.split(';')
     return imgUrl
   }
-  update() {
-    this.fetchArt(this.props.params.artistName)
-    .then(() => {
-      this.getLikes()
-    })
-  }
-  getLikes() {
-    var results = [];
-    this.state.tempCollection.forEach((artWork) => {
-      art.getLikes(artWork._id)
-      .then((likeCount) => {
-        results.push(Object.assign(artWork, {likeCount: likeCount.likeCount}))
-        if (results.length === this.state.tempCollection.length) {
-          this.setState({artCollection: results})
-        }
-      })
-    })
-  }
+
   openInfo(art) {
     this.setState({showInfo: true});
     this.setState({currentArt: art})
@@ -58,7 +40,7 @@ export default class ArtistPage extends React.Component {
     this.setState({showInfo: false});
   }
   updateCurrent(likeCount) {
-    this.setState({currentArt: Object.assign(this.state.currentArt, {likeCount: likeCount.likeCount})})
+    this.setState({currentArt: Object.assign(this.state.currentArt)})
   }
 
   render() {
