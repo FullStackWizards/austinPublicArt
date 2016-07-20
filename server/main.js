@@ -35,3 +35,20 @@ app.listen(port, () => {
   console.log("Server is listening on port " + port) 
 })
 
+<<<<<<< a6e8ed28e24fb70fb8f0486ae0b888bc9033225f
+=======
+////////// Passport eh?///////////////
+
+// Redirect the user to the OAuth provider for authentication.  When
+// complete, the provider will redirect the user back to the application at
+//     /auth/provider/callback
+app.get('/auth/facebook', passport.authenticate('facebook'));
+
+// The OAuth provider has redirected the user back to the application.
+// Finish the authentication process by attempting to obtain an access
+// token.  If authorization was granted, the user will be logged in.
+// Otherwise, authentication has failed.
+app.get('/auth/facebook/callback',
+  passport.authenticate('facebook', { successRedirect: '/',
+                                      failureRedirect: '/' }));
+>>>>>>> working in passport.js

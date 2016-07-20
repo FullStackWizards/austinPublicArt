@@ -117,3 +117,8 @@ module.exports = function (passport) {
 	));
 };
 
+<<<<<<< a6e8ed28e24fb70fb8f0486ae0b888bc9033225f
+=======
+};
+
+>>>>>>> working in passport.js
