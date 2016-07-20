@@ -1,6 +1,6 @@
 import fetch from 'isomorphic-fetch';
 
-export function getArt (){
+export function getArt() {
   let obj = {
     method: 'GET'
   };
@@ -14,7 +14,7 @@ export function getLikes(artId) {
   let obj = {
     method: 'GET'
   };
-  return fetch(`api/likes/${artId}`, obj)
+  return fetch(`api/like/${artId}`, obj)
   .then((artwork) => {
     return artwork.json()
   })

@@ -9,7 +9,7 @@ export function signUp(userData) {
     },
     body: JSON.stringify(userData)
   }
-  return fetch(`api/signUp`, obj)
+  return fetch(`api/auth/signUp`, obj)
     .then(function(data){
       if(data.status < 400) {
         return data.json().then((data) => {
@@ -29,7 +29,7 @@ export function login(userData) {
     },
     body: JSON.stringify(userData)
   }
-  return fetch(`api/login`, obj)
+  return fetch(`api/auth/login`, obj)
     .then(function(data){
       if(data.status < 400) {
         return data.json().then((data) => {
@@ -62,7 +62,7 @@ export function favoritePhoto(artId) {
     },
     body: JSON.stringify({cookie: document.cookie})
   }
-  return fetch(`api/favorites/${artId}`, obj)
+  return fetch(`api/favorite/${artId}`, obj)
     .then(function(data){
       return data
     })
@@ -76,7 +76,7 @@ export function fetchFavs() {
       'cookieHeader': document.cookie
     }
   }
-return fetch(`api/favorites`, obj)
+return fetch(`api/favorite`, obj)
   .then(function(resp) {
     return resp.json()
   })
@@ -90,7 +90,7 @@ export function fetchUser() {
       'cookieHeader': document.cookie
     }
   }
-return fetch(`api/user`, obj)
+return fetch(`api/auth/user`, obj)
   .then(function(resp) {
     return resp.json()
   })
@@ -104,7 +104,7 @@ export function fetchUsername() {
       'cookieHeader': document.cookie
     }
   }
-return fetch(`api/username`, obj)
+return fetch(`api/auth/username`, obj)
   .then(function(resp) {
     return resp.json()
   })

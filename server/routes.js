@@ -1,8 +1,7 @@
 // Controller imports
-// var art = require('./controllers/art');
-var auth = require('./controllers/auth');
+var index = require('./controllers/index');
 
 module.exports = (app) => {
   // Decorate the express instance with the controller routers
-  app.use('/api', auth);
+  app.use('/api', index);
 };

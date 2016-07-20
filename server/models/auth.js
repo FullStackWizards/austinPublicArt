@@ -1,20 +1,18 @@
-var path = require('path');
 var db = require('../db');
 var utils = require('../utils');
 
-exports.getArt = () => {
-  return db.art.find();
-};
 
+// Get user record by username
 exports.getUser = username => {
   return db.collection('users').find({username: username});
 };
 
+// Get user record by userId
 exports.getUserById = userId => {
-  return db.collection('users').find({_id: userId})
-    .then(user => user);
+  return db.collection('users').find({_id: userId});
 };
 
+// Insert new user record after hashing password
 exports.signUp = (username, password) => {
   return utils.hashPassword(password)
     .then(hash => 
@@ -22,6 +20,7 @@ exports.signUp = (username, password) => {
     );
 };
 
+// Create new session record associated with userId
 exports.createSession = userId => {
   return db.collection('sessions').insert({
     id: userId, 
@@ -29,41 +28,9 @@ exports.createSession = userId => {
   });
 };
 
+// Get session record by sessionId
 exports.getSession = sessionId => {
   return db.collection('sessions').find({sessionId: sessionId});
 };
 
-exports.getFavorites = userId => {
-  return db.collection('favorites').find({userId: userId});
-};
 
-exports.hasFavorited = (userId, artId) => {
-  return db.collection('favorites').find({userId: userId, artId: artId});
-}
-
-exports.addFavorite = (userId, artId) => {
-  return db.collection('favorites').insert({userId: userId, artId: artId});
-};
-
-exports.removeFavorite = (userId, artId) => {
-  return db.collection('favorites').find({userId: userId, artId: artId})
-    .then(returnedDocument => 
-      db.collection('favorites').remove({_id: returnedDocument[0]._id})
-    );
-};
-
-exports.hasLiked = (userId, artId) => {
-  return db.collection('likes').find({userId: userId, artId: artId});
-};
-
-exports.like = (userId, artId) => {
-  return db.collection('likes').insert({userId: userId, artId: artId});
-};
-
-exports.unlike = (userId, artId) => {
-  return db.collection('likes').remove({userId: userId, artId: artId});
-};
-
-exports.getLikes = artId => {
-  return db.collection("likes").find({artId: artId});
-};
