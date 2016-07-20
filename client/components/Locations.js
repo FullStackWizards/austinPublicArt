@@ -57,6 +57,14 @@ export default class LocationsContainer extends React.Component{
               draggable={true}
               onDragEnd={this.onDragEnd} />
           )}
+          {coords.map((coord, idx) =>
+            <InfoWindow
+              key={idx}
+              lat={coord.lat}
+              lng={coord.lng}
+              content={'Hello, React :)'}
+              onCloseClick={this.onCloseClick} />
+          )}
         </Gmaps>
       </div>
     );
