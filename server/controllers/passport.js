@@ -31,6 +31,7 @@ module.exports = function (passport) {
 //////////////////// LOCAL STRATEGY //////////////////////////
 ////////////////////////////////////////////////////////////
 
+
 	passport.use('local-signup', new LocalStrategy (
     function(username, password, done) {
     	Auth.getUser(username)
