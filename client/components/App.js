@@ -1,7 +1,5 @@
-import React from 'react'
-import ArtWindow from './ArtWindow'
-import * as auth from '../models/auth'
-import * as art from '../models/art'
+import React from 'react';
+import * as art from '../models/art';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -13,9 +11,10 @@ export default class App extends React.Component {
     }
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.update()
   }
+
   update() {
     this.fetchArt(this.props.params.artistName)
     .then(() => {
@@ -23,13 +22,6 @@ export default class App extends React.Component {
     })
   }
   
-  signUp(userData) {
-    auth.signUp(userData)
-  }
-  login(userData) {
-    auth.login(userData)
-  }
-
   fetchArt(artist) {
     return art.getArt()
     .then((artwork) => {
@@ -58,17 +50,11 @@ export default class App extends React.Component {
   render(){
     return (
       <div>
-        <br/>
-        <br/>
-        <ArtWindow className="artGallery" update={this.update.bind(this)} gallery={this.state.artCollection} loggedIn={this.state.loggedIn} fetchArt={this.fetchArt.bind(this)}/>
+        {this.props.children && React.cloneElement(this.props.children, {
+          tempCollection: this.state.tempCollection,
+          gallery: this.state.artCollection
+        })}
       </div>
     )
   }
 }
-
-
-
-
-
-
-
