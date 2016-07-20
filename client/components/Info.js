@@ -13,14 +13,15 @@ export default class Info extends React.Component {
       userFavs: [],
       userId: null,
       address: '',
+      mapStatus: 'show'
     }
   }
   componentWillMount() {
     if(document.cookie) {
       this.findFavs()
       this.getUserId()
-      this.state.address = this.props.currentArt['Art Location Street Address'].replace(/ /g, '+').replace(/;/g, '+')
     }
+    this.state.address = this.props.currentArt['Art Location Street Address'].replace(/ /g, '+').replace(/;/g, '+')
   }
   findFavs() {
     auth.fetchFavs()
@@ -85,7 +86,6 @@ export default class Info extends React.Component {
                 }>{this.state.userFavs.includes(this.props.currentArt._id) ? "Unfav!" : "Fav!"}
                 </button>
             <div className="mapContainer">
-
               <iframe
                 width="600"
                 height="450"
