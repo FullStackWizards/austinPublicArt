@@ -19,13 +19,9 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 
-app.use(bodyParser.json());
-app.use(passport.initialize());
-app.use(passport.session());
-
-
 // Load Routes
 routes(app);
+
 
 
 
