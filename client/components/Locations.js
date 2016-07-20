@@ -3,10 +3,10 @@ import ReactDOM from 'react-dom';
 import {Gmaps, Marker, InfoWindow, Circle} from 'react-gmaps';
 import NavBar from './NavBar'
 
-const coords = {
-  lat: 30.268915,
-  lng: -97.740378
-};
+// const coords = {
+//   lat: 30.268915,
+//   lng: -97.740378
+// };
 
 export default class LocationsContainer extends React.Component{
   constructor(props) {
@@ -31,34 +31,32 @@ export default class LocationsContainer extends React.Component{
     console.log('onClick', e);
   }
 
-  render() {
+  render() {  
+
+    const coords = [{lat: 30.295874, lng: -97.715524},
+                    {lat: 30.268915, lng: -97.740378}]
+
     return (
       <div>
         <NavBar />
         <Gmaps
           width={'100vw'}
           height={'100vh'}
-          lat={coords.lat}
-          lng={coords.lng}
+          lat={30.274649}
+          lng={-97.740370}
           zoom={12}
           loadingMessage={'Be happy'}
           params={{v: '3.exp', key: 'AIzaSyAzhwRABci2uwXxlC07KKYNmOzMde2Z1bY'}}
-          onMapCreated={this.onMapCreated}>
-          <Marker
-            lat={coords.lat}
-            lng={coords.lng}
-            draggable={true}
-            onDragEnd={this.onDragEnd} />
-          <InfoWindow
-            lat={coords.lat}
-            lng={coords.lng}
-            content={'Thanks Patrick!'}
-            onCloseClick={this.onCloseClick} />
-          <Circle
-            lat={coords.lat}
-            lng={coords.lng}
-            radius={500}
-            onClick={this.onClick} />
+          onMapCreated={this.onMapCreated}
+        >
+          {coords.map((coord, idx) =>
+            <Marker
+              key={idx}
+              lat={coord.lat}
+              lng={coord.lng}
+              draggable={true}
+              onDragEnd={this.onDragEnd} />
+          )}
         </Gmaps>
       </div>
     );
