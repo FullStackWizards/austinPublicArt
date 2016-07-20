@@ -79,7 +79,13 @@
   display: inline;
   margin-left: 25px;
 }
-
+iframe{
+  /*margin-left: 15%;
+  /**//*margin-right: 15%;*/
+  display: block;
+  margin: 0 auto;
+  box-shadow: 3px 3px 10px
+}
 body {
 		background: #ffffff;
     font-family: 'Open Sans', sans-serif;
