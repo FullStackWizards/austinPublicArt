@@ -34,6 +34,7 @@
   border-radius: 100%;
   display: block;
   margin: 0 auto;
+  box-shadow: 8px 8px 5px grey;
 }
 .artGallery {
 -moz-column-count: 3;
@@ -53,6 +54,10 @@
   margin: 0 auto;
   height: 360px;
   width: 360px;
+}
+.favwork{
+  display: block;
+  margin: 0 auto;
 }
 .artTitle{
   text-align: center;
