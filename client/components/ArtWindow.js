@@ -10,7 +10,7 @@ import * as art from '../models/art'
 
 const KEYS_TO_FILTERS = ['Artist Full Name', 'Art Title']
 
-export default class ArtGallery extends React.Component {
+export default class ArtWindow extends React.Component {
   constructor(props) {
     super(props)
 

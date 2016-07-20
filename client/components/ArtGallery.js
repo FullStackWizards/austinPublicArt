@@ -3,7 +3,7 @@ import ArtWindow from './ArtWindow'
 import * as auth from '../models/auth'
 import * as art from '../models/art'
 
-export default class App extends React.Component {
+export default class ArtGallery extends React.Component {
   constructor(props) {
     super(props);
 
@@ -60,7 +60,13 @@ export default class App extends React.Component {
       <div>
         <br/>
         <br/>
-        <ArtWindow className="artGallery" update={this.update.bind(this)} gallery={this.state.artCollection} loggedIn={this.state.loggedIn} fetchArt={this.fetchArt.bind(this)}/>
+        <ArtWindow 
+          className="artGallery" 
+          update={this.update.bind(this)} 
+          gallery={this.state.artCollection} 
+          loggedIn={this.state.loggedIn} 
+          fetchArt={this.fetchArt.bind(this)}
+        />
       </div>
     )
   }
