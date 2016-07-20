@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "nodemon --ignore node_modules server/main.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -21,7 +22,10 @@
     "babel-preset-es2015": "^6.9.0",
     "babel-preset-react": "^6.5.0",
     "babelify": "^7.3.0",
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.15.2",
     "browserify-middleware": "^7.0.0",
+    "connect-history-api-fallback": "^1.2.0",
     "express": "^4.13.4",
     "isomorphic-fetch": "^2.2.1",
     "node-uuid": "^1.4.7",
@@ -29,8 +33,13 @@
     "path": "^0.12.7",
     "promised-mongo": "github:makersquare/promised-mongo",
     "react": "^15.1.0",
+    "react-bootstrap": "^0.29.5",
     "react-dom": "^15.1.0",
     "react-modal-dialog": "^3.0.1",
-    "react-spinjs": "^3.0.0"
+    "react-router": "^2.5.2",
+    "react-search-input": "^0.10.1",
+    "react-slick": "^0.12.2",
+    "react-spinjs": "^3.0.0",
+    "uuid-js": "^0.7.5"
   }
 }

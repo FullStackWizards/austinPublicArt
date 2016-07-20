@@ -1,0 +1,207 @@
+.slideshowPicture {
+  height:400px;
+  width:600px;
+  margin: auto;
+}
+.slideContainer {
+  margin: 0 auto;
+  padding: 40px;
+  width: 800px;
+  height: 1000px
+  color: #333;
+  background: black;
+}
+.loadingDiv {
+  /*background-color: lightgrey;*/
+  width: 300px;
+  /*border: 10px solid black;*/
+  padding: 25px;
+  margin: auto;
+}
+.loadingDiv p {
+  padding-top: 50px;
+  text-align: -webkit-center;
+}
+.closeButton--jss-0-1 {
+  display: none !important;
+}
+.errorMessage {
+  color: red;
+}
+.artImage {
+  height: 345px;
+  width: 345px;
+  border-radius: 100%;
+  display: block;
+  margin: 0 auto;
+  box-shadow: 8px 8px 5px grey;
+}
+.artGallery {
+-moz-column-count: 3;
+-webkit-column-count: 3;
+}
+.search-input {
+  margin: 0 100px 10px 100px;
+  position: relative;
+ text-align: right;
+}
+.artistName{
+  text-align: center;
+}
+.artwork{
+
+  display: block;
+  margin: 0 auto;
+  height: 360px;
+  width: 360px;
+}
+.favwork{
+  display: block;
+  margin: 0 auto;
+}
+.artTitle{
+  text-align: center;
+}
+.mySlides {
+  display:none;
+}
+
+.soloWork {
+  padding:10px;
+  margin: 10px;
+  /*background: #eef;*/
+  text-align: -webkit-center;
+}
+.soloArtTitle {
+  margin: 0;
+}
+.soloArtInfo {
+  display: inline;
+  margin-left: 25px;
+}
+iframe{
+  /*margin-left: 15%;
+  /**//*margin-right: 15%;*/
+  display: block;
+  margin: 0 auto;
+  box-shadow: 3px 3px 10px
+}
+body {
+		background: #ffffff;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 400;
+    position: relative;
+}
+
+html,body {
+      width: 100%;
+     overflow-x: hidden;
+  }
+
+.post-masonry img {
+    width: 100%;
+    display: block;
+}
+
+/* Typography
+------------------------------------- */
+h1,h2,h3,h4,h5 {
+  font-weight: bold;
+}
+
+h1 {
+  font-size: 62px;
+  line-height: 72px;
+}
+
+h2 {
+  color: #323232;
+  font-size: 26px;
+  line-height: 42px;
+  letter-spacing: 1px;
+  padding-bottom: 12px;
+}
+
+h3 {
+  color: #ffa400;
+  font-size: 16px;
+  letter-spacing: 26px;
+  letter-spacing: 2px;
+}
+
+h5 {
+  color: #ffa400;
+  line-height: 28px;
+  letter-spacing: 2px;
+}
+
+p {
+  font-size: 16px;
+  letter-spacing: 0.9px;
+  line-height: 32px;
+}
+
+
+
+/* All Section styles
+------------------------------------- */
+
+.parallax-section {
+  	background-attachment: fixed !important;
+  	background-size: cover !important;
+}
+
+/* home section styles
+/* ========================================== */
+#home {
+  background: url('../images/austin-texas-wallpaper-1.jpg') 50% 0 repeat-y fixed;
+  -webkit-background-size: cover;
+  background-size: cover;
+  background-position: center center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 100vh;
+  text-align: center;
+}
+
+#home h1 {
+  color: white;
+}
+
+#home .btn-danger {
+  background: black !important;
+  margin-right: 20px;
+}
+
+#home .btn-danger:hover {
+  background: #ffa400 !important;
+}
+
+#home .btn {
+  background: #4C8DF8;
+  border-color: transparent;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 14px 52px;
+  margin-top: 40px;
+  transition: all 0.4s ease-in-out;
+}
+
+#home .btn:hover {
+  background: #ffa400;
+}
+
+/* Navbar styles */
+/* ========================================= */
+.usernameSpan {
+  margin: 30px;
+  position: relative;
+  top: 11.5px;
+}

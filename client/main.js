@@ -1,12 +1,27 @@
-// React package that deals with DOM interactions
-import ReactDOM from 'react-dom';
-
-// React package for constructing components (and all non-DOM related actions)
+import {render} from 'react-dom';
 import React from 'react';
+import Artists from './components/Artists'
+import { Router, Route, Link, browserHistory } from 'react-router'
+import Home from './components/HomePage'
+import Gallery from './components/ArtGallery'
+import ArtistPage from './components/ArtistPage'
+import FavsPage from './components/FavsPage'
 
 
-// Import parent app component
-import App from './components/app';
 
-// Render that component to the DOM!
-ReactDOM.render(<App />, document.getElementById('app'));
+
+
+//Create the route configuration
+render((
+  <Router history={browserHistory}>
+    <Route path="/" component={Home} />
+    	<Route path="artists" component={Artists} /> 
+	    <Route path="gallery" component={Gallery} />     
+      <Route path="favorites" component={FavsPage} />
+      <Route path=":artistName" component={ArtistPage} />
+  </Router>
+), document.getElementById('app'))
+
+
+
+ 
