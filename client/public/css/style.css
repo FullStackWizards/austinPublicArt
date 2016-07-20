@@ -12,9 +12,9 @@
   background: black;
 }
 .loadingDiv {
-  background-color: lightgrey;
+  /*background-color: lightgrey;*/
   width: 300px;
-  border: 10px solid black;
+  /*border: 10px solid black;*/
   padding: 25px;
   margin: auto;
 }

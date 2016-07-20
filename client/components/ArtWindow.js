@@ -44,8 +44,11 @@ export default class ArtGallery extends React.Component {
     {/*If the gallery state is not populated, show the loading div. Else diaplay gallery*/}
       {!this.props.gallery[0] ?
         <div className="loadingDiv">
+          <div className="animated infinite swing">
+            <img src="http://images.clipartpanda.com/artist-paint-brush-vector-artist__s_paint_brush_by_rildraw-d4a5ogt.png" height="150px" width="150px"/>
+          </div>
           <p>Drawing pictures...</p>
-          <ReactSpinner config={{color: "blue"}}/>
+          <ReactSpinner config={{color: "red"}}/>
         </div>
         :
         <div>
@@ -143,7 +146,7 @@ class Info extends React.Component {
                 }>{this.state.userFavs.includes(this.props.currentArt._id) ? "Unfav!" : "Fav!"}
                 </button>
             <div className="mapContainer">
-            
+
               <iframe
                 width="600"
                 height="450"
