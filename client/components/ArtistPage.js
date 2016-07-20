@@ -9,12 +9,14 @@ export default class ArtistPage extends React.Component {
 
 		this.state = {
 			art: [],
+      showInfo: false
 		}
 	}
 
 	componentWillMount() {
     this.fetchArt(this.props.params.artistName)
   }
+
   fetchArt(artist) {
     art.getArt()
     .then((artwork) => {
@@ -26,19 +28,17 @@ export default class ArtistPage extends React.Component {
       }
     })
   }
-  parseImageUrl(imgUrl) {
-    imgUrl = imgUrl.split(';')
-    return imgUrl
-  }
 
   openInfo(art) {
     this.setState({showInfo: true});
     this.setState({currentArt: art})
     console.log("openInfo has been called",art)
   }
+
   closeInfo() {
     this.setState({showInfo: false});
   }
+
   updateCurrent(likeCount) {
     this.setState({currentArt: Object.assign(this.state.currentArt)})
   }
@@ -48,8 +48,14 @@ export default class ArtistPage extends React.Component {
       <div>
         <NavBar />
         {this.state.showInfo ?
-          <Info onClose={this.closeInfo.bind(this)} loggedIn={this.props.loggedIn} updateCurrent={this.updateCurrent.bind(this)} currentArt={this.state.currentArt} parseImageUrl={this.parseImageUrl.bind(this)}/>
-          : null}
+          <Info 
+            onClose={this.closeInfo.bind(this)} 
+            loggedIn={this.props.loggedIn} 
+            updateCurrent={this.updateCurrent.bind(this)} 
+            currentArt={this.state.currentArt} 
+            parseImageUrl={this.parseImageUrl.bind(this)}
+          /> :
+          null}
         <br/>
         <br/>
         {this.state.art.map(art => {
@@ -57,7 +63,8 @@ export default class ArtistPage extends React.Component {
             <div key={art._id} className="soloWork">
               <h3 className="soloArtTitle">{art['Art Title']}</h3>
               <a href="javascript:void(0)" onClick={(e) => this.openInfo(art)} className="artImage">
-              <img className='artImage' src={this.parseImageUrl(art.Images)[0]} /></a>
+                <img className='artImage' src={parseImageUrl(art.Images)[0]} />
+              </a>
               <div className="soloArtInfo">
                 <p>{art['Art Location Name']}</p>
               </div>
@@ -65,8 +72,10 @@ export default class ArtistPage extends React.Component {
           )
         })}
       </div>
-
-    )
+    );
   }
+}
 
+function parseImageUrl (url) {
+  return url.split(';')
 }

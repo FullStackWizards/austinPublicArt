@@ -1,6 +1,8 @@
 import React from 'react';
 import * as art from '../models/art';
 
+import NavBar from './NavBar'
+
 export default class App extends React.Component {
   constructor(props) {
     super(props);
@@ -12,14 +14,14 @@ export default class App extends React.Component {
   }
 
   componentDidMount() {
-    this.update()
+    this.update();
   }
 
   update() {
-    this.fetchArt(this.props.params.artistName)
+    this.fetchArt()
     .then(() => {
       this.getLikes()
-    })
+    });
   }
   
   fetchArt(artist) {
@@ -50,6 +52,9 @@ export default class App extends React.Component {
   render(){
     return (
       <div>
+        <NavBar />
+        <br/>
+        <br/>
         {this.props.children && React.cloneElement(this.props.children, {
           tempCollection: this.state.tempCollection,
           gallery: this.state.artCollection
