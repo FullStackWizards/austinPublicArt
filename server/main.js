@@ -11,6 +11,8 @@ const port = process.env.PORT || 4040;
 
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
+const FacebookStrategy = require('passport-facebook').Strategy;
+
 
 app.use(bodyParser.json());
 app.use(passport.initialize());
@@ -19,6 +21,7 @@ app.use(passport.session());
 
 // Load Routes
 routes(app);
+
 
 
 
