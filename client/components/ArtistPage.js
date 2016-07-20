@@ -48,8 +48,7 @@ export default class ArtistPage extends React.Component {
       <div>
         <NavBar />
         {this.state.showInfo ?
-          <div><Info onClose={this.closeInfo.bind(this)} loggedIn={this.props.loggedIn} updateCurrent={this.updateCurrent.bind(this)} currentArt={this.state.currentArt} parseImageUrl={this.parseImageUrl.bind(this)}/>
-          <div>{console.log("show info was tru")}</div></div>
+          <Info onClose={this.closeInfo.bind(this)} loggedIn={this.props.loggedIn} updateCurrent={this.updateCurrent.bind(this)} currentArt={this.state.currentArt} parseImageUrl={this.parseImageUrl.bind(this)}/>
           : null}
         <br/>
         <br/>
