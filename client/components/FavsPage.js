@@ -35,8 +35,12 @@ export default class Favorites extends React.Component {
     if(this.state.favs.length > 0){
       return this.state.favs.map((art) => {
         return ( 
-          <div className="artwork" key={art._id}>
+          <div className="soloWork" key={art._id}>
+            <h3 className="soloArtTitle">{art['Art Title']}</h3>
             <img className="artImage" src={this.parseImageUrl(art.Images)[0]} />
+            <div className="soloArtInfo">
+              <p>{art['Art Location Name']}</p>
+            </div>
           </div>
         )
       })
@@ -56,7 +60,7 @@ export default class Favorites extends React.Component {
         <br/>
         <br/>
     		<h3>Your Favs!</h3>
-    		<div className="artGallery">
+    		<div className="artGaller">
     		  {this._renderFavoriteArt()}
      		</div>
   		</div>

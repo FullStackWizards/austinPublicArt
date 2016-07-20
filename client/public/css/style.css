@@ -12,9 +12,9 @@
   background: black;
 }
 .loadingDiv {
-  background-color: lightgrey;
+  /*background-color: lightgrey;*/
   width: 300px;
-  border: 10px solid black;
+  /*border: 10px solid black;*/
   padding: 25px;
   margin: auto;
 }
@@ -34,6 +34,7 @@
   border-radius: 100%;
   display: block;
   margin: 0 auto;
+  box-shadow: 8px 8px 5px grey;
 }
 .artGallery {
 -moz-column-count: 3;
@@ -54,6 +55,10 @@
   height: 360px;
   width: 360px;
 }
+.favwork{
+  display: block;
+  margin: 0 auto;
+}
 .artTitle{
   text-align: center;
 }
@@ -62,9 +67,9 @@
 }
 
 .soloWork {
-  padding:20px;
-  margin: 30px;
-  background: #eef;
+  padding:10px;
+  margin: 10px;
+  /*background: #eef;*/
   text-align: -webkit-center;
 }
 .soloArtTitle {
@@ -74,7 +79,13 @@
   display: inline;
   margin-left: 25px;
 }
-
+iframe{
+  /*margin-left: 15%;
+  /**//*margin-right: 15%;*/
+  display: block;
+  margin: 0 auto;
+  box-shadow: 3px 3px 10px
+}
 body {
 		background: #ffffff;
     font-family: 'Open Sans', sans-serif;
