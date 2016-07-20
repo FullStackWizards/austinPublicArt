@@ -7,10 +7,11 @@ var router = express.Router();
 module.exports = router;
 
 
+
 router.post('/signUp', function(req, res) {
   const username = req.body.username;
   const password = req.body.password;
- 
+
   Auth.getUser(username)
   .then(user => {
     if(user[0]){
@@ -20,13 +21,38 @@ router.post('/signUp', function(req, res) {
       return Auth.signUp(username, password);
     }
   })
-  .then(user => 
+  .then(user =>
     Auth.createSession(user._id)
   )
   .then(session => {
     res.send(JSON.stringify(session.sessionId));
   })
 })
+
+// router.post('/signUp', function(req, res) {
+//   const username = req.body.username;
+//   const password = req.body.password;
+
+//   Auth.getUser(username)
+//   .then(user => {
+//     if(user[0]){
+//       res.statusMessage = "Username taken."
+//       res.status(400).end();
+//     } else {
+//       return Auth.signUp(username, password);
+//     }
+//   })
+//   .then(user =>
+//     Auth.createSession(user._id)
+//   )
+//   .then(session => {
+//     res.send(JSON.stringify(session.sessionId));
+//   })
+// })
+
+
+
+
 
 // Logs in current user as long as username is in users collection and provided a valid password
 router.post('/login', function(req, res) {
@@ -84,7 +110,7 @@ router.get('/username', function(req, res) {
   // Find the sessionId in sessions collection
   Auth.getSession(sessionId)
     // Grab the user id from the sessions collection
-    .then(session => 
+    .then(session =>
       Auth.getUserById(session[0].id)
     )
     // Send back just the username to client
