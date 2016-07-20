@@ -143,6 +143,7 @@ class Info extends React.Component {
                 }>{this.state.userFavs.includes(this.props.currentArt._id) ? "Unfav!" : "Fav!"}
                 </button>
             <div className="mapContainer">
+            
               <iframe
                 width="600"
                 height="450"

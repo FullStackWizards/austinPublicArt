@@ -62,9 +62,9 @@
 }
 
 .soloWork {
-  padding:20px;
-  margin: 30px;
-  background: #eef;
+  padding:10px;
+  margin: 10px;
+  /*background: #eef;*/
   text-align: -webkit-center;
 }
 .soloArtTitle {
