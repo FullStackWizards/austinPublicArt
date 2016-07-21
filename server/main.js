@@ -2,11 +2,16 @@ var express    = require('express');
 var path       = require('path');
 var browserify = require("browserify-middleware");
 var bodyParser = require('body-parser');
+var passport   = require("passport");
+var LocalStrategy   = require('passport-local').Strategy;
 
 var Utils      = require(path.join(__dirname, './utils.js'));
 var db         = require(path.join(__dirname, './db.js'));
 
 var app        = express();
+var session    = require('express-session')
+
+require('./passport')(passport);
 
 app.use(express.static(path.join(__dirname, "../client/public")));
 app.use(bodyParser.json());
@@ -17,6 +22,13 @@ browserify(path.join(__dirname, '../client/main.js'), {
  })
 );
 
+
+app.use(session({ secret: 'keyboard cat', resave: false, saveUninitialized: false }));
+
+
+app.use(passport.initialize());
+app.use(passport.session());
+
 // client asking for art data
 app.get('/art', function(req,res) {
   //retrieve all art from db
@@ -26,33 +38,37 @@ app.get('/art', function(req,res) {
   })
 })
 
-app.post('/signUp', function(req, res) {
- var username = req.body.username;
+app.post('/signUp',passport.authenticate('local-signup'),function(req, res) {
+ console.log("IN MAIN NOW")
+ var username = req.body.username;  
  var password = req.body.password;
-
- db.collection('users').find({username: username})
- .then((user) => {
-   if(user[0]){
-     res.statusMessage = "Username taken."
-     res.status(400).end();
-   } else {
-     return Utils.hashPassword(password)
-   }
- })
- .then(function(hash){
-   return db.collection('users').insert({username: username, password: hash});
- })
- .then(function(obj){
-   var sessionId = Utils.createSessionId();
-   return db.collection('sessions').insert({id: obj._id, sessionId: sessionId});
- })
- .then(function(obj){
-   res.send(JSON.stringify(obj.sessionId));
- })
+ // console.log("req",req.sessionID)
+ // // console.log("res",res.body)
+ // db.collection('users').find({username: username})
+ // .then((user) => {
+ //   if(user[0]){
+ //     res.statusMessage = "Username taken."
+ //     res.status(400).end();
+ //   } else {
+ //     return Utils.hashPassword(password)
+ //   }
+ // })
+ // .then(function(hash){
+ //   return db.collection('users').insert({username: username, password: hash});
+ // })
+ // .then(function(obj){
+ //   var sessionId = Utils.createSessionId();
+ //   return db.collection('sessions').insert({id: obj._id, sessionId: sessionId});
+ // })
+ // .then(function(obj){
+  console.log("SIGN UP SESSION",req.sessionID)
+   res.send(JSON.stringify(req.sessionID));
+ // })
 })
 
+
 // Logs in current user as long as username is in users collection and provided a valid password
-app.post('/login', function(req, res) {
+app.post('/login',  function(req, res) {
  var username = req.body.username;
  var password = req.body.password;
  var userID;
@@ -77,6 +93,7 @@ app.post('/login', function(req, res) {
       }
     })
     .then((userObj) => {
+      console.log("SIGN IN SESSION",userObj.sessionId)
       res.send(JSON.stringify(userObj.sessionId))
     })
 })

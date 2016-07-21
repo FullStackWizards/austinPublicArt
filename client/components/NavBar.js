@@ -176,14 +176,19 @@ class SignUpModal extends React.Component {
             e.preventDefault(); 
             auth.signUp({username: this.state.username, password: this.state.password})
             .then((x) => {
+              console.log("xxxxxxxx", x)
               if(x === 'Success') {
                 this.setState({showError: false})
                 this.props.onClose(true)
                 this.props.fetchUser()
               } else {
-                this.setState({showError: x.statusText})
+                this.setState({showError: x})
               }
           })
+            // .catch(err => {
+            //   console.log("ERRRRRR", err)
+            //   this.setState({showError: err})
+            // })
             this.load.call(this); 
           }}>
             <h1>SignUp</h1>
