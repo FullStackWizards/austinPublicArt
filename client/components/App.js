@@ -18,8 +18,10 @@ export default class App extends React.Component {
   }
 
   _openInfoModal(art) {
-    this.setState({showInfoModal: true});
-    this.setState({currentArt: art})
+    this.setState({
+      showInfoModal: true,
+      currentArt: art
+    });
     console.log('in app.js', this.state.currentArt)
   }
 

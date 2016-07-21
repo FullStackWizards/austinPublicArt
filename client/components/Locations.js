@@ -8,9 +8,6 @@ import * as helpers from '../helpers'
 export default class LocationsContainer extends React.Component{
   constructor(props) {
     super(props);
-    this.state = {
-      showInfo: false
-    }
   }
 
   onMapCreated(map) {
@@ -21,15 +18,6 @@ export default class LocationsContainer extends React.Component{
 
   onDragEnd(e) {
     console.log('onDragEnd', e);
-  }
-
-  onCloseClick() {
-    console.log('onCloseClick');
-  }
-
-  onClick(e) {
-    this.props.openInfoModal(this.props.gallery)
-    console.log('made it past openInfoModal')
   }
 
   render() {  
@@ -46,9 +34,10 @@ export default class LocationsContainer extends React.Component{
     //        id will correspond to artwork id held in cache.
     //
 
-    const coords = [{Images: "http://assets.austintexas.gov/aipp/images/pic2003_002_1.jpg",
-                    lat: 30.295874, 
-                    lon: -97.715524}]
+    const coords = [{
+      lat: 30.295874, 
+      lon: -97.715524
+    }];
 
     return (
       <div>
