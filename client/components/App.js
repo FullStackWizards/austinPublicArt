@@ -7,34 +7,41 @@ export default class App extends React.Component {
 
     this.state = {
       tempCollection: [],
-      artCollection: []
+      artCollection: [],
+      showInfoModal: false,
+      currentArt: null
     }
   }
 
   componentDidMount() {
-    this.update()
+    this._update();
   }
 
-  update() {
-    this.fetchArt(this.props.params.artistName)
+  _openInfoModal(art) {
+    this.setState({showInfoModal: true});
+    this.setState({currentArt: art})
+  }
+
+  _closeInfoModal() {
+    this.setState({showInfoModal: false});
+    this.setState({currentArt: null})
+  }
+
+  _update() {
+    this._fetchArt()
     .then(() => {
-      this.getLikes()
-    })
+      this._getLikes()
+    });
   }
   
-  fetchArt(artist) {
+  _fetchArt() {
     return art.getArt()
-    .then((artwork) => {
-      if(artist) {
-        this.setState({tempCollection: artwork.filter((art) => art['Artist Full Name'] == artist)})
-      }
-      else {
+      .then((artwork) => {
         this.setState({tempCollection: artwork})
-      }
-    })
+      })
   }
 
-  getLikes() {
+  _getLikes() {
     var results = [];
     this.state.tempCollection.forEach((artWork) => {
       art.getLikes(artWork._id)
@@ -47,12 +54,22 @@ export default class App extends React.Component {
     })
   }
 
+  _updateCurrentArt(likes) {
+    this.setState({currentArt: Object.assign(this.state.currentArt, {likeCount: likes.likeCount})})
+  }
+
+
   render(){
+    // pass down props from App component to each of its routed children
     return (
       <div>
         {this.props.children && React.cloneElement(this.props.children, {
-          tempCollection: this.state.tempCollection,
-          gallery: this.state.artCollection
+          gallery: this.state.artCollection,
+          updateCurrentArt: this._updateCurrentArt.bind(this),
+          currentArt: this.state.currentArt,
+          showInfoModal: this.state.showInfoModal,
+          openInfoModal: this._openInfoModal.bind(this),
+          closeInfoModal: this._closeInfoModal.bind(this)
         })}
       </div>
     )

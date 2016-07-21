@@ -6,7 +6,7 @@ import Slider from 'react-slick'
 import * as auth from '../models/auth'
 import * as art from '../models/art'
 
-export default class Info extends React.Component {
+export default class InfoModal extends React.Component {
   constructor() {
     super()
     this.state = {
@@ -15,6 +15,7 @@ export default class Info extends React.Component {
       address: '',
     }
   }
+
   componentWillMount() {
     if(document.cookie) {
       this.findFavs()
@@ -22,18 +23,21 @@ export default class Info extends React.Component {
       this.state.address = this.props.currentArt['Art Location Street Address'].replace(/ /g, '+').replace(/;/g, '+')
     }
   }
+
   findFavs() {
     auth.fetchFavs()
     .then((res) => {
       this.setState({userFavs : res.map((obj) => obj.artId)})
     })
   }
+
   getUserId() {
     auth.fetchUser()
     .then((res) => {
       this.setState({userId: res})
     })
   }
+
   //The info modal that pops up with the props currentArt set as the object of the work of art you clicked on
   render() {
     let images = this.props.parseImageUrl(this.props.currentArt.Images);
