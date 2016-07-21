@@ -19,3 +19,13 @@ export function getLikes(artId) {
     return artwork.json()
   })
 }
+
+export function getTrash(artId) {
+  let obj = {
+    method: 'GET'
+  };
+  return fetch(`/trash/${artId}`, obj)
+  .then((artwork) => {
+    return artwork.json()
+  })
+}

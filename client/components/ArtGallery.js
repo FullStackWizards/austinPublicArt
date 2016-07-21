@@ -14,14 +14,19 @@ export default class App extends React.Component {
   }
 
   componentWillMount() {
-    this.update()
+    if(true){
+      this.update()
+    }
   }
+
   update() {
     this.fetchArt(this.props.params.artistName)
     .then(() => {
       this.getLikes()
+      this.getTrash()
     })
   }
+
   signUp(userData) {
     auth.signUp(userData)
   }
@@ -54,12 +59,26 @@ export default class App extends React.Component {
     })  
   }
 
+  getTrash(){
+    var trashResults = [];
+    this.state.tempCollection.forEach((artWork) => {
+      art.getTrash(artWork._id)
+      .then((trashCount) => {
+        trashResults.push(Object.assign(artWork, {trashCount: trashCount.trashCount}))
+        if (trashResults.length === this.state.tempCollection.length) {  
+          this.setState({trashCollection: trashResults})
+        }
+      })
+    }) 
+  }
+
+
   render(){
     return (
       <div>
         <br/>
         <br/>
-        <ArtWindow className="artGallery" update={this.update.bind(this)} gallery={this.state.artCollection} loggedIn={this.state.loggedIn} fetchArt={this.fetchArt.bind(this)}/>
+        <ArtWindow className="artGallery" update={this.update.bind(this)}  gallery={this.state.artCollection} loggedIn={this.state.loggedIn} fetchArt={this.fetchArt.bind(this)}/>
       </div>
     )
   }

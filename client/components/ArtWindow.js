@@ -33,8 +33,12 @@ export default class ArtGallery extends React.Component {
   searchUpdated (term) {
     this.setState({searchTerm: term})
   }
+
   updateCurrent(likeCount) {
     this.setState({currentArt: Object.assign(this.state.currentArt, {likeCount: likeCount.likeCount})})
+  }
+  updateCurrentTrash(trashCount) {
+    this.setState({currentArt: Object.assign(this.state.currentArt, {trashCount: trashCount.trashCount})})
   }
 
   render() {
@@ -54,7 +58,7 @@ export default class ArtGallery extends React.Component {
           <div className="artGallery">
             <NavBar />
             {this.state.showInfo ?
-              <Info onClose={this.closeInfo.bind(this)} loggedIn={this.props.loggedIn}  updateCurrent={this.updateCurrent.bind(this)} currentArt={this.state.currentArt} parseImageUrl={this.parseImageUrl.bind(this)}/>
+              <Info onClose={this.closeInfo.bind(this)} loggedIn={this.props.loggedIn} updateCurrentTrash={this.updateCurrentTrash.bind(this)} updateCurrent={this.updateCurrent.bind(this)} parseImageUrl={this.parseImageUrl.bind(this)} currentArt={this.state.currentArt}/>
             : null}
             {filteredArt.map((art) => {
               return (
@@ -116,6 +120,8 @@ class Info extends React.Component {
             <p>By: {this.props.currentArt['Artist Full Name']}</p>
             <p>Location: {this.props.currentArt['Art Location Name']}</p>
             <p> Likes: {this.props.currentArt.likeCount.length}</p>
+            <p> Trash: {this.props.currentArt.trashCount.length}</p>
+
             <div className="slideContainer" >
               <Slider {...settings}>
                 {images.map((x) => <div key={images.indexOf(x)}><img className="slideshowPicture" src={x} /></div>)}
@@ -142,6 +148,18 @@ class Info extends React.Component {
                     this.findFavs()
                   })
                 }>{this.state.userFavs.includes(this.props.currentArt._id) ? "Unfav!" : "Fav!"}
+                </button>
+
+                <button className="btn btn-tertiary btn-sm" onClick={() => auth.trashPhoto(this.props.currentArt._id)
+                  .then((x) => {
+                    
+                    return art.getTrash(this.props.currentArt._id)
+                  })
+                  .then((trashCount) => {
+                    this.props.updateCurrentTrash(trashCount)
+                  })
+                }>
+                {this.props.currentArt.trashCount.includes(this.state.userId) ? "Still Trash" : "Trash it!"}
                 </button>
 
               </div>

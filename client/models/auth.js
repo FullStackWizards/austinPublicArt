@@ -54,6 +54,20 @@ export function likePhoto(artId) {
     })
 }
 
+export function trashPhoto(artId) {
+  let obj = {
+    method: "POST",
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({cookie: document.cookie})
+  }
+  return fetch(`/trash/${artId}`, obj)
+    .then(function(data){
+      return data.json()
+    })
+}
+
 export function favoritePhoto(artId) {
   let obj = {
     method: "POST",
