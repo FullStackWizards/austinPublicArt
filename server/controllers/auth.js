@@ -16,7 +16,7 @@ module.exports = router;
 
 // router.post('/signUp', function(req, res) {
 router.post('/signup', passport.authenticate('local-signup'), function(req, res) {
-    console.log("auth.js line 51-passport sign up")
+    console.log("auth.js line 19-passport sign up")
     // successRedirect: '/',
     // failureRedirect: '/signup',
     // failureFlash: true
@@ -51,8 +51,9 @@ router.post('/signup', passport.authenticate('local-signup'), function(req, res)
 
 
 //   router.post('/login', function(req, res) {
-router.post('/login', passport.authenticate('local-login'), function(req, res)
-  {
+router.post('/login', passport.authenticate('local-login'), 
+  function(req, res) {
+    console.log("auth.js line 56-passport log in")
     const username = req.body.username;
     const password = req.body.password;
     let userID;
