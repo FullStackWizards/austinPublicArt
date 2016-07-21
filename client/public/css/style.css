@@ -1,18 +1,50 @@
+.slideshowPicture {
+  height:400px;
+  width:600px;
+  margin: auto;
+}
+.slideContainer {
+  margin: 0 auto;
+  padding: 40px;
+  width: 800px;
+  height: 1000px
+  color: #333;
+  background: black;
+}
+.loadingDiv {
+  /*background-color: lightgrey;*/
+  width: 300px;
+  /*border: 10px solid black;*/
+  padding: 25px;
+  margin: auto;
+}
+.loadingDiv p {
+  padding-top: 50px;
+  text-align: -webkit-center;
+}
+.closeButton--jss-0-1 {
+  display: none !important;
+}
 .errorMessage {
   color: red;
 }
 .artImage {
   height: 345px;
   width: 345px;
-  box-shadow: 5px 5px 2px black;
-  -moz-box-shadow: 5px 5px 2px black;
-  -webkit-box-shadow: 5px 5px 2px black;
+  border-radius: 100%;
   display: block;
   margin: 0 auto;
+  box-shadow: 8px 8px 5px grey;
 }
 .artGallery {
 -moz-column-count: 3;
 -webkit-column-count: 3;
+}
+.search-input {
+  margin: 0 50px 10px 25px;
+  position: relative;
+  float: left;
+  text-align: right;
 }
 .artistName{
   text-align: center;
@@ -24,18 +56,22 @@
   height: 360px;
   width: 360px;
 }
+.favwork{
+  display: block;
+  margin: 0 auto;
+}
 .artTitle{
   text-align: center;
 }
-
 .mySlides {
   display:none;
 }
 
 .soloWork {
-  padding:20px;
-  margin: 30px;
-  background: #eef;
+  padding:10px;
+  margin: 10px;
+  /*background: #eef;*/
+  text-align: -webkit-center;
 }
 .soloArtTitle {
   margin: 0;
@@ -44,7 +80,13 @@
   display: inline;
   margin-left: 25px;
 }
-
+iframe{
+  /*margin-left: 15%;
+  /**//*margin-right: 15%;*/
+  display: block;
+  margin: 0 auto;
+  box-shadow: 3px 3px 10px
+}
 body {
 		background: #ffffff;
     font-family: 'Open Sans', sans-serif;
@@ -104,71 +146,11 @@ p {
 
 /* All Section styles
 ------------------------------------- */
-#testimonial, #blog, #counter, #contact {
-   	padding-top: 120px;
-  	padding-bottom: 120px;
-}
-
-#about h3 {
-  	padding-bottom: 12px;
-}
 
 .parallax-section {
   	background-attachment: fixed !important;
   	background-size: cover !important;
 }
-
-
-/* navigation styles
-/* ========================================== */
-.navbar-default {
-    background: #fff;
-    border: none;
-    box-shadow: 0px 2px 8px 0px rgba(50, 50, 50, 0.04);
-    margin: 0 !important;
-  }
-.navbar-default .navbar-brand {
-  font-size: 20px;
-  font-weight: bold;
-  margin: 0;
-  }
-.navbar-default li {
-  margin: 15px 20px;
-}
-.navbar-default .navbar-nav li a {
-    color: #303030;
-    font-size: 12px;
-    font-weight: bold;
-    padding: 0px;
-  }
-.navbar-default .navbar-nav li a:hover {
-    color: #ffa400;
-  }
-.navbar-default .navbar-nav > li > a:hover,
-.navbar-default .navbar-nav > li > a:focus {
-  color: #303030;
-  background-color: transparent;
-}
-.navbar-default .navbar-nav > .active > a,
-.navbar-default .navbar-nav > .active > a:hover,
-.navbar-default .navbar-nav > .active > a:focus {
-  color: #ffa400;
-  background-color: transparent;
-}
-.navbar-default .navbar-toggle {
-     border: none;
-     padding-top: 12px;
-  }
-.navbar-default .navbar-toggle .icon-bar {
-    background: #ffa400;
-    border-color: transparent;
-  }
-.navbar-default .navbar-toggle:hover,
-.navbar-default .navbar-toggle:focus { 
-  background-color: transparent;
-}
-
-
 
 /* home section styles
 /* ========================================== */
@@ -217,8 +199,10 @@ p {
   background: #ffa400;
 }
 
-
-
-
-
-
+/* Navbar styles */
+/* ========================================= */
+.usernameSpan {
+  margin: 30px;
+  position: relative;
+  top: 11.5px;
+}
