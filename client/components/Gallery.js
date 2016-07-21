@@ -19,24 +19,11 @@ export default class ArtWindow extends React.Component {
       searchTerm: ''
     }
   }
-  parseImageUrl(imgUrl) {
-    imgUrl = imgUrl.split(';')
-    return imgUrl.filter((x) => x !== '')
-  }
-  openInfo(art) {
-    this.setState({showInfo: true});
-    this.setState({currentArt: art})
-    console.log("openinfogallery", art)
-  }
-  closeInfo() {
-    this.setState({showInfo: false});
-  }
+
   searchUpdated (term) {
     this.setState({searchTerm: term})
   }
-  updateCurrent(likeCount) {
-    this.setState({currentArt: Object.assign(this.state.currentArt, {likeCount: likeCount.likeCount})})
-  }
+
 
   render() {
     const filteredArt = this.props.gallery.filter(createFilter(this.state.searchTerm, KEYS_TO_FILTERS))
@@ -57,25 +44,36 @@ export default class ArtWindow extends React.Component {
         <SearchInput className="search-input" onChange={this.searchUpdated.bind(this)} />
           <div className="artGallery">
             <NavBar />
-            {this.state.showInfo ?
+
+            {/* Art info modal */}
+            {this.props.showInfoModal ?
               <InfoModal 
-                onClose={this.closeInfo.bind(this)} 
-                loggedIn={this.props.loggedIn}  
-                updateCurrent={this.updateCurrent.bind(this)} 
-                currentArt={this.state.currentArt} 
-                parseImageUrl={this.parseImageUrl.bind(this)}
+                onClose={this.props.closeInfoModal} 
+                updateCurrent={this.props.updateCurrentArt} 
+                currentArt={this.props.currentArt} 
+                parseImageUrl={parseImageUrl}
               /> :
               null}
-            {filteredArt.map((art) => {
-              return (
-                  <div className="artwork" key={art._id}>
-                    <a href="javascript:void(0)" onClick={(e) => this.openInfo(art)} className="artImage"> <img className="artImage" src={this.parseImageUrl(art.Images)[0]} /> </a>
-                  </div>
-                )
-            })}
+
+            {filteredArt.map(art =>
+              <div className="artwork" key={art._id}>
+                <a 
+                  href="javascript:void(0)" 
+                  onClick={this.props.openInfoModal.bind(null, art)} 
+                  className="artImage"
+                > 
+                  <img className="artImage" src={parseImageUrl(art.Images)[0]} /> 
+                </a>
+              </div>
+            )}
           </div>
         </div>}
       </div>
     )
   }
 }
+
+function parseImageUrl(imgUrl) {
+  return imgUrl.split(';').filter(e => e !== '');
+} 
+

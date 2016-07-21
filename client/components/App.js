@@ -54,8 +54,8 @@ export default class App extends React.Component {
     })
   }
 
-  _updateCurrent(likeCount) {
-    //this.setState({currentArt: Object.assign(this.state.currentArt)})
+  _updateCurrentArt(likes) {
+    this.setState({currentArt: Object.assign(this.state.currentArt, {likeCount: likes.likeCount})})
   }
 
 
@@ -65,7 +65,7 @@ export default class App extends React.Component {
       <div>
         {this.props.children && React.cloneElement(this.props.children, {
           gallery: this.state.artCollection,
-          updateCurrentArt: this._updateCurrent.bind(this),
+          updateCurrentArt: this._updateCurrentArt.bind(this),
           currentArt: this.state.currentArt,
           showInfoModal: this.state.showInfoModal,
           openInfoModal: this._openInfoModal.bind(this),
