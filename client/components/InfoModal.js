@@ -22,7 +22,8 @@ export default class InfoModal extends React.Component {
       this.findFavs()
       this.getUserId()
     }
-    this.state.address = this.props.currentArt['Art Location Street Address'].replace(/ /g, '+').replace(/;/g, '+')
+    console.log(this.props.currentArt)
+    //this.state.address = this.props.currentArt['Art Location Street Address'].replace(/ /g, '+').replace(/;/g, '+')
   }
 
   findFavs() {

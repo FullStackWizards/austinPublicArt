@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {Gmaps, Marker, InfoWindow, Circle} from 'react-gmaps';
 import NavBar from './NavBar'
+import InfoModal from './InfoModal'
+import * as helpers from '../helpers'
 
 export default class LocationsContainer extends React.Component{
   constructor(props) {
@@ -26,11 +28,12 @@ export default class LocationsContainer extends React.Component{
   }
 
   onClick(e) {
-    console.log(this.lat, this.lng, this.content)
-
+    this.props.openInfoModal(this.props.gallery)
+    console.log('made it past openInfoModal')
   }
 
   render() {  
+    console.log(this.props.gallery[0])
 
     //
     //  content tag in Marker stores entire coord...maybe to
@@ -43,12 +46,21 @@ export default class LocationsContainer extends React.Component{
     //        id will correspond to artwork id held in cache.
     //
 
-    const coords = [{id: 0, lat: 30.295874, lng: -97.715524},
-                    {id: 1, lat: 30.268915, lng: -97.740378}]
+    const coords = [{Images: "http://assets.austintexas.gov/aipp/images/pic2003_002_1.jpg",
+                    lat: 30.295874, 
+                    lon: -97.715524}]
 
     return (
       <div>
         <NavBar />
+        {this.props.showInfoModal ?
+          <InfoModal 
+            onClose={this.props.closeInfoModal} 
+            updateCurrent={this.props.updateCurrentArt} 
+            currentArt={this.props.currentArt} 
+            parseImageUrl={helpers.parseImageUrl}
+          /> :
+          null}
         <Gmaps
           width={'100vw'}
           height={'100vh'}
@@ -57,16 +69,14 @@ export default class LocationsContainer extends React.Component{
           zoom={12}
           loadingMessage={'Be happy'}
           params={{v: '3.exp', key: 'AIzaSyAzhwRABci2uwXxlC07KKYNmOzMde2Z1bY'}}
-          onMapCreated={this.onMapCreated}
-        >
+          onMapCreated={this.onMapCreated}>
           {coords.map((coord, idx) =>
             <Marker
               key={idx}
               lat={coord.lat}
-              lng={coord.lng}
+              lng={coord.lon}
               draggable={false}
-              content={coord}
-              onClick={this.onClick}
+              onClick={this.props.openInfoModal.bind(null, this.props.gallery[0])}
               onDragEnd={this.onDragEnd} />
           )}
         </Gmaps>

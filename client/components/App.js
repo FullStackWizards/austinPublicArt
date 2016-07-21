@@ -20,6 +20,7 @@ export default class App extends React.Component {
   _openInfoModal(art) {
     this.setState({showInfoModal: true});
     this.setState({currentArt: art})
+    console.log('in app.js', this.state.currentArt)
   }
 
   _closeInfoModal() {
@@ -40,6 +41,8 @@ export default class App extends React.Component {
         this.setState({tempCollection: artwork})
       })
   }
+
+  // make new geocoder function, call it in .then inside fetchArt
 
   _getLikes() {
     var results = [];
@@ -69,7 +72,8 @@ export default class App extends React.Component {
           currentArt: this.state.currentArt,
           showInfoModal: this.state.showInfoModal,
           openInfoModal: this._openInfoModal.bind(this),
-          closeInfoModal: this._closeInfoModal.bind(this)
+          closeInfoModal: this._closeInfoModal.bind(this),
+
         })}
       </div>
     )
