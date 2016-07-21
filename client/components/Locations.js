@@ -28,13 +28,25 @@ export default class LocationsContainer extends React.Component{
   }
 
   onClick(e) {
-    console.log('onClick', e);
+    console.log(this.lat, this.lng, this.content)
+
   }
 
   render() {  
 
-    const coords = [{lat: 30.295874, lng: -97.715524},
-                    {lat: 30.268915, lng: -97.740378}]
+    //
+    //  content tag in Marker stores entire coord...maybe to
+    //  be used to display a mini modal?
+    //
+    //  modals need to be available site wide, would be good
+    //  to have Marker's onClick pop up a modal for that art.
+    //
+    //  coords = hard coded coordinates for testing purposes.
+    //        id will correspond to artwork id held in cache.
+    //
+
+    const coords = [{id: 0, lat: 30.295874, lng: -97.715524},
+                    {id: 1, lat: 30.268915, lng: -97.740378}]
 
     return (
       <div>
@@ -55,15 +67,9 @@ export default class LocationsContainer extends React.Component{
               lat={coord.lat}
               lng={coord.lng}
               draggable={true}
+              content={coord}
+              onClick={this.onClick}
               onDragEnd={this.onDragEnd} />
-          )}
-          {coords.map((coord, idx) =>
-            <InfoWindow
-              key={idx}
-              lat={coord.lat}
-              lng={coord.lng}
-              content={'Hello, React :)'}
-              onCloseClick={this.onCloseClick} />
           )}
         </Gmaps>
       </div>
