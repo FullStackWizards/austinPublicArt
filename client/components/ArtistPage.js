@@ -15,7 +15,6 @@ export default class ArtistPage extends React.Component {
   openInfo(art) {
     this.setState({showInfo: true});
     this.setState({currentArt: art})
-    console.log("openInfo has been called",art)
   }
 
   closeInfo() {
@@ -37,10 +36,9 @@ export default class ArtistPage extends React.Component {
         {this.state.showInfo ?
           <Info 
             onClose={this.closeInfo.bind(this)} 
-            loggedIn={this.props.loggedIn} 
             updateCurrent={this.updateCurrent.bind(this)} 
             currentArt={this.state.currentArt} 
-            parseImageUrl={this.parseImageUrl.bind(this)}
+            parseImageUrl={parseImageUrl}
           /> :
           null}
         <br/>
@@ -48,7 +46,7 @@ export default class ArtistPage extends React.Component {
         {arts.map(art => 
           <div key={art._id} className="soloWork">
             <h3 className="soloArtTitle">{art['Art Title']}</h3>
-            <a href="javascript:void(0)" onClick={(e) => this.openInfo(art)} className="artImage">
+            <a href="javascript:void(0)" onClick={(e) => this.openInfo.bind(this)} className="artImage">
               <img className='artImage' src={parseImageUrl(art.Images)[0]} />
             </a>
             <div className="soloArtInfo">

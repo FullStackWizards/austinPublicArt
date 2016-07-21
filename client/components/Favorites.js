@@ -29,7 +29,6 @@ export default class Favorites extends React.Component {
   openInfo(art) {
     this.setState({showInfo: true});
     this.setState({currentArt: art})
-    console.log("openInfo has been called",art)
   }
 
   closeInfo() {
@@ -47,10 +46,9 @@ export default class Favorites extends React.Component {
         {this.state.showInfo ? 
           <Info 
             onClose={this.closeInfo.bind(this)} 
-            loggedIn={this.props.loggedIn} 
             updateCurrent={this.updateCurrent.bind(this)} 
             currentArt={this.state.currentArt} 
-            parseImageUrl={this.parseImageUrl.bind(this)}
+            parseImageUrl={parseImageUrl}
           /> :
           null}
         <br/>
