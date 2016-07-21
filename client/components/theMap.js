@@ -53,14 +53,16 @@ onMapClicked(props){
     {lat: 30.267153,
     lng: -97.743061}
   }>
-  {positions.map(yup=>{
-  	return(<Marker name = 'hey now' onClick={this.onMarkerClick.bind(this)} position = {yup}/>)
+  {positions.map((yup,index)=>{
+  	return(<Marker name = {this.props.artName[index]} onClick={this.onMarkerClick.bind(this)} location = {this.props.artLocation[index]} title = {this.props.artTitle[index]} position = {yup}/>)
   })}
   <InfoWindow
           marker={this.state.activeMarker}
           visible={this.state.showingInfoWindow}>
             <div>
               <h1>{this.state.selectedPlace.name}</h1>
+              <h1>{this.state.selectedPlace.location}</h1>
+              <h1>{this.state.selectedPlace.title}</h1>
             </div>
         </InfoWindow>
  
