@@ -75,5 +75,3 @@ export default class LocationsContainer extends React.Component{
   }
 
 };
-
-// ReactDOM.render(<App />, document.getElementById('gmaps'));
