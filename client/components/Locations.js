@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {Gmaps, Marker, InfoWindow, Circle} from 'react-gmaps';
 import NavBar from './NavBar'
-import Info from './Info'
 
 export default class LocationsContainer extends React.Component{
   constructor(props) {
