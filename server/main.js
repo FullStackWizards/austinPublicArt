@@ -38,6 +38,7 @@ app.listen(port, () => {
 <<<<<<< a6e8ed28e24fb70fb8f0486ae0b888bc9033225f
 =======
 ////////// Passport eh?///////////////
+require('./passport')(passport);
 
 // Redirect the user to the OAuth provider for authentication.  When
 // complete, the provider will redirect the user back to the application at
