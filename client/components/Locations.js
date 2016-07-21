@@ -21,23 +21,31 @@ export default class LocationsContainer extends React.Component{
   }
 
   render() {  
-    console.log(this.props.gallery[0])
 
     //
-    //  content tag in Marker stores entire coord...maybe to
-    //  be used to display a mini modal?
+    //  Map displays list of harcoded coordinates
+    //  and each coordinate matches up by idx with
+    //  what is stored in the temp art cache.
     //
-    //  modals need to be available site wide, would be good
-    //  to have Marker's onClick pop up a modal for that art.
+    //  To Do:
+    //  - add gps coordinates to temp cache
+    //    * by making api calls to gapi when the 
+    //      temp cache is created
+    //  - modify map call below to map over 
+    //    this.props.gallery instead of coords 
     //
-    //  coords = hard coded coordinates for testing purposes.
-    //        id will correspond to artwork id held in cache.
+    // coords for testing:
     //
-
-    const coords = [{
-      lat: 30.295874, 
-      lon: -97.715524
-    }];
+    const coords = [{lat: 30.295874, lon: -97.715524},
+                    {lat: 30.296874, lon: -97.715524},
+                    {lat: 30.294874, lon: -97.715524},
+                    {lat: 30.297874, lon: -97.715524},
+                    {lat: 30.298874, lon: -97.715524},
+                    {lat: 30.285874, lon: -97.715524},
+                    {lat: 30.215874, lon: -97.715524},
+                    {lat: 30.290874, lon: -97.715524},
+                    {lat: 30.291874, lon: -97.715524},
+                    {lat: 30.299874, lon: -97.715524}];
 
     return (
       <div>
@@ -65,12 +73,11 @@ export default class LocationsContainer extends React.Component{
               lat={coord.lat}
               lng={coord.lon}
               draggable={false}
-              onClick={this.props.openInfoModal.bind(null, this.props.gallery[0])}
+              onClick={this.props.openInfoModal.bind(null, this.props.gallery[idx])}
               onDragEnd={this.onDragEnd} />
           )}
         </Gmaps>
       </div>
     );
   }
-
 };
