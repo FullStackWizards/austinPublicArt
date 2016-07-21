@@ -5,7 +5,7 @@ import NavBar from './NavBar'
 import Slider from 'react-slick'
 import * as auth from '../models/auth'
 import * as art from '../models/art'
-import Info from './Info'
+import InfoModal from './InfoModal'
 
 
 const KEYS_TO_FILTERS = ['Artist Full Name', 'Art Title']
@@ -58,8 +58,14 @@ export default class ArtWindow extends React.Component {
           <div className="artGallery">
             <NavBar />
             {this.state.showInfo ?
-              <Info onClose={this.closeInfo.bind(this)} loggedIn={this.props.loggedIn}  updateCurrent={this.updateCurrent.bind(this)} currentArt={this.state.currentArt} parseImageUrl={this.parseImageUrl.bind(this)}/>
-            : null}
+              <InfoModal 
+                onClose={this.closeInfo.bind(this)} 
+                loggedIn={this.props.loggedIn}  
+                updateCurrent={this.updateCurrent.bind(this)} 
+                currentArt={this.state.currentArt} 
+                parseImageUrl={this.parseImageUrl.bind(this)}
+              /> :
+              null}
             {filteredArt.map((art) => {
               return (
                   <div className="artwork" key={art._id}>

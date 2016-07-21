@@ -46,6 +46,6 @@ export default class ArtistPage extends React.Component {
   }
 }
 
-function parseImageUrl (url) {
+function parseImageUrl(url) {
   return url.split(';')
 }
