@@ -2,9 +2,10 @@ import React from 'react'
 import {Link} from 'react-router'
 import ReactSpinner from 'react-spinjs';
 import * as auth from '../models/auth'
-
 import SignUpModal from './SignUpModal';
 import LoginModal from './LoginModal';
+
+
 
 export default class NavBar extends React.Component {
   constructor() {
@@ -15,7 +16,7 @@ export default class NavBar extends React.Component {
       showFBLogin: false,
       showError: false,
       loggedIn: document.cookie,
-      username: null
+      username: null,
     }
   }
 
@@ -28,6 +29,7 @@ export default class NavBar extends React.Component {
       this.setState({loggedIn: false})
     }
   }
+
 
   _fetchUser() {
     auth.fetchUsername()
@@ -70,7 +72,7 @@ export default class NavBar extends React.Component {
   }
 
   drawUsername() {
-    if(this.state.username) return ( <span className="usernameSpan">Welcome {this.state.username}</span> );
+    if(this.state.username) return ( <span className="usernameSpan">Welcome, {this.state.username}</span> );
       else return ( <span className="usernameSpan">Welcome Guest</span> )
   }
 
@@ -96,7 +98,6 @@ export default class NavBar extends React.Component {
               <a href="javascript:void(0)" onClick={this.logout.bind(this)}>Logout</a>}
             </div>
           </li>
-          <li className="w3-hide-small w3-right"><a href="javascript:void(0)" className="w3-padding-large w3-hover-red"><i className="fa fa-search"></i></a></li>
           <li className="w3-hide-small w3-right">{this.drawUsername()}</li>
         </ul>
         {this.state.showSignup ?
