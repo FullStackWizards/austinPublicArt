@@ -20,10 +20,18 @@ browserify(path.join(__dirname, '../client/main.js'), {
 // client asking for art data
 app.get('/art', function(req,res) {
   //retrieve all art from db
-  db.collection('art').find()
+  db.art.find()
   .then((art) => {
     res.send(art)
   })
+})
+app.post('/insertArt',function(req,res){
+  db.collection('art').insert(req.body).then(function(value){
+    db.collection('art').find().then(function(value){
+    res.send(value)
+  })  
+  })
+  
 })
 
 app.post('/signUp', function(req, res) {

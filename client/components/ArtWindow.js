@@ -8,7 +8,7 @@ import * as auth from '../models/auth'
 import * as art from '../models/art'
 
 
-const KEYS_TO_FILTERS = ['Artist Name', 'Art Title']
+const KEYS_TO_FILTERS = ['Artist Full Name', 'Art Title']
 
 export default class ArtGallery extends React.Component {
   constructor(props) {
@@ -18,7 +18,9 @@ export default class ArtGallery extends React.Component {
       showInfo: false,
       searchTerm: ''
     }
+
   }
+
   parseImageUrl(imgUrl) {
     imgUrl = imgUrl.split(';')
     return imgUrl.filter((x) => x !== '')
@@ -39,6 +41,7 @@ export default class ArtGallery extends React.Component {
 
   render() {
     const filteredArt = this.props.gallery.filter(createFilter(this.state.searchTerm, KEYS_TO_FILTERS))
+    console.log('propsss',this.props)
     return (
       <div>
     {/*If the gallery state is not populated, show the loading div. Else diaplay gallery*/}
@@ -113,7 +116,7 @@ class Info extends React.Component {
         <ModalDialog onClose={this.props.onClose} className="info">
 
             <h2>{this.props.currentArt['Art Title']}</h2>
-            <p>By: {this.props.currentArt['Artist Name']}</p>
+            <p>By: {this.props.currentArt['Artist Full Name']}</p>
             <p>Location: {this.props.currentArt['Art Location Name']}</p>
             <p> Likes: {this.props.currentArt.likeCount.length}</p>
             <div className="slideContainer" >

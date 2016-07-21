@@ -1,6 +1,7 @@
 import fetch from 'isomorphic-fetch';
 
 export function getArt (){
+   console.log('hello')
   let obj = {
     method: 'GET'
   };
