@@ -35,6 +35,7 @@ app.listen(port, () => {
   console.log("Server is listening on port " + port) 
 })
 
+<<<<<<< d6506b82a589230f8c3efdb570c12a575049b324
 <<<<<<< a6e8ed28e24fb70fb8f0486ae0b888bc9033225f
 =======
 ////////// Passport eh?///////////////
@@ -78,6 +79,9 @@ app.get('/auth/facebook/callback',
 
 app.get('/auth/facebook/callback',
   passport.authenticate('facebook', { successRedirect: '/',)})
+=======
+
+>>>>>>> major retoolings, basic fbook and local passport created, basic code cleanup, moving onto testing and implementation
 
 
 
