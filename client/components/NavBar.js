@@ -1,9 +1,10 @@
 import React from 'react'
 import {Link} from 'react-router'
-import {ModalContainer, ModalDialog} from 'react-modal-dialog';
 import ReactSpinner from 'react-spinjs';
-
 import * as auth from '../models/auth'
+
+import SignUpModal from './SignUpModal';
+import LoginModal from './LoginModal';
 
 export default class NavBar extends React.Component {
   constructor() {
@@ -17,51 +18,60 @@ export default class NavBar extends React.Component {
       username: null
     }
   }
+
   componentWillMount() {
     if (document.cookie) {
       this.setState({loggedin: true})
-      this.fetchUser();
+      this._fetchUser();
     }
     else {
       this.setState({loggedIn: false})
     }
   }
-  openLogin() {
+
+  _fetchUser() {
+    auth.fetchUsername()
+      .then((res) => {
+        this.setState({ username: res })
+      })
+  }
+
+  _openLogin() {
     this.setState({showLogin: true});
   }
-  closeLogin(bool) {
+
+  _closeLogin(bool) {
     this.setState({loggedIn: bool})
     this.setState({showLogin: false});
   }
+
   openFBLogin(){
     this.setState({showFBLogin: true});
   }
+
   closeFBLogin(bool){
     this.setState({loggedIn: bool})
     this.setState({showFBLogin:false});
   }
-  openSignup() {
+
+  _openSignup() {
     this.setState({showSignup: true});
   }
-  closeSignup(bool) {
+
+  _closeSignup(bool) {
     this.setState({loggedIn: bool})
     this.setState({showSignup: false});
   }
+
   logout(name) {
     document.cookie = 'sessionId' + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
     this.setState({loggedIn: false})
     this.setState({username: null})
   }
+
   drawUsername() {
     if(this.state.username) return ( <span className="usernameSpan">Welcome {this.state.username}</span> );
       else return ( <span className="usernameSpan">Welcome Guest</span> )
-  }
-  fetchUser() {
-    auth.fetchUsername()
-      .then((res) => {
-        console.log("Fetch:", res)
-        this.setState({ username: res })
-      })
   }
 
   //Render the navbar
@@ -89,126 +99,19 @@ export default class NavBar extends React.Component {
           <li className="w3-hide-small w3-right"><a href="javascript:void(0)" className="w3-padding-large w3-hover-red"><i className="fa fa-search"></i></a></li>
           <li className="w3-hide-small w3-right">{this.drawUsername()}</li>
         </ul>
+        <br />
+        <br />
         {this.state.showSignup ?
-          <SignUpModal onClose={this.closeSignup.bind(this)} fetchUser={this.fetchUser.bind(this)}/>
+          <SignUpModal onClose={this._closeSignup.bind(this)} fetchUser={this._fetchUser.bind(this)}/>
         : null}
         {this.state.showLogin ?
-          <LoginModal onClose={this.closeLogin.bind(this)} fetchUser={this.fetchUser.bind(this)}/>
+          <LoginModal onClose={this._closeLogin.bind(this)} fetchUser={this._fetchUser.bind(this)}/>
         : null}
         {this.state.showFBLogin ?
           <FBModal onClose={this.closeLogin.bind(this)} fetchUser={this.fetchUser.bind(this)}/>
         : null}
       </div>
     )
-  }
-}
-
-class LoginModal extends React.Component {
-  constructor() {
-    super()
-
-    this.state = {
-      isLoading: false,
-      username: null,
-      password: null,
-      showError: false
-    }
-
-  }
-  showError() {
-    this.setState({showError: true})
-  }
-  load() {
-    this.setState({isLoading: true});
-    setTimeout(() => {
-      this.setState({isLoading: false});
-    }, 1500);
-  }
-
-  render() {
-    return <ModalContainer onClose={this.props.onClose}>
-      {this.state.isLoading ?
-        <ReactSpinner color="white"/>
-        :
-        <ModalDialog onClose={this.props.onClose} className="example-dialog">
-          <form name="loginForm" onSubmit={(e) => {
-            e.preventDefault();
-            auth.login({username: this.state.username, password: this.state.password})
-             .then((x) => {
-              if(x === 'Success') {
-                this.setState({showError: false})
-                this.props.onClose(true)
-                this.props.fetchUser()
-              } else {
-                this.setState({showError: x.statusText})
-              }
-          })
-            this.load.call(this);
-          }}>
-            <h1>Login</h1>
-            <p>Username:</p>
-            <input type="text" name="username" onChange={(e) => this.setState({username: e.target.value})}/>
-            {this.state.showError ? <p className="errorMessage">{this.state.showError}</p> : ''}
-            <p>Password:</p>
-            <input type="password" name="password" onChange={(e) => this.setState({password: e.target.value})}/>
-            <p><button type="submit">Submit</button></p>
-          </form>
-        </ModalDialog>
-      }
-    </ModalContainer>;
-  }
-}
-
-class SignUpModal extends React.Component {
-  constructor() {
-    super()
-
-    this.state = {
-      isLoading: false,
-      username: null,
-      password: null,
-      showError: false
-    }
-  }
-
-  load() {
-    this.setState({isLoading: true});
-    setTimeout(() => {
-      this.setState({isLoading: false});
-    }, 1500);
-  }
-
-  render() {
-    return <ModalContainer onClose={this.props.onClose}>
-      {this.state.isLoading ?
-        <ReactSpinner color="white"/>
-        :
-        <ModalDialog onClose={this.props.onClose} className="example-dialog">
-          <form name="signUpForm" onSubmit={(e) => {
-            e.preventDefault();
-            auth.signUp({username: this.state.username, password: this.state.password})
-            .then((x) => {
-              if(x === 'Success') {
-                this.setState({showError: false})
-                this.props.onClose(true)
-                this.props.fetchUser()
-              } else {
-                this.setState({showError: x.statusText})
-              }
-          })
-            this.load.call(this);
-          }}>
-            <h1>SignUp</h1>
-            <p>Username:</p>
-            <input type="text" name="username" onChange={(e) => this.setState({username: e.target.value})}/>
-            {this.state.showError ? <p className="errorMessage">{this.state.showError}</p> : ''}
-            <p>Password:</p>
-            <input type="password" name="password" onChange={(e) => this.setState({password: e.target.value})}/>
-            <p><button type="submit">Submit</button></p>
-          </form>
-        </ModalDialog>
-      }
-    </ModalContainer>;
   }
 }
 
