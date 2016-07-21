@@ -2,11 +2,9 @@ import React from 'react'
 import {Link} from 'react-router'
 import ReactSpinner from 'react-spinjs';
 import * as auth from '../models/auth'
-import SearchInput, {createFilter} from 'react-search-input'
 import SignUpModal from './SignUpModal';
 import LoginModal from './LoginModal';
 
-const KEYS_TO_FILTERS = ['Artist Full Name', 'Art Title']
 
 
 export default class NavBar extends React.Component {
@@ -19,7 +17,6 @@ export default class NavBar extends React.Component {
       showError: false,
       loggedIn: document.cookie,
       username: null,
-      searchTerm: '',
     }
   }
 
@@ -33,9 +30,6 @@ export default class NavBar extends React.Component {
     }
   }
 
-  searchUpdated (term) {
-    this.setState({searchTerm: term})
-  }
 
   _fetchUser() {
     auth.fetchUsername()
@@ -84,7 +78,6 @@ export default class NavBar extends React.Component {
 
   //Render the navbar
   render() {
-    //const filteredArt = this.props.gallery.filter(createFilter(this.state.searchTerm, KEYS_TO_FILTERS))
     return(
       <div className="w3-top">
         <ul className="w3-navbar w3-black w3-card-2 w3-left-align">
