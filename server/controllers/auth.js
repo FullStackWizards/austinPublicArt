@@ -12,22 +12,26 @@ module.exports = router;
 //////////////////// LOCAL AUTH //////////////////////////
 ////////////////////////////////////////////////////////////
 
-router.post('/signup', passport.authenticate('local-signup'), 
-  function(req, res) {
-    console.log("auth.js line 19-passport sign up")
-    const username = req.body.username;
-    const password = req.body.password;
-  
-  res.send(JSON.stringify(obj.sessionId));
-})
+router.post('/signup', passport.authenticate('local-signup', {
+  successRedirect: "/",
+  failureRedirect: "/login",
+  failureFlash:false
+}));
 
-router.post('/login', passport.authenticate('local-login'), 
-  function(req, res) {
-    console.log("auth.js line 56-passport log in")
-    const username = req.body.username;
-    const password = req.body.password;
-    let userID;
-})
+
+router.post('/login', passport.authenticate('local-login', { 
+  successRedirect: '/',
+  failureRedirect: '/login' 
+}));
+
+
+  // router.post('/login', passport.authenticate('local-login'),  
+  // function(req, res) {
+  //   console.log("WTFWTFWTFWTFWTF")
+  //   const username = req.body.username;
+  //   const password = req.body.password;
+  
+  // res.send(JSON.stringify(obj.sessionId))});
 
 ////////////////////////////////////////////////////////////
 //////////////////// FACEBOOK AUTH //////////////////////////

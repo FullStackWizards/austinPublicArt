@@ -1,12 +1,12 @@
 let FBOOK_ID = "272107173165519"
 let FBOOK_CALLBACK_URL = "http://localhost:4040/authFbook/facebook/callback"
 let FBOOK_SECRET = 	"75a8527949731f9c4794e8c5a0b9c01b"
-let passport = require('passport');
 let LocalStrategy = require('passport-local').Strategy;
 let FacebookStrategy = require('passport-facebook').Strategy;
 
 let configAuth = require('./authFbook')
 var Auth = require('../models/auth');
+var utils = require('../utils')
 
 
 ////////////////////////////////////////////////////////////
@@ -14,14 +14,14 @@ var Auth = require('../models/auth');
 ////////////////////////////////////////////////////////////
 	module.exports = function (passport) {
 		passport.serializeUser(function(user, done){
-			done(null, user);
+			done(null, user._id);
 		});
 
 		passport.deserializeUser(function(id, done) {
 			User.findById(id, function(err, user) {
 				done(err, user)
 			});
-		});
+		})
 	
 		
 ////////////////////////////////////////////////////////////
@@ -41,35 +41,48 @@ var Auth = require('../models/auth');
 				.then(user =>
 					Auth.createSession(user._id)
 				)
-				.then(session => {
-					res.send(JSON.stringify(session.sessionId))
-				})
+				// .then(session => {
+				// 	res.send(JSON.stringify(session.sessionId))
+				// })
 				.then(function(obj) {
-					return done(null, {userID:obj})
+					console.log("USER USER USER", obj)
+					return done(null, obj)
 				})
 		}));
 
 	passport.use('local-login', new LocalStrategy(
 		function(username, password, done) {
+			console.log("SOMETHING")
 			Auth.getUser(username)
 				.then(user => {
+					console.log("USER", user)
 					if(!user[0]) {
 						res.statusMessage = "Incorrect username or password"
 						res.status(400).end();
 					} else {
+						//compare hash passwor with password
+						// if correct done(null, userObj)
+						// not correct done ({message:"wrong message"}, false)
 						userId = user[0]._id;
 						return utils.comparePassword(user[0].password, password)
 					}
 				})
+				// .catch(function(error){
+				// 	console.log("ERROR", error)
+				// })
 				.then(isValidPassword => {
+					console.log("nhnjjnjjjjhnjhj", isValidPassword)
 					if(!isValidPassword) {
 						res.statusMessage = "Incorrect username or password"
 						res.status(401).end();
 					} else {
+						console.log("---CREATING SESSION ID")
 						return Auth.createSession(userId)
+						console.log("---THIS IS THE SESSION ID", Auth.createSession(userId))
 					}
 				})
 				.then(session => {
+					console.log("SESSION ID", JSON.stringify(session.sessionId))
 					res.send(JSON.stringify(session.sessionId))
 				})
 			}))

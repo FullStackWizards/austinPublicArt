@@ -13,7 +13,7 @@ const port = process.env.PORT || 4040;
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const FacebookStrategy = require('passport-facebook').Strategy;
-
+require('./controllers/passport')(passport);
 app.use(bodyParser.json());
 app.use(passport.initialize());
 app.use(passport.session());
@@ -30,6 +30,8 @@ app.get('/app-bundle.js',
      transform: [ [ require('babelify'), { presets: ["es2015", "react"] } ] ]
    })
 );
+
+
 
 app.listen(port, () => {
   console.log("Server is listening on port " + port) 
