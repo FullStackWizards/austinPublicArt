@@ -16,7 +16,7 @@ export default class ArtWindow extends React.Component {
 
     this.state = {
       showInfo: false,
-      searchTerm: ''
+      searchTerm: '',
     }
   }
 
@@ -41,7 +41,13 @@ export default class ArtWindow extends React.Component {
         :
         <div>
         <br></br>
-        <SearchInput className="search-input" onChange={this.searchUpdated.bind(this)} />
+        <br></br>
+        <br></br>
+        <SearchInput className="search-input" placeholder="Find Art" onChange={this.searchUpdated.bind(this)} />
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
           <div className="artGallery">
             <NavBar />
 

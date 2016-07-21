@@ -41,9 +41,10 @@
 -webkit-column-count: 3;
 }
 .search-input {
-  margin: 0 100px 10px 100px;
+  margin: 0 50px 10px 25px;
   position: relative;
- text-align: right;
+  float: left;
+  text-align: right;
 }
 .artistName{
   text-align: center;

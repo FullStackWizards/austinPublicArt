@@ -2,9 +2,12 @@ import React from 'react'
 import {Link} from 'react-router'
 import ReactSpinner from 'react-spinjs';
 import * as auth from '../models/auth'
-
+import SearchInput, {createFilter} from 'react-search-input'
 import SignUpModal from './SignUpModal';
 import LoginModal from './LoginModal';
+
+const KEYS_TO_FILTERS = ['Artist Full Name', 'Art Title']
+
 
 export default class NavBar extends React.Component {
   constructor() {
@@ -15,7 +18,8 @@ export default class NavBar extends React.Component {
       showFBLogin: false,
       showError: false,
       loggedIn: document.cookie,
-      username: null
+      username: null,
+      searchTerm: '',
     }
   }
 
@@ -27,6 +31,10 @@ export default class NavBar extends React.Component {
     else {
       this.setState({loggedIn: false})
     }
+  }
+
+  searchUpdated (term) {
+    this.setState({searchTerm: term})
   }
 
   _fetchUser() {
@@ -70,12 +78,13 @@ export default class NavBar extends React.Component {
   }
 
   drawUsername() {
-    if(this.state.username) return ( <span className="usernameSpan">Welcome {this.state.username}</span> );
+    if(this.state.username) return ( <span className="usernameSpan">Welcome, {this.state.username}</span> );
       else return ( <span className="usernameSpan">Welcome Guest</span> )
   }
 
   //Render the navbar
   render() {
+    //const filteredArt = this.props.gallery.filter(createFilter(this.state.searchTerm, KEYS_TO_FILTERS))
     return(
       <div className="w3-top">
         <ul className="w3-navbar w3-black w3-card-2 w3-left-align">
@@ -96,7 +105,6 @@ export default class NavBar extends React.Component {
               <a href="javascript:void(0)" onClick={this.logout.bind(this)}>Logout</a>}
             </div>
           </li>
-          <li className="w3-hide-small w3-right"><a href="javascript:void(0)" className="w3-padding-large w3-hover-red"><i className="fa fa-search"></i></a></li>
           <li className="w3-hide-small w3-right">{this.drawUsername()}</li>
         </ul>
         {this.state.showSignup ?
