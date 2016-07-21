@@ -2,15 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {Gmaps, Marker, InfoWindow, Circle} from 'react-gmaps';
 import NavBar from './NavBar'
-
-// const coords = {
-//   lat: 30.268915,
-//   lng: -97.740378
-// };
+import Info from './Info'
 
 export default class LocationsContainer extends React.Component{
   constructor(props) {
     super(props);
+    this.state = {
+      showInfo: false
+    }
   }
 
   onMapCreated(map) {
@@ -66,7 +65,7 @@ export default class LocationsContainer extends React.Component{
               key={idx}
               lat={coord.lat}
               lng={coord.lng}
-              draggable={true}
+              draggable={false}
               content={coord}
               onClick={this.onClick}
               onDragEnd={this.onDragEnd} />
