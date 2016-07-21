@@ -13,6 +13,7 @@ export default class InfoModal extends React.Component {
       userFavs: [],
       userId: null,
       address: '',
+      mapStatus: 'show'
     }
   }
 
@@ -20,8 +21,9 @@ export default class InfoModal extends React.Component {
     if(document.cookie) {
       this.findFavs()
       this.getUserId()
-      this.state.address = this.props.currentArt['Art Location Street Address'].replace(/ /g, '+').replace(/;/g, '+')
     }
+    console.log(this.props.currentArt)
+    //this.state.address = this.props.currentArt['Art Location Street Address'].replace(/ /g, '+').replace(/;/g, '+')
   }
 
   findFavs() {
@@ -89,7 +91,6 @@ export default class InfoModal extends React.Component {
                 }>{this.state.userFavs.includes(this.props.currentArt._id) ? "Unfav!" : "Fav!"}
                 </button>
             <div className="mapContainer">
-
               <iframe
                 width="600"
                 height="450"

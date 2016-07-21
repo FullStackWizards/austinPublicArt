@@ -2,6 +2,7 @@ import React from 'react'
 
 import InfoModal from './InfoModal'
 import NavBar from './NavBar'
+import * as helpers from '../helpers'
 
 export default class ArtistPage extends React.Component {
   render() {
@@ -22,7 +23,7 @@ export default class ArtistPage extends React.Component {
             onClose={this.props.closeInfoModal} 
             updateCurrent={this.props.updateCurrentArt} 
             currentArt={this.props.currentArt} 
-            parseImageUrl={parseImageUrl}
+            parseImageUrl={helpers.parseImageUrl}
           /> :
           null}
 
@@ -34,7 +35,7 @@ export default class ArtistPage extends React.Component {
               onClick={this.props.openInfoModal.bind(null, art)} 
               className="artImage"
             >
-              <img className='artImage' src={parseImageUrl(art.Images)[0]} />
+              <img className='artImage' src={helpers.parseImageUrl(art.Images)[0]} />
             </a>
             <div className="soloArtInfo">
               <p>{art['Art Location Name']}</p>
@@ -44,8 +45,4 @@ export default class ArtistPage extends React.Component {
       </div>
     );
   }
-}
-
-function parseImageUrl(url) {
-  return url.split(';')
 }
