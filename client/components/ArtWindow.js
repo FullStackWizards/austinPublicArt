@@ -8,6 +8,8 @@ import * as auth from '../models/auth'
 import * as art from '../models/art'
 
 
+var trashClass = "displayInline";
+
 const KEYS_TO_FILTERS = ['Artist Full Name', 'Art Title']
 
 export default class ArtGallery extends React.Component {
@@ -131,17 +133,19 @@ class Info extends React.Component {
             {document.cookie ?
               <div className="userFeatures">
 
-                <button className="btn btn-primary btn-sm" onClick={() => auth.likePhoto(this.props.currentArt._id)
-                  .then((x) => {
-                    return art.getLikes(this.props.currentArt._id)
-                  })
-                  .then((likeCount) => {
-                    this.props.updateCurrent(likeCount)
-                  })
-                }>
-                {/*Change button text based upon if the user has already liked an image*/}
-                {this.props.currentArt.likeCount.includes(this.state.userId) ? "Unlike" : "Like"}
-                </button>
+                {(this.props.currentArt.trashCount.includes(this.state.userId)) ? '' :
+                  <button className="btn btn-primary btn-sm" onClick={() => auth.likePhoto(this.props.currentArt._id)
+                    .then((x) => {
+                      return art.getLikes(this.props.currentArt._id)
+                    })
+                    .then((likeCount) => {
+                      this.props.updateCurrent(likeCount)
+                    })
+                  }>
+                  {/*Change button text based upon if the user has already liked an image*/}
+                    {this.props.currentArt.likeCount.includes(this.state.userId) ? "Unlike" : "Like"} 
+                  </button>
+                }
 
                 <button className="btn btn-secondary btn-sm" onClick={() => auth.favoritePhoto(this.props.currentArt._id)
                   .then((x) => {
@@ -150,17 +154,19 @@ class Info extends React.Component {
                 }>{this.state.userFavs.includes(this.props.currentArt._id) ? "Unfav!" : "Fav!"}
                 </button>
 
-                <button className="btn btn-tertiary btn-sm" onClick={() => auth.trashPhoto(this.props.currentArt._id)
-                  .then((x) => {
-                    
-                    return art.getTrash(this.props.currentArt._id)
-                  })
-                  .then((trashCount) => {
-                    this.props.updateCurrentTrash(trashCount)
-                  })
-                }>
-                {this.props.currentArt.trashCount.includes(this.state.userId) ? "Still Trash" : "Trash it!"}
-                </button>
+                {(this.props.currentArt.likeCount.includes(this.state.userId)) ? '' :
+                  <button className="btn btn-tertiary btn-sm" onClick={() => auth.trashPhoto(this.props.currentArt._id)
+                    .then((x) => {
+
+                      return art.getTrash(this.props.currentArt._id)
+                    })
+                    .then((trashCount) => {
+                      this.props.updateCurrentTrash(trashCount)
+                    })
+                  }>
+                    {this.props.currentArt.trashCount.includes(this.state.userId) ? "Still Trash" : "Trash it!"}
+                  </button>
+                }
 
               </div>
               : ''}
