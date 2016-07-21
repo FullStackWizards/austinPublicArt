@@ -74,7 +74,8 @@ export default class NavBar extends React.Component {
             <div className="w3-dropdown-content w3-white w3-card-4">
               {!this.state.loggedIn ? <div><a href="javascript:void(0)" onClick={this.openLogin.bind(this)}>Login</a>
               <a href="javascript:void(0)" onClick={this.openSignup.bind(this)}>Signup</a></div> :
-              <a href="javascript:void(0)" onClick={this.logout.bind(this)}>Logout</a>} 
+              <a href="javascript:void(0)" onClick={this.logout.bind(this)}>Logout</a>}
+              <a href = '/facebookLogin'>Facebook</a> 
             </div>
           </li>
           <li className="w3-hide-small w3-right"><a href="javascript:void(0)" className="w3-padding-large w3-hover-red"><i className="fa fa-search"></i></a></li>
@@ -182,7 +183,7 @@ class SignUpModal extends React.Component {
                 this.props.onClose(true)
                 this.props.fetchUser()
               } else {
-                this.setState({showError: x})
+                this.setState({showError: x.statusText})
               }
           })
             // .catch(err => {

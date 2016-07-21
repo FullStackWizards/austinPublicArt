@@ -29,6 +29,19 @@ app.use(session({ secret: 'keyboard cat', resave: false, saveUninitialized: fals
 app.use(passport.initialize());
 app.use(passport.session());
 
+
+app.get('/facebookLogin',
+  passport.authenticate('facebook'));
+
+
+app.get('/facebookLogin/Callback', 
+  passport.authenticate('facebook', { failureRedirect: '/' }),
+  function(req, res) {
+    console.log("REQQQQQQQ",req.body)
+    console.log("RESSSSSSS",res.body)
+    res.redirect('/');
+  });
+
 // client asking for art data
 app.get('/art', function(req,res) {
   //retrieve all art from db
@@ -42,36 +55,40 @@ app.post('/signUp',passport.authenticate('local-signup'),function(req, res) {
  console.log("IN MAIN NOW")
  var username = req.body.username;  
  var password = req.body.password;
- // console.log("req",req.sessionID)
- // // console.log("res",res.body)
- // db.collection('users').find({username: username})
- // .then((user) => {
- //   if(user[0]){
- //     res.statusMessage = "Username taken."
- //     res.status(400).end();
- //   } else {
- //     return Utils.hashPassword(password)
- //   }
- // })
- // .then(function(hash){
- //   return db.collection('users').insert({username: username, password: hash});
- // })
- // .then(function(obj){
- //   var sessionId = Utils.createSessionId();
- //   return db.collection('sessions').insert({id: obj._id, sessionId: sessionId});
- // })
- // .then(function(obj){
+ console.log("req",req.sessionID)
+ // console.log("res",res.body)
+ db.collection('users').find({username: username})
+ .then((user) => {
+  console.log("USERS MAIN",user)
+  console.log("USERS[0]", user[0])
+   if(user[0]){
+     res.statusMessage = "Username taken."
+     res.status(400).end();
+   } else {
+     return Utils.hashPassword(password)
+   }
+ })
+ .then(function(hash){
+   return db.collection('users').insert({username: username, password: hash});
+ })
+ .then(function(obj){
+   var sessionId = Utils.createSessionId();
+   return db.collection('sessions').insert({id: obj._id, sessionId: sessionId});
+ })
+ .then(function(obj){
   console.log("SIGN UP SESSION",req.sessionID)
-   res.send(JSON.stringify(req.sessionID));
- // })
+   res.send(JSON.stringify(obj.sessionId));
+ })
 })
 
 
 // Logs in current user as long as username is in users collection and provided a valid password
-app.post('/login',  function(req, res) {
+app.post('/login',  passport.authenticate('local-login'),function(req, res) {
  var username = req.body.username;
  var password = req.body.password;
  var userID;
+ console.log("REQID", req.sessionId)
+  console.log("REQID", req.sessionID)
   db.collection('users')
     .find({username: username})
     .then((userObj) => {
