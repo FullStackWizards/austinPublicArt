@@ -99,8 +99,6 @@ export default class NavBar extends React.Component {
           <li className="w3-hide-small w3-right"><a href="javascript:void(0)" className="w3-padding-large w3-hover-red"><i className="fa fa-search"></i></a></li>
           <li className="w3-hide-small w3-right">{this.drawUsername()}</li>
         </ul>
-        <br />
-        <br />
         {this.state.showSignup ?
           <SignUpModal onClose={this._closeSignup.bind(this)} fetchUser={this._fetchUser.bind(this)}/>
         : null}
