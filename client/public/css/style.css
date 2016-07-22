@@ -355,13 +355,18 @@ p {
 /* Artist List */
 /* ========================================= */
 
+#artistLink {
+  opacity: 1;
+}
+
 .artistTitle {
   /*display: block;*/
   margin-top: 100px;
-  margin-left: 120px;
+  margin-left: 0px;
   font-family: 'Open Sans', sans-serif;
   font-size: 20px;
 
+  text-align: center;
 }
 
 /*.artistListContainer {
@@ -393,22 +398,21 @@ p {
 
 .artist-list > li {
   /*text-align: left;*/
-  /*position:relative; */
-  /* Create a positioning context */
+  /*position:relative; */ /* Create a positioning context */
   margin:0 0 6px 6px; /* Give each list item a left margin to make room for the numbers */
   padding:4px 8px; /* Add some spacing around the content */
   list-style:none; /* Disable the normal item numbering */
   background:transparent;
-  background-color: #424242;
-
+  /*background-color: #424242;*/
   -webkit-column-break-inside: avoid;
           page-break-inside: avoid;
                break-inside: avoid;
-
--moz-border-radius: 15px;
--webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  -webkit-border-radius: 15px;
   border-radius: 5px;
   overflow: visible;
+
+  /*opacity: .5;*/
 }
 
 .artist-list a:hover {
@@ -418,12 +422,14 @@ p {
 .artist-list a {
   color: #cd9023;
   font-family: 'Open Sans', sans-serif;
-  font-size: 12px;
+  font-size: 14px;
   letter-spacing: 2px;
-  line-height: 1.5;
+  line-height: 1.9;
 
   display: block;
   text-align: center;
+
+  opacity: 1;
 }
 
 /* Art Gallery */

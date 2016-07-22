@@ -46,7 +46,6 @@ export default class ArtWindow extends React.Component {
           <br></br>
           <br></br>
 
-
           <NavBar
             searchUpdated={this.searchUpdated.bind(this)}
             searchTerm={this.state.searchTerm}

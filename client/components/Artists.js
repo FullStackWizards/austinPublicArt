@@ -12,19 +12,18 @@ export default class Artists extends React.Component {
 		return (
       <div>
         <NavBar />
-    		{
           <h3 className="artistTitle">Artist List</h3>
-        }
           <div className="artistContainer">
         		<ul className="artist-list">
               {artists.map(name =>
                 <li key={name}>
-                  <Link to={`/${name}`}>{name}</Link>
+                  <Link to={`/${name}`}
+                    id="artistLink"
+                  >{name}</Link>
                 </li>
               )}
         		</ul>
           </div>
-
   		</div>
     )
 	}
