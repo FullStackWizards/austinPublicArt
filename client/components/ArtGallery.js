@@ -6,7 +6,6 @@ import * as art from '../models/art'
 export default class App extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
       tempCollection: [],
       artCollection: [],
@@ -24,9 +23,9 @@ export default class App extends React.Component {
     console.log("params",this.props.params)
     this.fetchArt(this.props.params.artistName)
     .then(() => {
-      this.getLikes()
-      this.getTrash()
-      this.getHipster()
+       this.getLikes()
+       this.getTrash()
+       this.getHipster()
     })
   }
 
@@ -38,6 +37,7 @@ export default class App extends React.Component {
   }
 
   fetchArt(artist) {
+    console.log("hhhry")
     return art.getArt()
     .then((artwork) => {
       if(artist) {
@@ -46,6 +46,7 @@ export default class App extends React.Component {
       else {
         this.setState({tempCollection: artwork})
       }   
+      console.log("what!")
     })
   }
 
@@ -81,15 +82,16 @@ export default class App extends React.Component {
       art.getHipster(artWork._id)
       .then((userScore) => {
         hipResults.push(Object.assign(artWork, {userScore: userScore.userScore}))
-        //if(hipResults.length === this.state.tempCollection.length) {
+        if(hipResults.length === this.state.tempCollection.length) {
           this.setState({hipCollection: hipResults})
-        //}
+        }
       })
     })
   }
 
 
   render(){
+
     return (
       <div>
         <br/>

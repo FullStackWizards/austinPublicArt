@@ -50,13 +50,28 @@ constructor(props) {
 
 
   render() {
+    console.log(this.state.lat,this.state.lng,this.state.location.lat,this.state.location.lng)
+     var R = 6371000
+     var lat1 = this.state.lat*Math.PI/180
+     var lng1 = this.state.lng*Math.PI/180
+     var lat2 =this.state.location.lat*Math.PI/180
+     var lng2 = this.state.location.lng*Math.PI/180
+     var deltaLat = lat1-lat2
+     var deltaLng = lng1-lng2
+     var a =  Math.sin(deltaLat/2)*Math.sin(deltaLat/2)+Math.cos(lat1)*Math.cos(lat2)*Math.sin(deltaLng/2)*Math.sin(deltaLng/2);
+     var c = 2*Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+     var d = R*c
+     console.log("D",lat1,lat2,lng1,lng2,deltaLat,deltaLng,a,c,d)
+
+    var lat = this.state.lat
+    console.log("work?",lat*Math.PI/180)
     return (
       <Gmaps
         width={'800px'}
         height={'400px'}
-        lat={(this.state.lat+this.state.location.lat)/2}
-        lng={(this.state.lng+this.state.location.lng)/2}
-        zoom={15}
+        lat={this.state.lat}
+        lng={this.state.lng}
+        zoom={d>10000?10:15} 
         loadingMessage={'Be happy'}
         params={{v: '3.exp', key: 'AIzaSyBBJCIum7iZSy8nRDjJhSjFjRx4nrGZiPU'}}
         onMapCreated={this.onMapCreated}>

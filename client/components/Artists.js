@@ -22,6 +22,7 @@ export default class Artists extends React.Component {
 		})
 	}
 	render() {
+		console.log("hhhh")
 		return (
       <div>
         <NavBar />

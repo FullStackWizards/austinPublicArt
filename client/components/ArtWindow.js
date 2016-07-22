@@ -41,6 +41,7 @@ export default class ArtGallery extends React.Component {
     this.setState({currentArt: art})
   }
   closeInfo() {
+    console.log("what")
     this.setState({showInfo: false});
   }
   searchUpdated (term) {
@@ -53,12 +54,15 @@ export default class ArtGallery extends React.Component {
 
   updateCurrent(likeCount) {
     this.setState({currentArt: Object.assign(this.state.currentArt, {likeCount: likeCount.likeCount})})
+    console.log("here")
   }
   updateCurrentTrash(trashCount) {
     this.setState({currentArt: Object.assign(this.state.currentArt, {trashCount: trashCount.trashCount})})
+    console.log("there")
   }
   updateUserScore(userScore) {
     this.setState({currentArt: Object.assign(this.state.currentArt, {userScore: userScore.userScore})})
+    console.log("where")
   }
 
 
@@ -73,9 +77,8 @@ export default class ArtGallery extends React.Component {
 
   render() {
 
-
     const filteredArt = this.props.gallery.filter(createFilter(this.state.searchTerm[0], KEYS_TO_FILTERS))
-    {console.log('DA FUCK IS THIS', this.state.searchTerm)}
+    {console.log('DA FUCK IS THIS', this.props)}
 
 
     return (
@@ -110,7 +113,7 @@ export default class ArtGallery extends React.Component {
         </div>}
 
 
-        {<NavBar gallery={this.props.gallery} searchTerm={ this.state.searchTerm }  addToSearchTerm={ this. addToSearchTerm } />}
+        {<NavBar gallery={this.props.gallery} searchTerm={ this.state.searchTerm }  addToSearchTerm={ this.addToSearchTerm } />}
       
 
       </div>
@@ -119,6 +122,7 @@ export default class ArtGallery extends React.Component {
 }
 //Create the info modal  
 class Info extends React.Component {
+
   constructor() {
     super()
     this.state = {
@@ -171,7 +175,6 @@ class Info extends React.Component {
   }
   //The info modal that pops up with the props currentArt set as the object of the work of art you clicked on
   render() {
-
     let images = this.props.parseImageUrl(this.props.currentArt.Images);
     let settings = {
       dots: true,
