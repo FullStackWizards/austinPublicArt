@@ -50,44 +50,20 @@ var utils = require('../utils')
 				})
 		}));
 
-	passport.use('local-login', new LocalStrategy(
-
-		function(username, password, done) {
-			console.log("SOMETHING")
-			Auth.getUser(username)
-				.then(user => {
-					console.log("USER", user)
-					if(!user[0]) {
-						res.statusMessage = "Incorrect username or password"
-						res.status(400).end();
-					} else {
-						//compare hash passwor with password
-						// if correct done(null, userObj)
-						// not correct done ({message:"wrong message"}, false)
-						userId = user[0]._id;
-						return utils.comparePassword(user[0].password, password)
-					}
-				})
-				// .catch(function(error){
-				// 	console.log("ERROR", error)
-				// })
-				.then(isValidPassword => {
-					console.log("nhnjjnjjjjhnjhj", isValidPassword)
-					if(!isValidPassword) {
-						res.statusMessage = "Incorrect username or password"
-						res.status(401).end();
-					} else {
-						console.log("---CREATING SESSION ID")
-						return Auth.createSession(userId)
-						console.log("---THIS IS THE SESSION ID", Auth.createSession(userId))
-					}
-				})
-				.then(session => {
-					console.log("SESSION ID", JSON.stringify(session.sessionId))
-					res.send(session.sessionId)
-				})
-			}))
-				// .then(function())
+	passport.use(new LocalStrategy(
+	  function(username, password, done) {
+	    User.findOne({ username: username }, function (err, user) {
+	      if (err) { return done(err); }
+	      if (!user) {
+	        return done(null, false, { message: 'Incorrect username.' });
+	      }
+	      if (!user.validPassword(password)) {
+	        return done(null, false, { message: 'Incorrect password.' });
+	      }
+	      return done(null, user);
+	    });
+	  }
+	));
 
 
 ////////////////////////////////////////////////////////////
