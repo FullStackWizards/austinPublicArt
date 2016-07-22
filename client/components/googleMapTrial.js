@@ -71,7 +71,7 @@ constructor(props) {
         height={'400px'}
         lat={this.state.lat}
         lng={this.state.lng}
-        zoom={d>10000?10:15} 
+        zoom={d>10000?11:(d>6000?12:(d<2500?16:14))} 
         loadingMessage={'Be happy'}
         params={{v: '3.exp', key: 'AIzaSyBBJCIum7iZSy8nRDjJhSjFjRx4nrGZiPU'}}
         onMapCreated={this.onMapCreated}>
