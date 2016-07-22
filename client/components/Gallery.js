@@ -43,23 +43,15 @@ export default class ArtWindow extends React.Component {
         <br></br>
         <br></br>
         <br></br>
-        <SearchInput className="search-input" placeholder="Find Art" onChange={this.searchUpdated.bind(this)} />
         <br></br>
         <br></br>
         <br></br>
         <br></br>
 
-          <NavBar />
-          <div className="artGallery">
-            {/* Art info modal */}
-            {this.props.showInfoModal ?
-              <InfoModal 
-                onClose={this.props.closeInfoModal} 
-                updateCurrent={this.props.updateCurrentArt} 
-                currentArt={this.props.currentArt} 
-                parseImageUrl={parseImageUrl}
-              /> :
-              null}
+          <NavBar 
+            searchUpdated={this.searchUpdated.bind(this)} 
+            searchTerm={this.state.searchTerm}
+          />
 
           {/* Art info modal */}
           {this.props.showInfoModal ?
@@ -73,7 +65,7 @@ export default class ArtWindow extends React.Component {
 
           <ul className="rig">
             {filteredArt.map(art =>
-              <li className="artwork" key={art._id}>
+              <li className="artwork animated flipInY" key={art._id}>
                 <a 
                   href="javascript:void(0)" 
                   onClick={this.props.openInfoModal.bind(null, art)} 

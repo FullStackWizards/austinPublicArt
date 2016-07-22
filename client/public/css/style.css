@@ -25,8 +25,8 @@
 .slideContainer {
   margin: 0 auto;
   padding: 40px;
-  width: 800px;
-  height: 1000px
+  width: 100vw;
+  height: 100vh;
   color: #333;
   background: black;
 }
@@ -38,7 +38,6 @@
 .loadingDiv p {
   padding-top: 50px;
   text-align: -webkit-center;
-  height:100vh;
 }
 
 .closeButton--jss-0-1 {
@@ -61,10 +60,12 @@
 /*background-image: url('../images/grey.jpg')*/
 }
 .search-input {
-  margin: 0 50px 10px 25px;
+  color: black;
+  margin: 10px;
   position: relative;
   float: left;
   text-align: right;
+  z-index: 1;
 }
 .artistName{
   text-align: center;
@@ -382,7 +383,6 @@ ul.rig li {
 	font-size: 16px;
 	font-size: 1rem;
 	vertical-align: top;
-	box-shadow: 0 0 5px #ddd;
 	box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
