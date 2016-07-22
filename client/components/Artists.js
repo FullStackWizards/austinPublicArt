@@ -17,9 +17,7 @@ export default class Artists extends React.Component {
         		<ul className="artist-list">
               {artists.map(name =>
                 <li key={name}>
-                  <Link to={`/${name}`}
-                    id="artistLink"
-                  >{name}</Link>
+                  <Link to={`/${name}`}>{name}</Link>
                 </li>
               )}
         		</ul>
