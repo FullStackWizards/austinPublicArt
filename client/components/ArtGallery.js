@@ -9,7 +9,8 @@ export default class App extends React.Component {
 
     this.state = {
       tempCollection: [],
-      artCollection: []
+      artCollection: [],
+      hipCollection: []
     }
   }
 
@@ -24,6 +25,7 @@ export default class App extends React.Component {
     .then(() => {
       this.getLikes()
       this.getTrash()
+      this.getHipster()
     })
   }
 
@@ -70,6 +72,19 @@ export default class App extends React.Component {
         }
       })
     }) 
+  }
+
+  getHipster(){
+    var hipResults = [];
+    this.state.tempCollection.forEach((artWork) => {
+      art.getHipster(artWork._id)
+      .then((userScore) => {
+        hipResults.push(Object.assign(artWork, {userScore: userScore.userScore}))
+        //if(hipResults.length === this.state.tempCollection.length) {
+          this.setState({hipCollection: hipResults})
+        //}
+      })
+    })
   }
 
 

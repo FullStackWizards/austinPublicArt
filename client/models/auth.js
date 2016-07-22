@@ -68,6 +68,23 @@ export function trashPhoto(artId) {
     })
 }
 
+export function hipsterScore(artId) {
+  let obj = {
+    method: "POST",
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({cookie: document.cookie})
+  }
+  return fetch(`/hipster/${artId}`, obj)
+    .then(function(data){
+      return data.json()
+    })
+    .catch(function(error){
+      console.log('auth error', error)
+    })
+}
+
 export function favoritePhoto(artId) {
   let obj = {
     method: "POST",

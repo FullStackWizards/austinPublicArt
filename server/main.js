@@ -260,6 +260,39 @@ app.post('/trash/:id', function(req, res){
   }
 })
 
+app.post('/hipster/:id', function(req, res){
+  var artId = req.params.id;
+  var sessionId = req.body.cookie.substring(10);
+  var userId;
+
+  if(!sessionId){
+    res.sendStatus(401)
+  } else {
+    db.collection('sessions').find({ sessionId: sessionId })
+    .then((users) => {
+      // Get user id from session
+      userId = users[0].id;
+      return db.collection('users').find({ _id: userId })
+    })
+    .then((users) => {
+      // Check if user exists
+      if(users[0]){
+        return db.collection('hipster').find({ userId: userId, artId: artId })
+      } else {
+        // User doesn't exist, send back -bad request-
+        res.sendStatus(400)
+      }
+    })
+    .then((userScore) => {
+        return db.collection('hipster').insert({ userId: userId, artId: artId, userScore:userScore })
+    })
+    .then((result) => {
+      res.send({ "Status": "Success" })
+    })
+    .catch((error) => {console.log('main error', error)})
+  }
+})
+
 app.get('/trash/:id', function(req, res){
   var artId = req.params.id;
 
@@ -269,6 +302,19 @@ app.get('/trash/:id', function(req, res){
     db.collection("trash").find({ artId: artId })
     .then((trash) => {
       res.send({ trashCount: trash.map((x) =>  x.userId) })
+    })
+  }
+})
+
+app.get('/hipster/:id', function(req, res){
+  var artId = req.params.id;
+
+  if(!artId){
+    res.status(400).send({"Error": "No art id... Come on now"})
+  } else {
+    db.collection("hipster").find({ artId: artId })
+    .then((userScore) => {
+      res.send({ userScore: userScore.map((x) =>  x.userId) })
     })
   }
 })

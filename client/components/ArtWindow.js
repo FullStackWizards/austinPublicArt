@@ -42,6 +42,10 @@ export default class ArtGallery extends React.Component {
   updateCurrentTrash(trashCount) {
     this.setState({currentArt: Object.assign(this.state.currentArt, {trashCount: trashCount.trashCount})})
   }
+  updateUserScore(userScore) {
+    this.setState({currentArt: Object.assign(this.state.currentArt, {userScore: userScore.userScore})})
+  }
+
 
   render() {
     const filteredArt = this.props.gallery.filter(createFilter(this.state.searchTerm, KEYS_TO_FILTERS))
@@ -60,7 +64,10 @@ export default class ArtGallery extends React.Component {
           <div className="artGallery">
             <NavBar />
             {this.state.showInfo ?
-              <Info onClose={this.closeInfo.bind(this)} loggedIn={this.props.loggedIn} updateCurrentTrash={this.updateCurrentTrash.bind(this)} updateCurrent={this.updateCurrent.bind(this)} parseImageUrl={this.parseImageUrl.bind(this)} currentArt={this.state.currentArt}/>
+              <Info onClose={this.closeInfo.bind(this)} loggedIn={this.props.loggedIn} updateUserScore={this.updateUserScore.bind(this)} 
+                    updateCurrentTrash={this.updateCurrentTrash.bind(this)} updateCurrent={this.updateCurrent.bind(this)} 
+                    parseImageUrl={this.parseImageUrl.bind(this)} currentArt={this.state.currentArt}
+              />
             : null}
             {filteredArt.map((art) => {
               return (
@@ -81,7 +88,8 @@ class Info extends React.Component {
     super()
     this.state = {
       userFavs: [],
-      userId: null
+      userId: null,
+      // numRed:this.props..userScore
     }
   }
   componentWillMount() {
@@ -101,6 +109,30 @@ class Info extends React.Component {
     .then((res) => {
       this.setState({userId: res})
     })
+  }
+
+  buttonClick (event){
+    var userScore = event.target.value;
+    this.setState({numRed:userScore})
+    console.log('buttonClick', this.props.currentArt.userScore) 
+
+    // () => auth.hipsterScore(this.props.currentArt._id)
+    //   .then((x) => {
+    //     return art.getHipster(this.props.currentArt._id)
+    //   })
+    //   .then((userScore) => {
+    //     this.props.updateUserScore(userScore)
+    //   })  
+  }
+  makeRed(userScore){
+    for(var i=1;i<=userScore;i++){
+      var redButton = 'button'+i
+      this.setState({[redButton]:'btn btn-danger'})
+    }
+    for(var j = Number(userScore)+1 ;j<=5; j++){
+      var redButton = 'button'+j
+      this.setState({[redButton]:'btn'})
+    }
   }
   //The info modal that pops up with the props currentArt set as the object of the work of art you clicked on
   render() {
@@ -122,7 +154,8 @@ class Info extends React.Component {
             <p>By: {this.props.currentArt['Artist Full Name']}</p>
             <p>Location: {this.props.currentArt['Art Location Name']}</p>
             <p> Likes: {this.props.currentArt.likeCount.length}</p>
-            <p> Trash: {this.props.currentArt.trashCount.length}</p>
+            <p> Not Art: {this.props.currentArt.trashCount.length}</p>
+            <p> Hipster Scale: {this.props.currentArt.userScore.length}</p>
 
             <div className="slideContainer" >
               <Slider {...settings}>
@@ -155,9 +188,9 @@ class Info extends React.Component {
                 </button>
 
                 {(this.props.currentArt.likeCount.includes(this.state.userId)) ? '' :
-                  <button className="btn btn-tertiary btn-sm" onClick={() => auth.trashPhoto(this.props.currentArt._id)
+                  <button className="btn btn-tertiary btn-sm" 
+                  onClick={() => auth.trashPhoto(this.props.currentArt._id)
                     .then((x) => {
-
                       return art.getTrash(this.props.currentArt._id)
                     })
                     .then((trashCount) => {
@@ -167,6 +200,24 @@ class Info extends React.Component {
                     {this.props.currentArt.trashCount.includes(this.state.userId) ? "Still Trash" : "Trash it!"}
                   </button>
                 }
+                <div>Peace be the Journey:</div>
+
+                <button className={this.state.numRed > 0 ?'btn btn-danger':'btn'} 
+                onClick={this.buttonClick.bind(this)} value={1} type='button'>🚲</button>
+
+                <button className={this.state.numRed > 1 ?'btn btn-danger':'btn'} 
+                onClick={this.buttonClick.bind(this)} value={2} type='button'>🚲</button>
+
+                <button className={this.state.numRed > 2 ?'btn btn-danger':'btn'} 
+                onClick={this.buttonClick.bind(this)} value={3} type='button'>🚲</button>
+
+                <button className={this.state.numRed > 3 ?'btn btn-danger':'btn'} 
+                onClick={this.buttonClick.bind(this)} value={4} type='button'>🚲</button>
+
+                <button className={this.state.numRed > 4 ?'btn btn-danger':'btn'} 
+                onClick={this.buttonClick.bind(this)} value={5} type='button'>🚲</button>
+
+
 
               </div>
               : ''}

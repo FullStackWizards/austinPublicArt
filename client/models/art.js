@@ -29,3 +29,16 @@ export function getTrash(artId) {
     return artwork.json()
   })
 }
+
+export function getHipster(artId){
+  let obj = {
+    method: 'GET'
+  };
+  return fetch(`/hipster/${artId}`, obj)
+  .then((artwork) => {
+    return artwork.json()
+  })
+  .catch((error) => {
+    console.log('art error', error)
+  })
+}
