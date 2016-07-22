@@ -10,7 +10,6 @@ export function signUp(userData) {
     body: JSON.stringify(userData)
   }
   return fetch(`api/auth/signUp`, obj)
-  console.log("SIGNUP Objobjobjobjobj", obj)
     .then(function(data){
       if(data.status < 400) {
         return data.json().then((data) => {
@@ -23,7 +22,6 @@ export function signUp(userData) {
 
 
 export function login(userData) {
-  console.log("USEERDATA models/auth", userData)
 	let obj = {
     method: "POST",
     headers: {
@@ -33,7 +31,6 @@ export function login(userData) {
   }
   return fetch(`api/auth/login`, obj)
     .then(function(data){
-       console.log("LOGIN Objobjobjobjobj", obj)
       if(data.status < 400) {
         return data.json().then((data) => {
           document.cookie = "sessionId=" + data + ";path=/"
