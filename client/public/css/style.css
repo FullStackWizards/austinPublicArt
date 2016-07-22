@@ -25,8 +25,7 @@
 .slideContainer {
   margin: 0 auto;
   padding: 40px;
-  width: 100vw;
-  height: 100vh;
+  width: 800px;
   color: #333;
   background: black;
 }
@@ -35,7 +34,16 @@
   padding: 25px;
   margin: auto;
 }
-.loadingDiv p {
+
+.loadingDiv .loading-img {
+  display: block;
+}
+
+.loadingDiv .spinner {
+  display: block;
+}
+.loadingDiv h4 {
+  display: block;
   padding-top: 50px;
   text-align: -webkit-center;
 }
@@ -231,6 +239,10 @@ p {
   font-size: 20px;
 }
 
+.w3-navbar a {
+	color: #3299BB;
+}
+
 /* Home Page */
 /* ========================================= */
 
@@ -241,7 +253,7 @@ p {
 }
 
 .button {
-	color: #cd9023;
+	color: #3299BB;
 	display: inline-block;
   font-family: 'bushcraft', sans-serif;
 	font-size: 16px;
