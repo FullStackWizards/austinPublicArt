@@ -7,13 +7,12 @@ import Filter from './Filter'
 import Slider from 'react-slick'
 import * as auth from '../models/auth'
 import * as art from '../models/art'
+import AMap from './googleMapTrial'
 
 
-<<<<<<< c370a02d5173c88b14ac1027ea65d69d0fd30c6c
+
 const KEYS_TO_FILTERS = ['Artist Full Name', 'Art Title', 'Art Location Zip', 'Art Location Name']
-=======
-const KEYS_TO_FILTERS = ['Artist Full Name', 'Art Title']
->>>>>>> Have a working map and now adding extra info to it
+
 
 export default class ArtGallery extends React.Component {
   constructor(props) {
@@ -144,19 +143,20 @@ class Info extends React.Component {
       <ModalContainer onClose={this.props.onClose}>
         <ModalDialog onClose={this.props.onClose} className="info">
 
-<<<<<<< c370a02d5173c88b14ac1027ea65d69d0fd30c6c
+
             <div className='tester'><h2>{this.props.currentArt['Art Title']}</h2>
-=======
-            <h2>{this.props.currentArt['Art Title']}</h2>
->>>>>>> Have a working map and now adding extra info to it
+
             <p>By: {this.props.currentArt['Artist Full Name']}</p>
             <p>Location: {this.props.currentArt['Art Location Name']}</p>
+
             <p> Likes: {this.props.currentArt.likeCount.length}</p></div>
+
             <div className="slideContainer" >
               <Slider {...settings}>
                 {images.map((x) => <div key={images.indexOf(x)}><img className="slideshowPicture" src={x} /></div>)}
               </Slider>
             </div>
+            <AMap location = {this.props.currentArt['Location'].split('(')[1].split(')')[0].split(',')}/>
           {/* Check if logged in (document.cookie?), if true display Like and Favorite button */}
             {document.cookie ?
               <div className="userFeatures">
