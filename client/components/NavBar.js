@@ -91,6 +91,7 @@ export default class NavBar extends React.Component {
               <a href="javascript:void(0)" onClick={this.openSignup.bind(this)}>Signup</a></div> :
               <a href="javascript:void(0)" onClick={this.logout.bind(this)}>Logout</a>}
               <a href = '/facebookLogin'>Facebook</a> 
+              <a href = '/instagramLogin'> Instagram</a>
             </div>
           </li>
           {this.state.loggedIn ? <li className="w3-hide-small w3-right">{this.drawUsername()}</li> : null}
