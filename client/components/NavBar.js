@@ -88,7 +88,8 @@ export default class NavBar extends React.Component {
             <div className="w3-dropdown-content w3-white w3-card-4" w3-text-black>
               {!this.state.loggedIn ? <div><a href="javascript:void(0)" onClick={this.openLogin.bind(this)}>Login</a>
               <a href="javascript:void(0)" onClick={this.openSignup.bind(this)}>Signup</a></div> :
-              <a href="javascript:void(0)" onClick={this.logout.bind(this)}>Logout</a>} 
+              <a href="javascript:void(0)" onClick={this.logout.bind(this)}>Logout</a>}
+              <a href = '/facebookLogin'>Facebook</a> 
             </div>
           </li>
           {this.state.loggedIn ? <li className="w3-hide-small w3-right">{this.drawUsername()}</li> : null}
@@ -196,6 +197,7 @@ class SignUpModal extends React.Component {
             e.preventDefault(); 
             auth.signUp({username: this.state.username, password: this.state.password})
             .then((x) => {
+              console.log("xxxxxxxx", x)
               if(x === 'Success') {
                 this.setState({showError: false})
                 this.props.onClose(true)
@@ -204,6 +206,10 @@ class SignUpModal extends React.Component {
                 this.setState({showError: x.statusText})
               }
           })
+            // .catch(err => {
+            //   console.log("ERRRRRR", err)
+            //   this.setState({showError: err})
+            // })
             this.load.call(this); 
           }}>
             <h1>SignUp</h1>
