@@ -13,7 +13,7 @@ export default class Artists extends React.Component {
       <div>
         <NavBar />
     		<h3>Artist List</h3>
-    		<ul>
+    		<ul className="artist-list">
           {artists.map(name => 
             <li key={name}>
               <Link to={`/${name}`}>{name}</Link>
