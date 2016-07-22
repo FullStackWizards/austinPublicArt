@@ -73,12 +73,6 @@
   height: 360px;
   width: 360px;
 }
-.artwork{
-  display: block;
-  margin: 0 auto;
-  height: 360px;
-  width: 360px;
-}
 .search-input {
   color: black;
   margin: 10px;
@@ -378,41 +372,12 @@ p {
   -webkit-column-count: 3;
 }
 
-.artistTitle {
-  /*display: block;*/
-  margin-top: 100px;
-  margin-left: 120px;
-  font-family: 'Open Sans', sans-serif;
-  font-size: 20px;
-
-}
-
-/*.artistListContainer {
-  display: inline-block;
-  padding: 30px;
-  margin-top: 30px;
-}
-*/
-.artistContainer {
-    /*margin: 0px;*/
-  /*display: block;*/
-  margin-right: 30px;
-  padding: 30px;
-  -moz-column-count: 3;
-  -webkit-column-count: 3;
-
-  -webkit-margin-before: 0;
-  -webkit-margin-after: 0;
-}
-
 .artist-list {
   display: block;
   margin: 0 auto;
   /*aligns first column height with other columns*/
   margin-top: 5px;
   width: 80%;
-  /*padding: 10px;*/
-
 }
 
 .artist-list > li {
@@ -422,7 +387,6 @@ p {
   padding:4px 8px; /* Add some spacing around the content */
   list-style:none; /* Disable the normal item numbering */
   background:transparent;
-<<<<<<< HEAD
   -webkit-column-break-inside: avoid;
           page-break-inside: avoid;
                break-inside: avoid;
