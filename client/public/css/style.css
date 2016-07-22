@@ -162,7 +162,7 @@ p {
 /* home section styles
 /* ========================================== */
 #home {
-  background: url('../images/austin-texas-wallpaper-1.jpg') 50% 0 repeat-y fixed;
+  background: url('../images/lights-bg.jpg') 0 repeat-y fixed;
   -webkit-background-size: cover;
   background-size: cover;
   background-position: center center;
@@ -212,4 +212,118 @@ p {
   margin: 30px;
   position: relative;
   top: 11.5px;
+}
+
+/* Home Page */
+/* ========================================= */
+
+@font-face {
+  font-family: 'bushcraft';
+  src: url('../fonts/bushcraft.otf')
+       format('opentype');
+}
+
+.title {
+  font-family: 'bushcraft', sans-serif;
+  font-size: 80px;
+}
+
+.button {
+	color: #cd9023;
+	display: inline-block;
+  font-family: 'bushcraft', sans-serif;
+	font-size: 12px;
+	letter-spacing: 2px;
+	line-height: 1.5;
+  margin: 20px;
+	padding: 10px 20px;
+	position: relative;
+	text-transform: uppercase;
+}
+
+.button:hover {
+	color: white;
+  text-decoration: none;
+}
+
+.button .line {
+	background-color: #d4d3d3;
+	position: absolute;
+}
+
+.button .left,
+.button .right {
+	height: 100%;
+	width: 1px;
+}
+
+.button .top,
+.button .bottom {
+	height: 1px;
+	width: 100%;
+}
+
+.button .left,
+.button .top {
+	left: 0;
+	top: 0;
+}
+
+.button .right {
+	right: 0;
+	top: 0;
+}
+
+.button .bottom {
+	left: 0;
+	bottom: 0;
+}
+
+.button .line:before {
+	background-color: #5a5a5a;
+	content: "";
+	position: absolute;
+	-webkit-transition: all .4s;
+	-moz-transition:	all .4s;
+	transition:			all .4s;
+}
+
+.button .left:before,
+.button .right:before {
+	height: 0;
+	left: 0;
+	width: 1px;
+}
+
+.button .top:before,
+.button .bottom:before {
+	height: 1px;
+	top: 0;
+	width: 0;
+}
+
+.button .top:before {
+	left: 0;
+}
+
+.button .right:before {
+	top: 0;
+}
+
+.button .bottom:before {
+	right: 0;
+}
+
+.button .left:before {
+	bottom: 0;
+}
+
+.button:hover .left:before,
+.button:hover .right:before {
+	height: 100%;
+}
+
+.button:hover .top:before,
+.button:hover .bottom:before {
+	width: 100%;
 }
