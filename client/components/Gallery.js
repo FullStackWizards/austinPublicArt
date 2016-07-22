@@ -32,7 +32,7 @@ export default class ArtWindow extends React.Component {
       backgroundImage: '../images/grass_texture',
     };
     return (
-      <div className="wallpaper">
+      <div>
     {/*If the gallery state is not populated, show the loading div. Else diaplay gallery*/}
       {!this.props.gallery[0] ?
         <div className="loadingDiv">

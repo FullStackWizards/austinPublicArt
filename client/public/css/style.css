@@ -1,8 +1,10 @@
+/*
 .wallpaper {
   background-image: url('../images/grass_texture.jpg');
   background-attachment: fixed;
   background-size: contain;
 }
+*/
 .slideshowPicture {
   height:400px;
   width:600px;
@@ -95,7 +97,7 @@ iframe{
   box-shadow: 3px 3px 10px
 }
 body {
-		background: #ffffff;
+		background: #E9E9E9;
     font-family: 'Open Sans', sans-serif;
     font-weight: 400;
     position: relative;
@@ -326,4 +328,34 @@ p {
 .button:hover .top:before,
 .button:hover .bottom:before {
 	width: 100%;
+}
+
+/* Artist List */
+/* ========================================= */
+
+.artist-list {
+  margin-top: 5vh;
+  width: 80%;
+}
+
+.artist-list > li {
+  text-align: left;
+  position:relative; /* Create a positioning context */
+  margin:0 0 6px 6px; /* Give each list item a left margin to make room for the numbers */
+  padding:4px 8px; /* Add some spacing around the content */
+  list-style:none; /* Disable the normal item numbering */
+  background:transparent;
+  background-color: #424242;
+}
+
+.artist-list a:hover {
+  text-decoration: none;
+}
+
+.artist-list a {
+	color: #cd9023;
+  font-family: 'Open Sans', sans-serif;
+	font-size: 12px;
+	letter-spacing: 2px;
+	line-height: 1.5;
 }
