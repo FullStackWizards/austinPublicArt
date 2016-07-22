@@ -370,7 +370,8 @@ p {
 
 .artist-list > li {
   /*text-align: left;*/
-  position:relative; /* Create a positioning context */
+  /*position:relative; */
+  /* Create a positioning context */
   margin:0 0 6px 6px; /* Give each list item a left margin to make room for the numbers */
   padding:4px 8px; /* Add some spacing around the content */
   list-style:none; /* Disable the normal item numbering */
@@ -380,6 +381,11 @@ p {
   -webkit-column-break-inside: avoid;
           page-break-inside: avoid;
                break-inside: avoid;
+
+-moz-border-radius: 15px;
+-webkit-border-radius: 15px;
+  border-radius: 5px;
+  overflow: visible;
 }
 
 .artist-list a:hover {
@@ -387,9 +393,12 @@ p {
 }
 
 .artist-list a {
-	color: #cd9023;
+  color: #cd9023;
   font-family: 'Open Sans', sans-serif;
-	font-size: 12px;
-	letter-spacing: 2px;
-	line-height: 1.5;
+  font-size: 12px;
+  letter-spacing: 2px;
+  line-height: 1.5;
+
+  display: block;
+  text-align: center;
 }
