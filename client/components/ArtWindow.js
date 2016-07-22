@@ -6,6 +6,8 @@ import NavBar from './NavBar'
 import Slider from 'react-slick'
 import * as auth from '../models/auth'
 import * as art from '../models/art'
+import AMap from './googleMapTrial'
+
 
 
 var trashClass = "displayInline";
@@ -20,7 +22,9 @@ export default class ArtGallery extends React.Component {
       showInfo: false,
       searchTerm: ''
     }
+
   }
+
   parseImageUrl(imgUrl) {
     imgUrl = imgUrl.split(';')
     return imgUrl.filter((x) => x !== '')
@@ -49,6 +53,7 @@ export default class ArtGallery extends React.Component {
 
   render() {
     const filteredArt = this.props.gallery.filter(createFilter(this.state.searchTerm, KEYS_TO_FILTERS))
+    console.log('propsss',this.props)
     return (
       <div>
     {/*If the gallery state is not populated, show the loading div. Else diaplay gallery*/}
@@ -154,14 +159,17 @@ class Info extends React.Component {
             <p>By: {this.props.currentArt['Artist Full Name']}</p>
             <p>Location: {this.props.currentArt['Art Location Name']}</p>
             <p> Likes: {this.props.currentArt.likeCount.length}</p>
+
             <p> Not Art: {this.props.currentArt.trashCount.length}</p>
             <p> Hipster Scale: {this.props.currentArt.userScore.length}</p>
+
 
             <div className="slideContainer" >
               <Slider {...settings}>
                 {images.map((x) => <div key={images.indexOf(x)}><img className="slideshowPicture" src={x} /></div>)}
               </Slider>
             </div>
+            <AMap location = {this.props.currentArt['Location'].split('(')[1].split(')')[0].split(',')}/>
           {/* Check if logged in (document.cookie?), if true display Like and Favorite button */}
             {document.cookie ?
               <div className="userFeatures">

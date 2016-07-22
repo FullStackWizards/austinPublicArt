@@ -25,6 +25,14 @@ app.get('/art', function(req,res) {
     res.send(art)
   })
 })
+app.post('/insertArt',function(req,res){
+  db.collection('art').insert(req.body).then(function(value){
+    db.collection('art').find().then(function(value){
+    res.send(value)
+  })  
+  })
+  
+})
 
 app.post('/signUp', function(req, res) {
  var username = req.body.username;
