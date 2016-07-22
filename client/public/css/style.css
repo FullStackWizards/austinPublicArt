@@ -48,6 +48,12 @@
 -moz-column-count: 3;
 -webkit-column-count: 3;
 }
+.artwork{
+  display: block;
+  margin: 0 auto;
+  height: 360px;
+  width: 360px;
+}
 .search-input {
   margin: 0 50px 10px 25px;
   position: relative;
@@ -56,13 +62,6 @@
 }
 .artistName{
   text-align: center;
-}
-.artwork{
-
-  display: block;
-  margin: 0 auto;
-  height: 360px;
-  width: 360px;
 }
 .favwork{
   display: block;
@@ -333,19 +332,54 @@ p {
 /* Artist List */
 /* ========================================= */
 
+.artistTitle {
+  /*display: block;*/
+  margin-top: 100px;
+  margin-left: 120px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 20px;
+
+}
+
+/*.artistListContainer {
+  display: inline-block;
+  padding: 30px;
+  margin-top: 30px;
+}
+*/
+.artistContainer {
+    /*margin: 0px;*/
+  /*display: block;*/
+  margin-right: 30px;
+  padding: 30px;
+  -moz-column-count: 3;
+  -webkit-column-count: 3;
+
+  -webkit-margin-before: 0;
+  -webkit-margin-after: 0;
+}
+
 .artist-list {
-  margin-top: 5vh;
+  display: block;
+  margin: 0 auto;
+  /*margin-top: 100px;*/
   width: 80%;
+  /*padding: 10px;*/
+
 }
 
 .artist-list > li {
-  text-align: left;
+  /*text-align: left;*/
   position:relative; /* Create a positioning context */
   margin:0 0 6px 6px; /* Give each list item a left margin to make room for the numbers */
   padding:4px 8px; /* Add some spacing around the content */
   list-style:none; /* Disable the normal item numbering */
   background:transparent;
   background-color: #424242;
+
+  -webkit-column-break-inside: avoid;
+          page-break-inside: avoid;
+               break-inside: avoid;
 }
 
 .artist-list a:hover {
