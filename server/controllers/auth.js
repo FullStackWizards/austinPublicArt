@@ -2,11 +2,10 @@ var express = require('express');
 var passport   = require("passport");
 var LocalStrategy   = require('passport-local').Strategy;
 
-var Auth = require('../models/auth');
-
-var router = express.Router();
-var utils = require('../utils')
+let Auth = require('../models/auth');
+let utils = require('../utils')
 let configAuth = require('./authFbook')
+let router = express.Router();
 
 module.exports = router;
 
@@ -54,24 +53,24 @@ router.post('/signup', passport.authenticate('local-signup', {
 //////////////////// FACEBOOK AUTH //////////////////////////
 ////////////////////////////////////////////////////////////
 
-router.post('/authFbook/callback', passport.authenticate('facebook', {
-  successRedirect : '/profile',
-  failureRedirect : '/'
-}));
+// router.post('/authFbook/callback', passport.authenticate('facebook', {
+//   successRedirect : '/profile',
+//   failureRedirect : '/'
+// }));
 
-router.post('/logout', function(req, res) {
-  req.logout();
-  res.redirect('/');
-});
+// router.post('/logout', function(req, res) {
+//   req.logout();
+//   res.redirect('/');
+// });
 
-// route middleware to make sure a user is logged in
-function isLoggedIn(req, res, next) {
-  // if user is authenticated in the session, carry on
-  if (req.isAuthenticated())
-    return next();
-  // if they aren't redirect them to the home page
-  res.redirect('/');
-}
+// // route middleware to make sure a user is logged in
+// function isLoggedIn(req, res, next) {
+//   // if user is authenticated in the session, carry on
+//   if (req.isAuthenticated())
+//     return next();
+//   // if they aren't redirect them to the home page
+//   res.redirect('/');
+// }
 
 ////////////////////////////////////////////////////////////
 //////////// Not Modified post Refractoring /////////////////
@@ -113,18 +112,4 @@ router.get('/user', function(req, res) {
     })
 })
 
-////////////////////////////////////////////////////////////
-/////////////////// trash pending /////////////////////////
-
-//   app.get('/profile', isLoggedIn, function(req, res){
-//     res.render('profile.ejs', { user: req.user });
-//   });
-
-//   app.get('/auth/facebook', passport.authenticate('facebook', {scope: ['email']}));
-
-
-
-
-//   res.redirect('/login');
-// }
 
