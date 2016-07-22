@@ -36,12 +36,16 @@ export default class ArtistPage extends React.Component {
         <NavBar />
         <br/>
         <br/>
+        <br/>
+        <h1 className="w3-jumbo w3-text-black">{this.props.params.artistName}</h1>
+        <br/>
+      
         {this.state.art.map(art => {
           return (
             <div key={art._id} className="soloWork">
-              <h3 className="soloArtTitle">{art['Art Title']}</h3>
+              <h3 className="soloArtTitle w3-xxlarge w3-text-black">{art['Art Title']}</h3>
               <img src={this.parseImageUrl(art.Images)[0]} />
-              <div className="soloArtInfo">
+              <div className="soloArtInfo w3-large w3-text-black">
                 <p>{art['Art Location Name']}</p>
               </div>
             </div>

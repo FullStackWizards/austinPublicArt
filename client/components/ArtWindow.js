@@ -10,15 +10,9 @@ import * as art from '../models/art'
 import AMap from './googleMapTrial'
 
 
-
-
 var trashClass = "displayInline";
 
-
-const KEYS_TO_FILTERS = ['Artist Full Name', 'Art Title', 'Art Location Zip', 'Art Location Name']
-
-
-
+const KEYS_TO_FILTERS = ['Artist Name', 'Art Title']
 
 export default class ArtGallery extends React.Component {
   constructor(props) {
@@ -26,12 +20,9 @@ export default class ArtGallery extends React.Component {
 
     this.state = {
       showInfo: false,
-      searchTerm: [''],
-     
+      searchTerm: ''
     }
-
   }
-
   parseImageUrl(imgUrl) {
     imgUrl = imgUrl.split(';')
     return imgUrl.filter((x) => x !== '')
@@ -44,39 +35,24 @@ export default class ArtGallery extends React.Component {
     this.setState({showInfo: false});
   }
   searchUpdated (term) {
-    var words = this.state.searchTerm;
-    console.log('what the fuck is this', this) 
-    console.log('what is happening', words)
-    contacts.unshift(term);
-    console.log('is this updated?????', words[0])
+    this.setState({searchTerm: term})
   }
+
+  addToSearchTerm(terms) {
+    console.log('DO I HAVE ACCESS TO THIS', terms)
+    this.searchUpdated(terms)
+  }
+
 
   updateCurrent(likeCount) {
     this.setState({currentArt: Object.assign(this.state.currentArt, {likeCount: likeCount.likeCount})})
   }
-  updateCurrentTrash(trashCount) {
-    this.setState({currentArt: Object.assign(this.state.currentArt, {trashCount: trashCount.trashCount})})
-  }
-  updateUserScore(userScore) {
-    this.setState({currentArt: Object.assign(this.state.currentArt, {userScore: userScore.userScore})})
-  }
-
-
-  addToSearchTerm(contact) {
-    var contacts = this.searchTerm;
-    console.log(this) 
-    console.log(contacts)
-    contacts.unshift(contact);
-    console.log(contacts[0])
-
-  }
-
   render() {
 
 
-    const filteredArt = this.props.gallery.filter(createFilter(this.state.searchTerm[0], KEYS_TO_FILTERS))
-    {console.log('DA FUCK IS THIS', this.state.searchTerm)}
+    const filteredArt = this.props.gallery.filter(createFilter(this.state.searchTerm, KEYS_TO_FILTERS))
 
+    {console.log('DAFUQ IS THIS', this.state.searchTerm)}
 
     return (
       <div>
@@ -84,7 +60,7 @@ export default class ArtGallery extends React.Component {
       {!this.props.gallery[0] 
         ?
         <div className="loadingDiv">
-          <p><br/>Finding your 'art'</p>
+          <p>Let's explore</p>
           <img className='loadingImg' src='http://66.media.tumblr.com/7d59cf9b9ad66fdbb4d1da458d8ed3ad/tumblr_o88twrq6el1v3aao4o1_500.gif' />
         </div>
         :
@@ -92,12 +68,10 @@ export default class ArtGallery extends React.Component {
         <br></br>
         <SearchInput className="search-input" onChange={this.searchUpdated.bind(this)} />
           <div className="artGallery">
-            <NavBar />
-            {this.state.showInfo ?
-              <Info onClose={this.closeInfo.bind(this)} loggedIn={this.props.loggedIn} updateUserScore={this.updateUserScore.bind(this)} 
-                    updateCurrentTrash={this.updateCurrentTrash.bind(this)} updateCurrent={this.updateCurrent.bind(this)} 
-                    parseImageUrl={this.parseImageUrl.bind(this)} currentArt={this.state.currentArt}
-              />
+
+
+           {this.state.showInfo ?
+              <Info onClose={this.closeInfo.bind(this)} loggedIn={this.props.loggedIn}  updateCurrent={this.updateCurrent.bind(this)} currentArt={this.state.currentArt} parseImageUrl={this.parseImageUrl.bind(this)}/>
             : null}
             {filteredArt.map((art) => {
               return (
@@ -110,7 +84,7 @@ export default class ArtGallery extends React.Component {
         </div>}
 
 
-        {<NavBar gallery={this.props.gallery} searchTerm={ this.state.searchTerm }  addToSearchTerm={ this. addToSearchTerm } />}
+        {<NavBar gallery={this.props.gallery} searchTerm={ this.state.searchTerm }  addToSearchTerm={ this.addToSearchTerm } searchUpdated={ this.searchUpdated} />}
       
 
       </div>

@@ -21,10 +21,12 @@
   margin: auto;*/
 }
 
-/*.loadingDiv p {
-  padding-top: 50px;
-  text-align: -webkit-center;
-}*/
+
+.loadingDiv p {
+  font-size: 100px;
+  padding-top: 60px;
+  padding-bottom: 25px;
+}
 
 .closeButton--jss-0-1 {
   display: none !important;
@@ -67,7 +69,6 @@
 .soloWork {
   padding:20px;
   margin: 30px;
-  background: #eef;
   text-align: -webkit-center;
 }
 .soloArtTitle {
@@ -75,8 +76,19 @@
 }
 .soloArtInfo {
   display: inline;
-  margin-left: 25px;
+/*  margin-left: 25px;*/
 }
+
+
+#limheight {
+    -webkit-column-count: 1;
+       -moz-column-count: 1;
+            column-count: 1;
+}
+#limheight li {
+    display: inline-block;
+  }
+
 
 body {
 		background: #ffffff;
@@ -146,7 +158,7 @@ p {
 /* home section styles
 /* ========================================== */
 #home {
-  background: url('http://4.bp.blogspot.com/-uP2IZK4vPFc/UxlnO8hTk0I/AAAAAAAAASo/mNoQ9NuwIgM/s1600/IMG_1070.JPG') 50% 0 repeat-y fixed;
+  background: #000000 url('http://33.media.tumblr.com/8d005dbc5d352b03fb9ded11673c98e8/tumblr_naq374DYwf1re4onxo2_1280.gif') no-repeat fixed center;
   -webkit-background-size: cover;
   background-size: cover;
   background-position: center center;
@@ -160,24 +172,19 @@ p {
           align-items: center;
   height: 100vh;
   text-align: center;
-}
-
-
-#home p {
   color: white;
- /* font-family: Arial, Helvetica, sans-serif;*/
-  font-size: 125px;
 }
 
-/*#home span {
-  background-color: rgba(10, 128, 128, .5);
+
+#home h1{
+  font-size: 200px;
 }
-*/
+
 #home .btn {
   background: transparent;
   border-color: transparent;
   color: #ffffff;
-  font-size: 33px;
+  font-size: 60px;
   /*font-weight: bold;*/
   padding: 14px 52px;
   margin-top: 40px;
@@ -205,25 +212,3 @@ p {
   position: relative;
   top: 11.5px;
 }
-
-/* Home Page Borders */
-/* ========================================= */
-/*#home .top, .bottom, .left, .right {
-  background: teal;
-  position: fixed;
-  opacity: 0.5;
-  }
-
-#home .left, .right {
-  top: 0; bottom: 0;
-  width: 15px;
-  }
-  .left { left: 0; }
-  .right { right: 0; }
-  
-#home .top, .bottom {
-  left: 0; right: 0;
-  height: 15px;
-  }
-  .top { top: 0; }
-  .bottom { bottom: 0; }*/

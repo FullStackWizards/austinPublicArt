@@ -76,12 +76,12 @@ onMapClicked(props){
           marker={this.state.activeMarker}
           visible={this.state.showingInfoWindow}>
             {this.state.selectedPlace.title ? <div>
-            	<h4>Title: {this.state.selectedPlace.title}</h4>
-              	<h5>Location: {this.state.selectedPlace.name}</h5>
-              	<h5>{this.state.selectedPlace.location}</h5>
-              	<h5>Artist: {this.state.selectedPlace.artistName}</h5>
+            	<h4 className="w3-xlarge w3-text-black w3-padding-medium">Title: {this.state.selectedPlace.title}</h4>
+              	<h5 className="w3-xlarge w3-text-black w3-padding-medium">Location: {this.state.selectedPlace.name}</h5>
+              	<h5 className="w3-xlarge w3-text-black w3-padding-medium">{this.state.selectedPlace.location}</h5>
+              	<h5 className="w3-xlarge w3-text-black w3-padding-medium">Artist: {this.state.selectedPlace.artistName}</h5>
               	<img src={this.state.selectedPlace.artImage}/></div>
-              :<div><h4>{this.state.selectedPlace.name}</h4></div>}
+              :<div><h4 className="w3-xlarge w3-text-black w3-padding-medium">{this.state.selectedPlace.name}</h4></div>}
             
         </InfoWindow>
         <InfoWindow

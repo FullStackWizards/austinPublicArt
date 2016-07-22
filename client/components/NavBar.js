@@ -77,23 +77,24 @@ export default class NavBar extends React.Component {
           </li>
           {/* Populate the navbar items. Use <Link /> from react router to add links to different views. */}
 
-          <li><Link to={'/'} className="w3-hover-none w3-hover-text-grey w3-padding-large">HOME</Link></li>
-          <li className="w3-hide-small"><Link to={`artists`} className="w3-padding-large" >ARTISTS</Link></li>
-          <li className="w3-hide-small"><Link to={`gallery`} className="w3-padding-large">GALLERY</Link></li>
-          <li className="w3-hide-small"><Link to={`map`} className="w3-padding-large">MAP</Link></li>
-          {this.state.loggedIn ? <li className="w3-hide-small"><Link to={`favorites`} className=" w3-padding-large">FAVORITES</Link></li> : null}
+          <li><Link to={'/'} className="w3-xlarge w3-text-black w3-hover-none w3-hover-text-grey w3-padding-large">HOME</Link></li>
+          <li className="w3-hide-small"><Link to={`artists`} className="w3-xlarge w3-text-black w3-padding-large" >ARTISTS</Link></li>
+          <li className="w3-hide-small"><Link to={`gallery`} className="w3-xlarge w3-text-black w3-padding-large">GALLERY</Link></li>
+          <li className="w3-hide-small"><Link to={`map`} className="w3-xlarge w3-text-black w3-padding-large">MAP</Link></li>
+          <li className="w3-hide-small"><a href="javascript:void(0)" onClick={this.openFilter.bind(this)} className="w3-xlarge w3-text-black w3-padding-large">FILTER</a></li>
+          {this.state.loggedIn ? <li className="w3-hide-small"><Link to={`favorites`} className="w3-xlarge w3-text-black w3-padding-large">FAVORITES</Link></li> : null}
 
           <li className="w3-hide-small w3-dropdown-hover">
-            <a className="w3-hover-none w3-padding-large" title="More">ACCOUNT <i className="fa fa-caret-down"></i></a>
+            <a className="w3-xlarge w3-hover-none w3-padding-large w3-text-black" title="More">ACCOUNT <i className="fa fa-caret-down"></i></a>
             <div className="w3-dropdown-content w3-white w3-card-4">
 
-              {!this.state.loggedIn ? <div><a href="javascript:void(0)" onClick={this.openLogin.bind(this)}>Login</a>
-              <a href="javascript:void(0)" onClick={this.openSignup.bind(this)}>Signup</a></div> :
-              <a href="javascript:void(0)" onClick={this.logout.bind(this)}>Logout</a>}
-              <a href = '/facebookLogin'>Facebook</a> 
+              {!this.state.loggedIn ? <div><a href="javascript:void(0)" onClick={this.openLogin.bind(this)} className="w3-xlarge w3-text-black w3-padding-medium" >Login</a>
+              <a href="javascript:void(0)" className="w3-xlarge w3-text-black w3-padding-medium" onClick={this.openSignup.bind(this)}>Signup</a></div> :
+              <a href="javascript:void(0)" className="w3-xlarge w3-text-black w3-padding-medium" onClick={this.logout.bind(this)}>Logout</a>}
+              <a href = '/facebookLogin' className="w3-medium w3-text-black w3-padding-large" >Facebook</a> 
             </div>
           </li>
-          {this.state.loggedIn ? <li className="w3-hide-small w3-right">{this.drawUsername()}</li> : null}
+          {this.state.loggedIn ? <li className="w3-xlarge w3-text-black w3-hide-small w3-right">{this.drawUsername()}</li> : null}
         </ul>
         {this.state.showSignup ?
           <SignUpModal onClose={this.closeSignup.bind(this)} fetchUser={this.fetchUser.bind(this)}/>
@@ -104,7 +105,7 @@ export default class NavBar extends React.Component {
         {this.state.showFilter ?
 
 
-          <Filter onClose={this.closeFilter.bind(this)} fetchUser={this.fetchUser.bind(this)} gallery={this.props.gallery} searchTerm={ this.props.searchTerm }  addToSearchTerm={ this.props.addToSearchTerm} />
+          <Filter onClose={this.closeFilter.bind(this)} fetchUser={this.fetchUser.bind(this)} gallery={this.props.gallery} searchTerm={ this.props.searchTerm }  addToSearchTerm={ this.props.addToSearchTerm } searchUpdated={ this.props.searchUpdated} />
        
 
         : null}
