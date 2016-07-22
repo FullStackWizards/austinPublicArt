@@ -5,7 +5,9 @@ import * as auth from '../models/auth'
 import * as art from '../models/art'
 import GoogleMap from 'google-map-react';
 import TheMap from './theMap'
-
+import {connect} from 'react-redux'
+import { bindActionCreators} from 'redux';
+import {fetchFilter} from '../actions/index';
 
 
 export default class ArtistMap extends React.Component {
@@ -57,6 +59,7 @@ componentDidMount() {
 				this.setState({ArtLocation})
 				this.setState({ArtTitle})
 				this.setState({ArtistName})
+				this.setState({ArtImage})
 				this.setState({ArtWeb},function(){
 				// 	console.log("here",this.state.artName)
 				// console.log("ok",this.state.ArtTitle)
@@ -75,9 +78,9 @@ componentDidMount() {
 	render() {
 		return (
       <div>
-        
+        	<NavBar />
     		<h3>Artist List </h3>
-    		{this.state.artistLat.length>0?<TheMap artists = {this.state.artistLat} artName = {this.state.ArtName} artLocation = {this.state.ArtLocation} artTitle = {this.state.ArtTitle} artistName = {this.state.ArtistName} artWeb = {this.state.ArtWeb}/>:null}
+    		{this.state.artistLat.length>0?<TheMap artists = {this.state.artistLat} artName = {this.state.ArtName} artLocation = {this.state.ArtLocation} artTitle = {this.state.ArtTitle} artistName = {this.state.ArtistName} artWeb = {this.state.ArtWeb} artImage = {this.state.ArtImage}/>:null}
 
   		</div>
     )

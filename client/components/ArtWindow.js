@@ -6,6 +6,7 @@ import NavBar from './NavBar'
 import Slider from 'react-slick'
 import * as auth from '../models/auth'
 import * as art from '../models/art'
+import AMap from './googleMapTrial'
 
 
 const KEYS_TO_FILTERS = ['Artist Full Name', 'Art Title']
@@ -119,11 +120,13 @@ class Info extends React.Component {
             <p>By: {this.props.currentArt['Artist Full Name']}</p>
             <p>Location: {this.props.currentArt['Art Location Name']}</p>
             <p> Likes: {this.props.currentArt.likeCount.length}</p>
+            
             <div className="slideContainer" >
               <Slider {...settings}>
                 {images.map((x) => <div key={images.indexOf(x)}><img className="slideshowPicture" src={x} /></div>)}
               </Slider>
             </div>
+            <AMap location = {this.props.currentArt['Location'].split('(')[1].split(')')[0].split(',')}/>
           {/* Check if logged in (document.cookie?), if true display Like and Favorite button */}
             {document.cookie ?
               <div className="userFeatures">
