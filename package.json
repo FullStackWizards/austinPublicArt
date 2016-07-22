@@ -25,10 +25,14 @@
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.15.2",
     "browserify-middleware": "^7.0.0",
+    "connect-flash": "^0.1.1",
     "express": "^4.13.4",
+    "express-session": "^1.14.0",
     "isomorphic-fetch": "^2.2.1",
     "node-uuid": "^1.4.7",
     "nodemon": "^1.9.2",
+    "passport": "^0.3.2",
+    "passport-local": "^1.0.0",
     "path": "^0.12.7",
     "promised-mongo": "github:makersquare/promised-mongo",
     "react": "^15.1.0",
@@ -41,12 +45,10 @@
     "react-spinjs": "^3.0.0",
     "uuid-js": "^0.7.5"
   },
-
   "babel": {
     "presets": [
       "es2015",
       "react"
     ]
   }
-
 }

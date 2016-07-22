@@ -118,3 +118,19 @@ return fetch(`/username`, obj)
   })
 }
 
+export function fetchFBData(){
+  let obj = {
+    method: 'GET',
+    headers:{
+      'Content-Type': 'application/json',
+      'cookieheader': document.cookie
+    }
+  }
+  return fetch(`/facebookLogin/Callback`, obj)
+  .then(function(resp){
+    console.log("resp", resp)
+    console.log("Resp.json()",resp.json())
+    return resp.json()
+  })
+}
+

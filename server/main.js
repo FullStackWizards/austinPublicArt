@@ -40,7 +40,7 @@ app.get('/facebookLogin/Callback',
 
     console.log("REQQQQQQQ",req.user)
     console.log("RESSSSSSS",res.user)
-    res.send(res.user)
+    res.send(req.user)
     res.redirect('/#/gallery');
   });
 
@@ -61,14 +61,14 @@ app.post('/signUp',passport.authenticate('local-signup'),function(req, res) {
  // console.log("res",res.body)
  db.collection('users').find({username: username})
  .then((user) => {
-  console.log("USERS MAIN",user)
-  console.log("USERS[0]", user[0])
-   if(user[0]){
-     res.statusMessage = "Username taken."
-     res.status(400).end();
-   } else {
+  // console.log("USERS MAIN",user)
+  // console.log("USERS[0]", user[0])
+  //  if(user[0]){
+  //    res.statusMessage = "Username taken."
+  //    res.status(400).end();
+  //  } else {
      return Utils.hashPassword(password)
-   }
+ //   }
  })
  .then(function(hash){
    return db.collection('users').insert({username: username, password: hash});
@@ -79,7 +79,7 @@ app.post('/signUp',passport.authenticate('local-signup'),function(req, res) {
  })
  .then(function(obj){
   console.log("SIGN UP SESSION",req.sessionID)
-   res.send(JSON.stringify(req.sessionId));
+   res.send(JSON.stringify(obj.sessionId));
  })
 })
 
