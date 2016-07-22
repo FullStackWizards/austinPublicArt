@@ -2,6 +2,8 @@ import React from 'react'
 import {Link} from 'react-router' 
 import {ModalContainer, ModalDialog} from 'react-modal-dialog';
 import ReactSpinner from 'react-spinjs';
+import ArtWindow from './ArtWindow'
+import Filter from './Filter'
 
 import * as auth from '../models/auth'
 
@@ -11,6 +13,7 @@ export default class NavBar extends React.Component {
     this.state = {
       showLogin: false,
       showSignup: false,
+      showFilter: false,
       showError: false,
       loggedIn: document.cookie,
       username: null
@@ -39,6 +42,12 @@ export default class NavBar extends React.Component {
     this.setState({loggedIn: bool})
     this.setState({showSignup: false});
   }
+  openFilter() {
+    this.setState({showFilter: true});
+  }
+  closeFilter(bool) {
+    this.setState({showFilter: false});
+  }
   logout(name) {
     document.cookie = 'sessionId' + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
     this.setState({loggedIn: false})
@@ -58,33 +67,46 @@ export default class NavBar extends React.Component {
 
   //Render the navbar 
   render() {
+
+
     return(
       <div className="w3-top">
-        <ul className="w3-navbar w3-black w3-card-2 w3-left-align">
+        <ul className="w3-navbar w3-white w3-card-2 w3-left-align">
           <li className="w3-hide-medium w3-hide-large w3-opennav w3-right">
             <a className="w3-padding-large" href="javascript:void(0)" title="Toggle Navigation Menu"><i className="fa fa-bars"></i></a>
           </li>
           {/* Populate the navbar items. Use <Link /> from react router to add links to different views. */}
+
           <li><Link to={'/'} className="w3-hover-none w3-hover-text-grey w3-padding-large">HOME</Link></li>
           <li className="w3-hide-small"><Link to={`artists`} className="w3-padding-large" >ARTISTS</Link></li>
           <li className="w3-hide-small"><Link to={`gallery`} className="w3-padding-large">GALLERY</Link></li>
+          <li className="w3-hide-small"><Link to={`map`} className="w3-padding-large">MAP</Link></li>
           {this.state.loggedIn ? <li className="w3-hide-small"><Link to={`favorites`} className=" w3-padding-large">FAVORITES</Link></li> : null}
+
           <li className="w3-hide-small w3-dropdown-hover">
             <a className="w3-hover-none w3-padding-large" title="More">ACCOUNT <i className="fa fa-caret-down"></i></a>
             <div className="w3-dropdown-content w3-white w3-card-4">
+
               {!this.state.loggedIn ? <div><a href="javascript:void(0)" onClick={this.openLogin.bind(this)}>Login</a>
               <a href="javascript:void(0)" onClick={this.openSignup.bind(this)}>Signup</a></div> :
-              <a href="javascript:void(0)" onClick={this.logout.bind(this)}>Logout</a>} 
+              <a href="javascript:void(0)" onClick={this.logout.bind(this)}>Logout</a>}
+              <a href = '/facebookLogin'>Facebook</a> 
             </div>
           </li>
-          <li className="w3-hide-small w3-right"><a href="javascript:void(0)" className="w3-padding-large w3-hover-red"><i className="fa fa-search"></i></a></li>
-          <li className="w3-hide-small w3-right">{this.drawUsername()}</li>
+          {this.state.loggedIn ? <li className="w3-hide-small w3-right">{this.drawUsername()}</li> : null}
         </ul>
         {this.state.showSignup ?
           <SignUpModal onClose={this.closeSignup.bind(this)} fetchUser={this.fetchUser.bind(this)}/>
         : null}
         {this.state.showLogin ?
           <LoginModal onClose={this.closeLogin.bind(this)} fetchUser={this.fetchUser.bind(this)}/>
+        : null}
+        {this.state.showFilter ?
+
+
+          <Filter onClose={this.closeFilter.bind(this)} fetchUser={this.fetchUser.bind(this)} gallery={this.props.gallery} searchTerm={ this.props.searchTerm }  addToSearchTerm={ this.props.addToSearchTerm} />
+       
+
         : null}
       </div>
     ) 
@@ -176,6 +198,7 @@ class SignUpModal extends React.Component {
             e.preventDefault(); 
             auth.signUp({username: this.state.username, password: this.state.password})
             .then((x) => {
+              console.log("xxxxxxxx", x)
               if(x === 'Success') {
                 this.setState({showError: false})
                 this.props.onClose(true)
@@ -184,6 +207,10 @@ class SignUpModal extends React.Component {
                 this.setState({showError: x.statusText})
               }
           })
+            // .catch(err => {
+            //   console.log("ERRRRRR", err)
+            //   this.setState({showError: err})
+            // })
             this.load.call(this); 
           }}>
             <h1>SignUp</h1>
