@@ -6,22 +6,26 @@
 .slideContainer {
   margin: 0 auto;
   padding: 40px;
-  width: 800px;
+  width: 600px;
   height: 1000px
   color: #333;
-  background: black;
+/*  background: black;*/
 }
-.loadingDiv {
-  background-color: lightgrey;
+
+.loadingDiv {  
+  text-align: -webkit-center;
+/*  background-color: lightgrey;
   width: 300px;
   border: 10px solid black;
   padding: 25px;
-  margin: auto;
+  margin: auto;*/
 }
-.loadingDiv p {
+
+/*.loadingDiv p {
   padding-top: 50px;
   text-align: -webkit-center;
-}
+}*/
+
 .closeButton--jss-0-1 {
   display: none !important;
 }
@@ -29,15 +33,15 @@
   color: red;
 }
 .artImage {
-  height: 345px;
-  width: 345px;
+  height: 250px;
+  width: 250px;
   border-radius: 100%;
   display: block;
   margin: 0 auto;
 }
 .artGallery {
--moz-column-count: 3;
--webkit-column-count: 3;
+-moz-column-count: 4;
+-webkit-column-count: 4;
 }
 .search-input {
   margin: 0 100px 10px 100px;
@@ -48,11 +52,10 @@
   text-align: center;
 }
 .artwork{
-
   display: block;
   margin: 0 auto;
-  height: 360px;
-  width: 360px;
+  height: 275px;
+  width: 275px;
 }
 .artTitle{
   text-align: center;
@@ -143,7 +146,7 @@ p {
 /* home section styles
 /* ========================================== */
 #home {
-  background: url('../images/austin-texas-wallpaper-1.jpg') 50% 0 repeat-y fixed;
+  background: url('http://4.bp.blogspot.com/-uP2IZK4vPFc/UxlnO8hTk0I/AAAAAAAAASo/mNoQ9NuwIgM/s1600/IMG_1070.JPG') 50% 0 repeat-y fixed;
   -webkit-background-size: cover;
   background-size: cover;
   background-position: center center;
@@ -159,11 +162,29 @@ p {
   text-align: center;
 }
 
-#home h1 {
+
+#home p {
   color: white;
+ /* font-family: Arial, Helvetica, sans-serif;*/
+  font-size: 125px;
 }
 
-#home .btn-danger {
+/*#home span {
+  background-color: rgba(10, 128, 128, .5);
+}
+*/
+#home .btn {
+  background: transparent;
+  border-color: transparent;
+  color: #ffffff;
+  font-size: 33px;
+  /*font-weight: bold;*/
+  padding: 14px 52px;
+  margin-top: 40px;
+  transition: all 0.4s ease-in-out;
+}
+
+/*#home .btn-danger {
   background: black !important;
   margin-right: 20px;
 }
@@ -172,25 +193,37 @@ p {
   background: #ffa400 !important;
 }
 
-#home .btn {
-  background: #4C8DF8;
-  border-color: transparent;
-  color: #ffffff;
-  font-size: 12px;
-  font-weight: bold;
-  padding: 14px 52px;
-  margin-top: 40px;
-  transition: all 0.4s ease-in-out;
-}
-
 #home .btn:hover {
   background: #ffa400;
-}
+}*/
 
 /* Navbar styles */
 /* ========================================= */
+
 .usernameSpan {
   margin: 30px;
   position: relative;
   top: 11.5px;
 }
+
+/* Home Page Borders */
+/* ========================================= */
+/*#home .top, .bottom, .left, .right {
+  background: teal;
+  position: fixed;
+  opacity: 0.5;
+  }
+
+#home .left, .right {
+  top: 0; bottom: 0;
+  width: 15px;
+  }
+  .left { left: 0; }
+  .right { right: 0; }
+  
+#home .top, .bottom {
+  left: 0; right: 0;
+  height: 15px;
+  }
+  .top { top: 0; }
+  .bottom { bottom: 0; }*/
