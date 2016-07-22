@@ -17,6 +17,7 @@ export default class App extends React.Component {
     this.update()
   }
   update() {
+    console.log("params",this.props.params)
     this.fetchArt(this.props.params.artistName)
     .then(() => {
       this.getLikes()

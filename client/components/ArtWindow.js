@@ -9,7 +9,11 @@ import * as auth from '../models/auth'
 import * as art from '../models/art'
 
 
+<<<<<<< c370a02d5173c88b14ac1027ea65d69d0fd30c6c
 const KEYS_TO_FILTERS = ['Artist Full Name', 'Art Title', 'Art Location Zip', 'Art Location Name']
+=======
+const KEYS_TO_FILTERS = ['Artist Full Name', 'Art Title']
+>>>>>>> Have a working map and now adding extra info to it
 
 export default class ArtGallery extends React.Component {
   constructor(props) {
@@ -20,7 +24,9 @@ export default class ArtGallery extends React.Component {
       searchTerm: [''],
      
     }
+
   }
+
   parseImageUrl(imgUrl) {
     imgUrl = imgUrl.split(';')
     return imgUrl.filter((x) => x !== '')
@@ -53,8 +59,10 @@ export default class ArtGallery extends React.Component {
   }
 
   render() {
+
     const filteredArt = this.props.gallery.filter(createFilter(this.state.searchTerm[0], KEYS_TO_FILTERS))
     {console.log('DA FUCK IS THIS', this.state.searchTerm)}
+
 
     return (
       <div>
@@ -136,7 +144,11 @@ class Info extends React.Component {
       <ModalContainer onClose={this.props.onClose}>
         <ModalDialog onClose={this.props.onClose} className="info">
 
+<<<<<<< c370a02d5173c88b14ac1027ea65d69d0fd30c6c
             <div className='tester'><h2>{this.props.currentArt['Art Title']}</h2>
+=======
+            <h2>{this.props.currentArt['Art Title']}</h2>
+>>>>>>> Have a working map and now adding extra info to it
             <p>By: {this.props.currentArt['Artist Full Name']}</p>
             <p>Location: {this.props.currentArt['Art Location Name']}</p>
             <p> Likes: {this.props.currentArt.likeCount.length}</p></div>

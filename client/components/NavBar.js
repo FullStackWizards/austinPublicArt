@@ -76,16 +76,17 @@ export default class NavBar extends React.Component {
             <a className="w3-padding-large" href="javascript:void(0)" title="Toggle Navigation Menu"><i className="fa fa-bars"></i></a>
           </li>
           {/* Populate the navbar items. Use <Link /> from react router to add links to different views. */}
-          <li><Link to={'/'} className="w3-hover-none w3-hover-text-grey w3-text-black w3-padding-large">AUSTIN PUBLIC ART</Link></li>
-          <li className="w3-hide-small"><Link to={`artists`} className="w3-padding-large w3-text-black" >ARTISTS</Link></li>
-          <li className="w3-hide-small"><Link to={`gallery`} className="w3-padding-large w3-text-black">GALLERY</Link></li>
-          {this.state.loggedIn ? <li className="w3-hide-small"><Link to={`favorites`} className=" w3-padding-large w3-text-black">FAVORITES</Link></li> : null}
-          
-          {this.props.gallery ? <li><a href="javascript:void(0)" className="w3-hover-none w3-padding-large w3-text-black" onClick={this.openFilter.bind(this)}>FILTER</a></li> : null }
 
-          <li className="w3-hide-small w3-dropdown-hover w3-text-black">
-            <a className="w3-hover-none w3-padding-large w3-text-black" title="More">ACCOUNT <i className="fa fa-caret-down"></i></a>
-            <div className="w3-dropdown-content w3-white w3-card-4" w3-text-black>
+          <li><Link to={'/'} className="w3-hover-none w3-hover-text-grey w3-padding-large">HOME</Link></li>
+          <li className="w3-hide-small"><Link to={`artists`} className="w3-padding-large" >ARTISTS</Link></li>
+          <li className="w3-hide-small"><Link to={`gallery`} className="w3-padding-large">GALLERY</Link></li>
+          <li className="w3-hide-small"><Link to={`map`} className="w3-padding-large">MAP</Link></li>
+          {this.state.loggedIn ? <li className="w3-hide-small"><Link to={`favorites`} className=" w3-padding-large">FAVORITES</Link></li> : null}
+
+          <li className="w3-hide-small w3-dropdown-hover">
+            <a className="w3-hover-none w3-padding-large" title="More">ACCOUNT <i className="fa fa-caret-down"></i></a>
+            <div className="w3-dropdown-content w3-white w3-card-4">
+
               {!this.state.loggedIn ? <div><a href="javascript:void(0)" onClick={this.openLogin.bind(this)}>Login</a>
               <a href="javascript:void(0)" onClick={this.openSignup.bind(this)}>Signup</a></div> :
               <a href="javascript:void(0)" onClick={this.logout.bind(this)}>Logout</a>}
