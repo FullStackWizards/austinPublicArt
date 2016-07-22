@@ -3,6 +3,7 @@ import {ModalContainer, ModalDialog} from 'react-modal-dialog';
 import ReactSpinner from 'react-spinjs';
 import SearchInput, {createFilter} from 'react-search-input'
 import NavBar from './NavBar'
+import Filter from './Filter'
 import Slider from 'react-slick'
 import * as auth from '../models/auth'
 import * as art from '../models/art'
@@ -10,9 +11,14 @@ import AMap from './googleMapTrial'
 
 
 
+
 var trashClass = "displayInline";
 
-const KEYS_TO_FILTERS = ['Artist Full Name', 'Art Title']
+
+const KEYS_TO_FILTERS = ['Artist Full Name', 'Art Title', 'Art Location Zip', 'Art Location Name']
+
+
+
 
 export default class ArtGallery extends React.Component {
   constructor(props) {
@@ -20,7 +26,8 @@ export default class ArtGallery extends React.Component {
 
     this.state = {
       showInfo: false,
-      searchTerm: ''
+      searchTerm: [''],
+     
     }
 
   }
@@ -37,7 +44,11 @@ export default class ArtGallery extends React.Component {
     this.setState({showInfo: false});
   }
   searchUpdated (term) {
-    this.setState({searchTerm: term})
+    var words = this.state.searchTerm;
+    console.log('what the fuck is this', this) 
+    console.log('what is happening', words)
+    contacts.unshift(term);
+    console.log('is this updated?????', words[0])
   }
 
   updateCurrent(likeCount) {
@@ -51,16 +62,30 @@ export default class ArtGallery extends React.Component {
   }
 
 
+  addToSearchTerm(contact) {
+    var contacts = this.searchTerm;
+    console.log(this) 
+    console.log(contacts)
+    contacts.unshift(contact);
+    console.log(contacts[0])
+
+  }
+
   render() {
-    const filteredArt = this.props.gallery.filter(createFilter(this.state.searchTerm, KEYS_TO_FILTERS))
-    console.log('propsss',this.props)
+
+
+    const filteredArt = this.props.gallery.filter(createFilter(this.state.searchTerm[0], KEYS_TO_FILTERS))
+    {console.log('DA FUCK IS THIS', this.state.searchTerm)}
+
+
     return (
       <div>
     {/*If the gallery state is not populated, show the loading div. Else diaplay gallery*/}
-      {!this.props.gallery[0] ?
+      {!this.props.gallery[0] 
+        ?
         <div className="loadingDiv">
-          <p>Drawing pictures...</p>
-          <ReactSpinner config={{color: "blue"}}/>
+          <p><br/>Finding your 'art'</p>
+          <img className='loadingImg' src='http://66.media.tumblr.com/7d59cf9b9ad66fdbb4d1da458d8ed3ad/tumblr_o88twrq6el1v3aao4o1_500.gif' />
         </div>
         :
         <div>
@@ -83,6 +108,11 @@ export default class ArtGallery extends React.Component {
             })}
           </div>
         </div>}
+
+
+        {<NavBar gallery={this.props.gallery} searchTerm={ this.state.searchTerm }  addToSearchTerm={ this. addToSearchTerm } />}
+      
+
       </div>
     )
   }
@@ -141,6 +171,7 @@ class Info extends React.Component {
   }
   //The info modal that pops up with the props currentArt set as the object of the work of art you clicked on
   render() {
+
     let images = this.props.parseImageUrl(this.props.currentArt.Images);
     let settings = {
       dots: true,
@@ -155,13 +186,17 @@ class Info extends React.Component {
       <ModalContainer onClose={this.props.onClose}>
         <ModalDialog onClose={this.props.onClose} className="info">
 
-            <h2>{this.props.currentArt['Art Title']}</h2>
+
+            <div className='tester'><h2>{this.props.currentArt['Art Title']}</h2>
+
             <p>By: {this.props.currentArt['Artist Full Name']}</p>
             <p>Location: {this.props.currentArt['Art Location Name']}</p>
+
             <p> Likes: {this.props.currentArt.likeCount.length}</p>
 
             <p> Not Art: {this.props.currentArt.trashCount.length}</p>
             <p> Hipster Scale: {this.props.currentArt.userScore.length}</p>
+
 
 
             <div className="slideContainer" >
