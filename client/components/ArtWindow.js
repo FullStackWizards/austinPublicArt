@@ -196,7 +196,7 @@ class Info extends React.Component {
 
             <p> Not Art: {this.props.currentArt.trashCount.length}</p>
             <p> Hipster Scale: {this.props.currentArt.userScore.length}</p>
-
+            </div>
 
 
             <div className="slideContainer" >
