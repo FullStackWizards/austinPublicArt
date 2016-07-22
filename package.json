@@ -46,5 +46,13 @@
     "react-spinjs": "^3.0.0",
     "redux": "^3.5.2",
     "uuid-js": "^0.7.5"
+  },
+
+  "babel": {
+    "presets": [
+      "es2015",
+      "react"
+    ]
   }
+
 }
