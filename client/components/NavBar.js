@@ -112,9 +112,9 @@ export default class NavBar extends React.Component {
           {this.props.searchUpdated ?
             this.state.toggleSearch ?
               <div className="w3-right">
-                <SearchInput 
-                  className="search-input animated jello" 
-                  placeholder="Find Art" 
+                <SearchInput
+                  className="search-input animated jello"
+                  placeholder="Search"
                   onChange={this.props.searchUpdated.bind(null)}
                   value={this.props.searchTerm}
                 />
@@ -130,7 +130,7 @@ export default class NavBar extends React.Component {
                       <i className="fa fa-search"></i>
                     </a>
                 </li>
-              </div> : 
+              </div> :
             null}
         </ul>
         {this.state.showSignup ?
