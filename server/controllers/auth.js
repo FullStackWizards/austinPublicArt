@@ -22,58 +22,33 @@ router.post('/signup', passport.authenticate('local-signup', {
   failureFlash:false
 }));
 
-
-// router.post('/login', passport.authenticate('local-login', { 
-//   successRedirect: '/',
-//   failureRedirect: '/login' 
-// }));
-
-
   router.post('/login', function(req, res, next) { passport.authenticate('local-login'),  
     function(req, res) {
-    console.log("WTFWTFWTFWTFWTF", req.body)
     const username = req.body.username;
     const password = req.body.password;
     var userID;Auth.getUser(username)
         .then(user => {
-          console.log("USER", user)
           if(!user[0]) {
             res.statusMessage = "Incorrect username or password"
             res.status(400).end();
           } else {
-            //compare hash passwor with password
-            // if correct done(null, userObj)
-            // not correct done ({message:"wrong message"}, false)
             userId = user[0]._id;
             return utils.comparePassword(user[0].password, password)
           }
         })
-        // .catch(function(error){
-        //  console.log("ERROR", error)
-        // })
         .then(isValidPassword => {
-          console.log("nhnjjnjjjjhnjhj", isValidPassword)
           if(!isValidPassword) {
             res.statusMessage = "Incorrect username or password"
             res.status(401).end();
           } else {
             console.log("---CREATING SESSION ID")
             return Auth.createSession(userId)
-            console.log("---THIS IS THE SESSION ID", Auth.createSession(userId))
           }
         })
         .then(session => {
           console.log("SESSION ID", JSON.stringify(session.sessionId))
           res.send(JSON.stringify(session.sessionId))
         })}(req, res, next)});
-
-
-
-  // router.post('/api/me',
-  // passport.authenticate('basic', { session: false }),
-  // function(req, res) {
-  //   res.json(req.user);
-  // });
 
 ////////////////////////////////////////////////////////////
 //////////////////// FACEBOOK AUTH //////////////////////////
@@ -101,6 +76,7 @@ function isLoggedIn(req, res, next) {
 ////////////////////////////////////////////////////////////
 //////////// Not Modified post Refractoring /////////////////
 ////////////////////////////////////////////////////////////
+
 router.get('/username', function(req, res) {
   var sessionId;
 

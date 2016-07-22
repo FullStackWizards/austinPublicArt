@@ -12,6 +12,7 @@ var utils = require('../utils')
 ////////////////////////////////////////////////////////////
 //////////////////// PASSPORT cereals //////////////////////////
 ////////////////////////////////////////////////////////////
+
 	module.exports = function (passport) {
 		passport.serializeUser(function(user, done){
 			done(null, user._id);
@@ -22,11 +23,11 @@ var utils = require('../utils')
 				done(err, user)
 			});
 		})
-	
 		
 ////////////////////////////////////////////////////////////
 //////////////////// LOCAL STRATEGY //////////////////////////
 ////////////////////////////////////////////////////////////
+
 	passport.use('local-signup', new LocalStrategy (
 		function(username, password, done) {
 			Auth.getUser(username)
@@ -41,9 +42,6 @@ var utils = require('../utils')
 				.then(user =>
 					Auth.createSession(user._id)
 				)
-				// .then(session => {
-				// 	res.send(JSON.stringify(session.sessionId))
-				// })
 				.then(function(obj) {
 					console.log("USER USER USER", obj)
 					return done(null, obj)
@@ -65,10 +63,10 @@ var utils = require('../utils')
 	  }
 	));
 
-
 ////////////////////////////////////////////////////////////
 //////////////////// FACEBOOK STRATEGY //////////////////////////
 ////////////////////////////////////////////////////////////
+
 	passport.use(new FacebookStrategy({
 		clientID: configAuth.facebookAuth.clientID,
 		clientSecret: configAuth.facebookAuth.clientSecret,
@@ -98,6 +96,5 @@ var utils = require('../utils')
 					});
 				});
 			}
-
 	));
 }
