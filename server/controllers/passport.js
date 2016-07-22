@@ -51,6 +51,7 @@ var utils = require('../utils')
 		}));
 
 	passport.use('local-login', new LocalStrategy(
+		
 		function(username, password, done) {
 			console.log("SOMETHING")
 			Auth.getUser(username)

@@ -19,19 +19,28 @@ router.post('/signup', passport.authenticate('local-signup', {
 }));
 
 
-router.post('/login', passport.authenticate('local-login', { 
-  successRedirect: '/',
-  failureRedirect: '/login' 
-}));
+// router.post('/login', passport.authenticate('local-login', { 
+//   successRedirect: '/',
+//   failureRedirect: '/login' 
+// }));
 
 
-  // router.post('/login', passport.authenticate('local-login'),  
-  // function(req, res) {
-  //   console.log("WTFWTFWTFWTFWTF")
-  //   const username = req.body.username;
-  //   const password = req.body.password;
+  router.post('/login', function(req, res, next) { passport.authenticate('local-login'),  
+  function(req, res) {
+    console.log("WTFWTFWTFWTFWTF", req)
+    const username = req.body.username;
+    const password = req.body.password;
+    var userID
   
-  // res.send(JSON.stringify(obj.sessionId))});
+  res.send(JSON.stringify(obj.sessionId))}(req, res, next)});
+
+
+
+  // router.post('/api/me',
+  // passport.authenticate('basic', { session: false }),
+  // function(req, res) {
+  //   res.json(req.user);
+  // });
 
 ////////////////////////////////////////////////////////////
 //////////////////// FACEBOOK AUTH //////////////////////////
