@@ -11,12 +11,18 @@ export function signUp(userData) {
   }
   return fetch(`/signUp`, obj)
     .then(function(data){
+      console.log("DATATATATATA", data)
       if(data.status < 400) {
         return data.json().then((data) => {
+          console.log("INSIDE OF THIS", data)
           document.cookie = "sessionId=" + data + ";path=/"
           return "Success"
         })
-      } else return data
+       }
+      else{
+        console.log("elseelse", data)
+        return data
+      }
     })
 }
 
@@ -31,8 +37,10 @@ export function login(userData) {
   }
   return fetch(`/login`, obj)
     .then(function(data){
+      console.log("datalogin", data)
       if(data.status < 400) {
         return data.json().then((data) => {
+          console.log("logIN", data)
           document.cookie = "sessionId=" + data + ";path=/"
           return "Success"
         })
@@ -51,6 +59,37 @@ export function likePhoto(artId) {
   return fetch(`/like/${artId}`, obj)
     .then(function(data){
       return data.json()
+    })
+}
+
+export function trashPhoto(artId) {
+  let obj = {
+    method: "POST",
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({cookie: document.cookie})
+  }
+  return fetch(`/trash/${artId}`, obj)
+    .then(function(data){
+      return data.json()
+    })
+}
+
+export function hipsterScore(artId) {
+  let obj = {
+    method: "POST",
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({cookie: document.cookie})
+  }
+  return fetch(`/hipster/${artId}`, obj)
+    .then(function(data){
+      return data.json()
+    })
+    .catch(function(error){
+      console.log('auth error', error)
     })
 }
 
@@ -106,6 +145,22 @@ export function fetchUsername() {
   }
 return fetch(`/username`, obj)
   .then(function(resp) {
+    return resp.json()
+  })
+}
+
+export function fetchFBData(){
+  let obj = {
+    method: 'GET',
+    headers:{
+      'Content-Type': 'application/json',
+      'cookieheader': document.cookie
+    }
+  }
+  return fetch(`/facebookLogin/Callback`, obj)
+  .then(function(resp){
+    console.log("resp", resp)
+    console.log("Resp.json()",resp.json())
     return resp.json()
   })
 }

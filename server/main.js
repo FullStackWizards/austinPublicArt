@@ -2,11 +2,17 @@ var express    = require('express');
 var path       = require('path');
 var browserify = require("browserify-middleware");
 var bodyParser = require('body-parser');
+var passport   = require("passport");
+var LocalStrategy   = require('passport-local').Strategy;
+var InstagramStrategy = require('passport-instagram').Strategy;
 
 var Utils      = require(path.join(__dirname, './utils.js'));
 var db         = require(path.join(__dirname, './db.js'));
 
 var app        = express();
+var session    = require('express-session')
+
+require('./passport')(passport);
 
 app.use(express.static(path.join(__dirname, "../client/public")));
 app.use(bodyParser.json());
@@ -17,27 +23,62 @@ browserify(path.join(__dirname, '../client/main.js'), {
  })
 );
 
+
+app.use(session({ secret: 'keyboard cat', resave: false, saveUninitialized: false }));
+
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+
+app.get('/facebookLogin',
+  passport.authenticate('facebook'));
+
+
+app.get('/facebookLogin/Callback', 
+  passport.authenticate('facebook', { failureRedirect: '/' }),
+  function(req, res) {
+
+    console.log("REQQQQQQQ",req.user)
+    console.log("RESSSSSSS",res.user)
+    res.send(req.user)
+    res.redirect('/#/gallery');
+  });
+
+
 // client asking for art data
 app.get('/art', function(req,res) {
   //retrieve all art from db
-  db.collection('art').find()
+  db.art.find()
   .then((art) => {
     res.send(art)
   })
 })
+app.post('/insertArt',function(req,res){
+  db.collection('art').insert(req.body).then(function(value){
+    db.collection('art').find().then(function(value){
+    res.send(value)
+  })  
+  })
+  
+})
 
-app.post('/signUp', function(req, res) {
- var username = req.body.username;
+app.post('/signUp',passport.authenticate('local-signup'),function(req, res) {
+ console.log("IN MAIN NOW")
+ var username = req.body.username;  
  var password = req.body.password;
-
+ console.log("req",req.sessionID)
+ // console.log("res",res.body)
  db.collection('users').find({username: username})
  .then((user) => {
-   if(user[0]){
-     res.statusMessage = "Username taken."
-     res.status(400).end();
-   } else {
+  // console.log("USERS MAIN",user)
+  // console.log("USERS[0]", user[0])
+  //  if(user[0]){
+  //    res.statusMessage = "Username taken."
+  //    res.status(400).end();
+  //  } else {
      return Utils.hashPassword(password)
-   }
+ //   }
  })
  .then(function(hash){
    return db.collection('users').insert({username: username, password: hash});
@@ -47,15 +88,19 @@ app.post('/signUp', function(req, res) {
    return db.collection('sessions').insert({id: obj._id, sessionId: sessionId});
  })
  .then(function(obj){
+  console.log("SIGN UP SESSION",req.sessionID)
    res.send(JSON.stringify(obj.sessionId));
  })
 })
 
+
 // Logs in current user as long as username is in users collection and provided a valid password
-app.post('/login', function(req, res) {
+app.post('/login',  passport.authenticate('local-login'),function(req, res) {
  var username = req.body.username;
  var password = req.body.password;
  var userID;
+ console.log("REQID", req.sessionId)
+  console.log("REQID", req.sessionID)
   db.collection('users')
     .find({username: username})
     .then((userObj) => {
@@ -77,6 +122,7 @@ app.post('/login', function(req, res) {
       }
     })
     .then((userObj) => {
+      console.log("SIGN IN SESSION",userObj.sessionId)
       res.send(JSON.stringify(userObj.sessionId))
     })
 })
@@ -220,6 +266,105 @@ app.post('/like/:id', function(req, res){
   }
 })
 
+app.post('/trash/:id', function(req, res){
+  var artId = req.params.id;
+  var sessionId = req.body.cookie.substring(10);
+  var userId;
+
+  if(!sessionId){
+    res.sendStatus(401)
+  } else {
+    db.collection('sessions').find({ sessionId: sessionId })
+    .then((users) => {
+      // Get user id from session
+      userId = users[0].id;
+      return db.collection('users').find({ _id: userId })
+    })
+    .then((users) => {
+      // Check if user exists
+      if(users[0]){
+        return db.collection('trash').find({ userId: userId, artId: artId })
+      } else {
+        // User doesn't exist, send back -bad request-
+        res.sendStatus(400)
+      }
+    })
+    .then((trash) => {
+      // Check if user has already liked the art
+        if(trash[0]){
+          // if so then the user will unlike the art
+          return db.collection('trash').remove({ userId: userId, artId: artId })
+        } else {
+          // if not then the user will like the art
+          return db.collection('trash').insert({ userId: userId, artId: artId })
+        }
+
+    })
+    .then((result) => {
+      res.send({ "Status": "Success" })
+    })
+  }
+})
+
+app.post('/hipster/:id', function(req, res){
+  var artId = req.params.id;
+  var sessionId = req.body.cookie.substring(10);
+  var userId;
+
+  if(!sessionId){
+    res.sendStatus(401)
+  } else {
+    db.collection('sessions').find({ sessionId: sessionId })
+    .then((users) => {
+      // Get user id from session
+      userId = users[0].id;
+      return db.collection('users').find({ _id: userId })
+    })
+    .then((users) => {
+      // Check if user exists
+      if(users[0]){
+        return db.collection('hipster').find({ userId: userId, artId: artId })
+      } else {
+        // User doesn't exist, send back -bad request-
+        res.sendStatus(400)
+      }
+    })
+    .then((userScore) => {
+        return db.collection('hipster').insert({ userId: userId, artId: artId, userScore:userScore })
+    })
+    .then((result) => {
+      res.send({ "Status": "Success" })
+    })
+    .catch((error) => {console.log('main error', error)})
+  }
+})
+
+app.get('/trash/:id', function(req, res){
+  var artId = req.params.id;
+
+  if(!artId){
+    res.status(400).send({"Error": "No art id... Come on now"})
+  } else {
+    db.collection("trash").find({ artId: artId })
+    .then((trash) => {
+      res.send({ trashCount: trash.map((x) =>  x.userId) })
+    })
+  }
+})
+
+app.get('/hipster/:id', function(req, res){
+  var artId = req.params.id;
+
+  if(!artId){
+    res.status(400).send({"Error": "No art id... Come on now"})
+  } else {
+    db.collection("hipster").find({ artId: artId })
+    .then((userScore) => {
+      res.send({ userScore: userScore.map((x) =>  x.userId) })
+    })
+  }
+})
+
 app.get('/likes/:id', function(req, res){
   var artId = req.params.id;
 
@@ -231,6 +376,12 @@ app.get('/likes/:id', function(req, res){
       res.send({ likeCount: likes.map((x) =>  x.userId) })
     })
   }
+})
+
+app.get('/instagramLogin', passport.authenticate('instagram'));
+
+app.get('/instagramLogin/Callback', passport.authenticate('instagram', {successRedirect: '/', failureRedirect: '/login'}), function(req,res) {
+  res.redirect('/gallery')
 })
 
 // Run server on port 4040
