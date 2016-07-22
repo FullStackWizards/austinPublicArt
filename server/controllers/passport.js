@@ -27,40 +27,41 @@ let utils = require('../utils')
 //////////////////// LOCAL STRATEGY //////////////////////////
 ////////////////////////////////////////////////////////////
 
-	passport.use('local-signup', new LocalStrategy (
-		function(username, password, done) {
-			Auth.getUser(username)
-				.then(user => {
-					if(user[0]){
-						res.statusMessage = "Username taken."
-						res.status(400).end();
-					} else {
-						return Auth.signUp(username, password);
-					}
-				})
-				.then(user =>
-					Auth.createSession(user._id)
-				)
-				.then(function(obj) {
-					console.log("USER USER USER", obj)
-					return done(null, obj)
-				})
-		}));
+    passport.use('local-signup', new LocalStrategy (
+      function(username, password, done) {
+        Auth.getUser(username)
+          .then(user => {
+            if(user[0]){
+              res.statusMessage = "Username taken."
+              res.status(400).end();
+            } else {
+              return Auth.signUp(username, password);
+            }
+          })
+          .then(user =>
+            Auth.createSession(user._id)
+          )
+          .then(function(obj) {
+            console.log("USER USER USER", obj)
+            return done(null, obj)
+          })
+      }));
 
-	passport.use(new LocalStrategy(
-	  function(username, password, done) {
-	    User.findOne({ username: username }, function (err, user) {
-	      if (err) { return done(err); }
-	      if (!user) {
-	        return done(null, false, { message: 'Incorrect username.' });
-	      }
-	      if (!user.validPassword(password)) {
-	        return done(null, false, { message: 'Incorrect password.' });
-	      }
-	      return done(null, user);
-	    });
-	  }
-	));
+    passport.use(new LocalStrategy(
+      function(username, password, done) {
+        User.findOne({ username: username }, function (err, user) {
+          if (err) { return done(err); }
+          if (!user) {
+            return done(null, false, { message: 'Incorrect username.' });
+          }
+          if (!user.validPassword(password)) {
+            return done(null, false, { message: 'Incorrect password.' });
+          }
+          return done(null, user);
+        });
+      }
+    ));
+  }
 
 ////////////////////////////////////////////////////////////
 //////////////////// FACEBOOK STRATEGY //////////////////////////
@@ -96,4 +97,3 @@ let utils = require('../utils')
 // 				});
 // 			}
 // 	));
-// }
