@@ -103,7 +103,6 @@ export default class NavBar extends React.Component {
             <a className="w3-hover-none w3-padding-large" title="More">ACCOUNT <i className="fa fa-caret-down"></i></a>
             <div className="w3-dropdown-content w3-white w3-card-4">
               {!this.state.loggedIn ? <div><a href="javascript:void(0)" onClick={this._openLogin.bind(this)}>Login</a>
-              <a href="javascript:void(0)" onClick={this.openFBLogin.bind(this)}>Facebook Login</a>
               <a href="javascript:void(0)" onClick={this._openSignup.bind(this)}>Signup</a></div> :
               <a href="javascript:void(0)" onClick={this.logout.bind(this)}>Logout</a>}
             </div>
