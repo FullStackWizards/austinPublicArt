@@ -1,7 +1,7 @@
 var FACEBOOK_ID = '932055926922953';
 var FACEBOOK_CALLBACK_URL = 'http://localhost:4040/facebookLogin/Callback'	
 var FACEBOOK_SECRET = 'c283a4b04e8635a09c8ac2d0ed071e30'
-var PROFILE_FIELDS = ['id', 'email', 'gender', 'link', 'locale', 'name', 'timezone', 'updated_time', 'verified']
+var PROFILE_FIELDS = ['id', 'email', 'photos','gender', 'link', 'locale', 'name', 'timezone', 'updated_time', 'verified']
 var passport = require("passport");
 var LocalStrategy = require('passport-local').Strategy;
 var FacebookStrategy = require('passport-facebook').Strategy;
@@ -137,6 +137,9 @@ module.exports = function(passport){
 			return db.collection('FBusers').insert({
 				facebookID: user.id,
 				facebookToken: token,
+				facebookPicture: user.photos[0],
+				facebookName: user.name
+
 				// facebookEmail:user.emails[0].value})
 		})
 	}
@@ -159,6 +162,8 @@ module.exports = function(passport){
 }
 
 //need to add a FB user to the database. Then i will be able to check for the id
-// 
+
+//need to fetch the picture and put it in the facebook login modal.
+ 
 	// }))
 // }

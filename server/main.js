@@ -37,9 +37,11 @@ app.get('/facebookLogin',
 app.get('/facebookLogin/Callback', 
   passport.authenticate('facebook', { failureRedirect: '/' }),
   function(req, res) {
-    console.log("REQQQQQQQ",req.body)
-    console.log("RESSSSSSS",res.body)
-    res.redirect('/');
+
+    console.log("REQQQQQQQ",req.user)
+    console.log("RESSSSSSS",res.user)
+    res.send(res.user)
+    res.redirect('/#/gallery');
   });
 
 // client asking for art data
@@ -77,7 +79,7 @@ app.post('/signUp',passport.authenticate('local-signup'),function(req, res) {
  })
  .then(function(obj){
   console.log("SIGN UP SESSION",req.sessionID)
-   res.send(JSON.stringify(obj.sessionId));
+   res.send(JSON.stringify(req.sessionId));
  })
 })
 
