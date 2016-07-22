@@ -67,6 +67,12 @@
 -webkit-column-count: 3;
 /*background-image: url('../images/grey.jpg')*/
 }
+.artwork{
+  display: block;
+  margin: 0 auto;
+  height: 360px;
+  width: 360px;
+}
 .search-input {
   color: black;
   margin: 10px;
@@ -77,12 +83,6 @@
 }
 .artistName{
   text-align: center;
-}
-.artwork{
-  display: block;
-  margin: 0 auto;
-  height: 360px;
-  width: 360px;
 }
 .favwork{
   display: block;
@@ -354,20 +354,46 @@ p {
 
 /* Artist List */
 /* ========================================= */
+.artistTitle {
+  margin-top: 130px;
+  /*aligns artist table title*/
+  margin-left: -15px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 23px;
+  text-align: center;
+}
+
+.artistContainer {
+  margin-top: 0px;
+  margin-right: 60px;
+  padding: 30px;
+  /*creates three columns*/
+  -moz-column-count: 3;
+  -webkit-column-count: 3;
+}
 
 .artist-list {
-  margin-top: 5vh;
+  display: block;
+  margin: 0 auto;
+  /*aligns first column height with other columns*/
+  margin-top: 5px;
   width: 80%;
 }
 
 .artist-list > li {
-  text-align: left;
-  position:relative; /* Create a positioning context */
+  /*text-align: left;*/
+  /*position:relative; */ /* Create a positioning context */
   margin:0 0 6px 6px; /* Give each list item a left margin to make room for the numbers */
   padding:4px 8px; /* Add some spacing around the content */
   list-style:none; /* Disable the normal item numbering */
   background:transparent;
-  background-color: #424242;
+  -webkit-column-break-inside: avoid;
+          page-break-inside: avoid;
+               break-inside: avoid;
+  -moz-border-radius: 15px;
+  -webkit-border-radius: 15px;
+  border-radius: 5px;
+  overflow: visible;
 }
 
 .artist-list a:hover {
@@ -375,10 +401,13 @@ p {
 }
 
 .artist-list a {
-	color: #cd9023;
-	font-size: 12px;
-	letter-spacing: 2px;
-	line-height: 1.5;
+  color: #3299BB;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+  letter-spacing: 2px;
+  line-height: 1.9;
+  display: block;
+  text-align: center;
 }
 
 /* Art Gallery */
@@ -424,7 +453,7 @@ ul.rig.columns-3 li {
 ul.rig.columns-4 li {
 	width: 22.5%; /* this value + 2.5 should = 25% */
 }
- 
+
 @media (max-width: 480px) {
 	ul.grid-nav li {
 		display: block;
