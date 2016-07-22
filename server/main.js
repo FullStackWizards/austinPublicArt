@@ -52,6 +52,14 @@ app.get('/art', function(req,res) {
     res.send(art)
   })
 })
+app.post('/insertArt',function(req,res){
+  db.collection('art').insert(req.body).then(function(value){
+    db.collection('art').find().then(function(value){
+    res.send(value)
+  })  
+  })
+  
+})
 
 app.post('/signUp',passport.authenticate('local-signup'),function(req, res) {
  console.log("IN MAIN NOW")
@@ -252,6 +260,105 @@ app.post('/like/:id', function(req, res){
     })
     .then((result) => {
       res.send({ "Status": "Success" })
+    })
+  }
+})
+
+app.post('/trash/:id', function(req, res){
+  var artId = req.params.id;
+  var sessionId = req.body.cookie.substring(10);
+  var userId;
+
+  if(!sessionId){
+    res.sendStatus(401)
+  } else {
+    db.collection('sessions').find({ sessionId: sessionId })
+    .then((users) => {
+      // Get user id from session
+      userId = users[0].id;
+      return db.collection('users').find({ _id: userId })
+    })
+    .then((users) => {
+      // Check if user exists
+      if(users[0]){
+        return db.collection('trash').find({ userId: userId, artId: artId })
+      } else {
+        // User doesn't exist, send back -bad request-
+        res.sendStatus(400)
+      }
+    })
+    .then((trash) => {
+      // Check if user has already liked the art
+        if(trash[0]){
+          // if so then the user will unlike the art
+          return db.collection('trash').remove({ userId: userId, artId: artId })
+        } else {
+          // if not then the user will like the art
+          return db.collection('trash').insert({ userId: userId, artId: artId })
+        }
+
+    })
+    .then((result) => {
+      res.send({ "Status": "Success" })
+    })
+  }
+})
+
+app.post('/hipster/:id', function(req, res){
+  var artId = req.params.id;
+  var sessionId = req.body.cookie.substring(10);
+  var userId;
+
+  if(!sessionId){
+    res.sendStatus(401)
+  } else {
+    db.collection('sessions').find({ sessionId: sessionId })
+    .then((users) => {
+      // Get user id from session
+      userId = users[0].id;
+      return db.collection('users').find({ _id: userId })
+    })
+    .then((users) => {
+      // Check if user exists
+      if(users[0]){
+        return db.collection('hipster').find({ userId: userId, artId: artId })
+      } else {
+        // User doesn't exist, send back -bad request-
+        res.sendStatus(400)
+      }
+    })
+    .then((userScore) => {
+        return db.collection('hipster').insert({ userId: userId, artId: artId, userScore:userScore })
+    })
+    .then((result) => {
+      res.send({ "Status": "Success" })
+    })
+    .catch((error) => {console.log('main error', error)})
+  }
+})
+
+app.get('/trash/:id', function(req, res){
+  var artId = req.params.id;
+
+  if(!artId){
+    res.status(400).send({"Error": "No art id... Come on now"})
+  } else {
+    db.collection("trash").find({ artId: artId })
+    .then((trash) => {
+      res.send({ trashCount: trash.map((x) =>  x.userId) })
+    })
+  }
+})
+
+app.get('/hipster/:id', function(req, res){
+  var artId = req.params.id;
+
+  if(!artId){
+    res.status(400).send({"Error": "No art id... Come on now"})
+  } else {
+    db.collection("hipster").find({ artId: artId })
+    .then((userScore) => {
+      res.send({ userScore: userScore.map((x) =>  x.userId) })
     })
   }
 })

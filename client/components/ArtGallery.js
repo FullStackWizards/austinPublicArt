@@ -9,19 +9,27 @@ export default class App extends React.Component {
 
     this.state = {
       tempCollection: [],
-      artCollection: []
+      artCollection: [],
+      hipCollection: []
     }
   }
 
   componentWillMount() {
-    this.update()
+    if(true){
+      this.update()
+    }
   }
+
   update() {
+    console.log("params",this.props.params)
     this.fetchArt(this.props.params.artistName)
     .then(() => {
       this.getLikes()
+      this.getTrash()
+      this.getHipster()
     })
   }
+
   signUp(userData) {
     auth.signUp(userData)
   }
@@ -54,12 +62,39 @@ export default class App extends React.Component {
     })  
   }
 
+  getTrash(){
+    var trashResults = [];
+    this.state.tempCollection.forEach((artWork) => {
+      art.getTrash(artWork._id)
+      .then((trashCount) => {
+        trashResults.push(Object.assign(artWork, {trashCount: trashCount.trashCount}))
+        if (trashResults.length === this.state.tempCollection.length) {  
+          this.setState({trashCollection: trashResults})
+        }
+      })
+    }) 
+  }
+
+  getHipster(){
+    var hipResults = [];
+    this.state.tempCollection.forEach((artWork) => {
+      art.getHipster(artWork._id)
+      .then((userScore) => {
+        hipResults.push(Object.assign(artWork, {userScore: userScore.userScore}))
+        //if(hipResults.length === this.state.tempCollection.length) {
+          this.setState({hipCollection: hipResults})
+        //}
+      })
+    })
+  }
+
+
   render(){
     return (
       <div>
         <br/>
         <br/>
-        <ArtWindow className="artGallery" update={this.update.bind(this)} gallery={this.state.artCollection} loggedIn={this.state.loggedIn} fetchArt={this.fetchArt.bind(this)}/>
+        <ArtWindow className="artGallery" update={this.update.bind(this)}  gallery={this.state.artCollection} loggedIn={this.state.loggedIn} fetchArt={this.fetchArt.bind(this)}/>
       </div>
     )
   }

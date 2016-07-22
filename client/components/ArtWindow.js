@@ -7,9 +7,18 @@ import Filter from './Filter'
 import Slider from 'react-slick'
 import * as auth from '../models/auth'
 import * as art from '../models/art'
+import AMap from './googleMapTrial'
+
+
+
+
+var trashClass = "displayInline";
 
 
 const KEYS_TO_FILTERS = ['Artist Full Name', 'Art Title', 'Art Location Zip', 'Art Location Name']
+
+
+
 
 export default class ArtGallery extends React.Component {
   constructor(props) {
@@ -20,7 +29,9 @@ export default class ArtGallery extends React.Component {
       searchTerm: [''],
      
     }
+
   }
+
   parseImageUrl(imgUrl) {
     imgUrl = imgUrl.split(';')
     return imgUrl.filter((x) => x !== '')
@@ -39,9 +50,17 @@ export default class ArtGallery extends React.Component {
     contacts.unshift(term);
     console.log('is this updated?????', words[0])
   }
+
   updateCurrent(likeCount) {
     this.setState({currentArt: Object.assign(this.state.currentArt, {likeCount: likeCount.likeCount})})
   }
+  updateCurrentTrash(trashCount) {
+    this.setState({currentArt: Object.assign(this.state.currentArt, {trashCount: trashCount.trashCount})})
+  }
+  updateUserScore(userScore) {
+    this.setState({currentArt: Object.assign(this.state.currentArt, {userScore: userScore.userScore})})
+  }
+
 
   addToSearchTerm(contact) {
     var contacts = this.searchTerm;
@@ -53,8 +72,11 @@ export default class ArtGallery extends React.Component {
   }
 
   render() {
+
+
     const filteredArt = this.props.gallery.filter(createFilter(this.state.searchTerm[0], KEYS_TO_FILTERS))
     {console.log('DA FUCK IS THIS', this.state.searchTerm)}
+
 
     return (
       <div>
@@ -72,7 +94,10 @@ export default class ArtGallery extends React.Component {
           <div className="artGallery">
             <NavBar />
             {this.state.showInfo ?
-              <Info onClose={this.closeInfo.bind(this)} loggedIn={this.props.loggedIn}  updateCurrent={this.updateCurrent.bind(this)} currentArt={this.state.currentArt} parseImageUrl={this.parseImageUrl.bind(this)}/>
+              <Info onClose={this.closeInfo.bind(this)} loggedIn={this.props.loggedIn} updateUserScore={this.updateUserScore.bind(this)} 
+                    updateCurrentTrash={this.updateCurrentTrash.bind(this)} updateCurrent={this.updateCurrent.bind(this)} 
+                    parseImageUrl={this.parseImageUrl.bind(this)} currentArt={this.state.currentArt}
+              />
             : null}
             {filteredArt.map((art) => {
               return (
@@ -98,7 +123,8 @@ class Info extends React.Component {
     super()
     this.state = {
       userFavs: [],
-      userId: null
+      userId: null,
+      // numRed:this.props..userScore
     }
   }
   componentWillMount() {
@@ -119,6 +145,30 @@ class Info extends React.Component {
       this.setState({userId: res})
     })
   }
+
+  buttonClick (event){
+    var userScore = event.target.value;
+    this.setState({numRed:userScore})
+    console.log('buttonClick', this.props.currentArt.userScore) 
+
+    // () => auth.hipsterScore(this.props.currentArt._id)
+    //   .then((x) => {
+    //     return art.getHipster(this.props.currentArt._id)
+    //   })
+    //   .then((userScore) => {
+    //     this.props.updateUserScore(userScore)
+    //   })  
+  }
+  makeRed(userScore){
+    for(var i=1;i<=userScore;i++){
+      var redButton = 'button'+i
+      this.setState({[redButton]:'btn btn-danger'})
+    }
+    for(var j = Number(userScore)+1 ;j<=5; j++){
+      var redButton = 'button'+j
+      this.setState({[redButton]:'btn'})
+    }
+  }
   //The info modal that pops up with the props currentArt set as the object of the work of art you clicked on
   render() {
 
@@ -136,30 +186,42 @@ class Info extends React.Component {
       <ModalContainer onClose={this.props.onClose}>
         <ModalDialog onClose={this.props.onClose} className="info">
 
+
             <div className='tester'><h2>{this.props.currentArt['Art Title']}</h2>
+
             <p>By: {this.props.currentArt['Artist Full Name']}</p>
             <p>Location: {this.props.currentArt['Art Location Name']}</p>
-            <p> Likes: {this.props.currentArt.likeCount.length}</p></div>
+
+            <p> Likes: {this.props.currentArt.likeCount.length}</p>
+
+            <p> Not Art: {this.props.currentArt.trashCount.length}</p>
+            <p> Hipster Scale: {this.props.currentArt.userScore.length}</p>
+
+
+
             <div className="slideContainer" >
               <Slider {...settings}>
                 {images.map((x) => <div key={images.indexOf(x)}><img className="slideshowPicture" src={x} /></div>)}
               </Slider>
             </div>
+            <AMap location = {this.props.currentArt['Location'].split('(')[1].split(')')[0].split(',')}/>
           {/* Check if logged in (document.cookie?), if true display Like and Favorite button */}
             {document.cookie ?
               <div className="userFeatures">
 
-                <button className="btn btn-primary btn-sm" onClick={() => auth.likePhoto(this.props.currentArt._id)
-                  .then((x) => {
-                    return art.getLikes(this.props.currentArt._id)
-                  })
-                  .then((likeCount) => {
-                    this.props.updateCurrent(likeCount)
-                  })
-                }>
-                {/*Change button text based upon if the user has already liked an image*/}
-                {this.props.currentArt.likeCount.includes(this.state.userId) ? "Unlike" : "Like"}
-                </button>
+                {(this.props.currentArt.trashCount.includes(this.state.userId)) ? '' :
+                  <button className="btn btn-primary btn-sm" onClick={() => auth.likePhoto(this.props.currentArt._id)
+                    .then((x) => {
+                      return art.getLikes(this.props.currentArt._id)
+                    })
+                    .then((likeCount) => {
+                      this.props.updateCurrent(likeCount)
+                    })
+                  }>
+                  {/*Change button text based upon if the user has already liked an image*/}
+                    {this.props.currentArt.likeCount.includes(this.state.userId) ? "Unlike" : "Like"} 
+                  </button>
+                }
 
                 <button className="btn btn-secondary btn-sm" onClick={() => auth.favoritePhoto(this.props.currentArt._id)
                   .then((x) => {
@@ -167,6 +229,38 @@ class Info extends React.Component {
                   })
                 }>{this.state.userFavs.includes(this.props.currentArt._id) ? "Unfav!" : "Fav!"}
                 </button>
+
+                {(this.props.currentArt.likeCount.includes(this.state.userId)) ? '' :
+                  <button className="btn btn-tertiary btn-sm" 
+                  onClick={() => auth.trashPhoto(this.props.currentArt._id)
+                    .then((x) => {
+                      return art.getTrash(this.props.currentArt._id)
+                    })
+                    .then((trashCount) => {
+                      this.props.updateCurrentTrash(trashCount)
+                    })
+                  }>
+                    {this.props.currentArt.trashCount.includes(this.state.userId) ? "Still Trash" : "Trash it!"}
+                  </button>
+                }
+                <div>Peace be the Journey:</div>
+
+                <button className={this.state.numRed > 0 ?'btn btn-danger':'btn'} 
+                onClick={this.buttonClick.bind(this)} value={1} type='button'>🚲</button>
+
+                <button className={this.state.numRed > 1 ?'btn btn-danger':'btn'} 
+                onClick={this.buttonClick.bind(this)} value={2} type='button'>🚲</button>
+
+                <button className={this.state.numRed > 2 ?'btn btn-danger':'btn'} 
+                onClick={this.buttonClick.bind(this)} value={3} type='button'>🚲</button>
+
+                <button className={this.state.numRed > 3 ?'btn btn-danger':'btn'} 
+                onClick={this.buttonClick.bind(this)} value={4} type='button'>🚲</button>
+
+                <button className={this.state.numRed > 4 ?'btn btn-danger':'btn'} 
+                onClick={this.buttonClick.bind(this)} value={5} type='button'>🚲</button>
+
+
 
               </div>
               : ''}
