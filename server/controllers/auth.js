@@ -27,12 +27,12 @@ router.post('/signup', passport.authenticate('local-signup', {
 
   router.post('/login', function(req, res, next) { passport.authenticate('local-login'),  
   function(req, res) {
-    console.log("WTFWTFWTFWTFWTF", req)
+    console.log("WTFWTFWTFWTFWTF", req.body)
     const username = req.body.username;
     const password = req.body.password;
     var userID
   
-  res.send(JSON.stringify(obj.sessionId))}(req, res, next)});
+  res.send(JSON.stringify(req.sessionId))}(req, res, next)});
 
 
 
