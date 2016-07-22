@@ -4,6 +4,7 @@ var browserify = require("browserify-middleware");
 var bodyParser = require('body-parser');
 var passport   = require("passport");
 var LocalStrategy   = require('passport-local').Strategy;
+var InstagramStrategy = require('passport-instagram').Strategy;
 
 var Utils      = require(path.join(__dirname, './utils.js'));
 var db         = require(path.join(__dirname, './db.js'));
@@ -43,6 +44,7 @@ app.get('/facebookLogin/Callback',
     res.send(req.user)
     res.redirect('/#/gallery');
   });
+
 
 // client asking for art data
 app.get('/art', function(req,res) {
@@ -374,6 +376,12 @@ app.get('/likes/:id', function(req, res){
       res.send({ likeCount: likes.map((x) =>  x.userId) })
     })
   }
+})
+
+app.get('/instagramLogin', passport.authenticate('instagram'));
+
+app.get('/instagramLogin/Callback', passport.authenticate('instagram', {successRedirect: '/', failureRedirect: '/login'}), function(req,res) {
+  res.redirect('/gallery')
 })
 
 // Run server on port 4040

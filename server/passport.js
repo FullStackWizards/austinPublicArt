@@ -2,9 +2,13 @@ var FACEBOOK_ID = '932055926922953';
 var FACEBOOK_CALLBACK_URL = 'http://localhost:4040/facebookLogin/Callback'	
 var FACEBOOK_SECRET = 'c283a4b04e8635a09c8ac2d0ed071e30'
 var PROFILE_FIELDS = ['id', 'email', 'photos','gender', 'link', 'locale', 'name', 'timezone', 'updated_time', 'verified']
+var INSTAGRAM_ID = '11aeef855e224c23ab73786f79c3f1d1';
+var INSTAGRAM_CALLBACK_URL = 'http://localhost:4040/instagramLogin/Callback';
+var INSTAGRAM_SECRET = '11412943ed9a42cf994b54ec4ba28b3e';
 var passport = require("passport");
 var LocalStrategy = require('passport-local').Strategy;
 var FacebookStrategy = require('passport-facebook').Strategy;
+var InstagramStrategy = require('passport-instagram').Strategy;
 var path       = require('path');
 var db         = require(path.join(__dirname, './db.js'));
 var Utils      = require(path.join(__dirname, './utils.js'));
@@ -14,7 +18,7 @@ module.exports = function(passport){
 	passport.serializeUser(function(user, callback){
 		console.log("HEY THERE")
 		console.log("SUSERS", user)
-		callback(null, user.userID || user.facebookID || user)
+		callback(null, user.userID || user.facebookID || user || user.instagramID)
 	});
 
 	passport.deserializeUser(function(id,callback){
@@ -122,6 +126,28 @@ module.exports = function(passport){
 					//doesn't exist
 					
 			}))
+
+	passport.use(new InstagramStrategy({
+    clientID: INSTAGRAM_ID,
+    clientSecret: INSTAGRAM_SECRET,
+    callbackURL: INSTAGRAM_CALLBACK_URL
+  },
+  function(token, refreshToken, profile, done) {
+    process.nextTick(function () {
+      db.collection('users').find({instagramID: profile.id}).then(user => {
+        if (user.length > 0) {
+          return done(null, user[0])
+        }
+        else {
+          addInstagramUser(profile, token).then(userVal => {
+            console.log('DONE', done);
+            console.log('USERVAL', userVal)
+            return done(null, userVal);
+          })
+        }
+      })
+    });
+  }))
 }
 // // 	})
 
@@ -130,29 +156,48 @@ module.exports = function(passport){
 // }
 	function addFacebookUser(user,token) {
 	console.log('USER',user, "token" ,token)
-	//check if user exists.  Via email.  If not, make new, is yes, update existing
-	// return db.collection('FBusers').find({facebookID: user.id}).then(function(existingUser){
-	// 	if(existingUser.length>0){
-	// 		return db.collection
 			return db.collection('FBusers').insert({
 				facebookID: user.id,
 				facebookToken: token,
 				facebookPicture: user.photos[0],
 				facebookName: user.name
 
-				// facebookEmail:user.emails[0].value})
+				
 		})
 	}
-			//create new user
-		// })
 
- 	// }
+function addInstagramUser(user, token) {
+	console.log('USER',user, 'TOKEN', token)
+	
+      console.log('inside inserting IG user')
+      return db.collection('IGusers').insert({
+        instagramID: user.id,
+        instagramToken: token
+      })
+   
+}
 
+
+
+// var findUserByID = function(ID) {
+//  	console.log("FINDUSERID", ID)
+// 	return db.collection('IGusers').find({
+// 		instagramID : ID
+// 	}).then(value => {
+// 		console.log('valueIDID',value)
+// 		if (value.length > 0) {
+// 			return value[0];
+// 		}
+// 		return false;
+// 	})
+// }
  var findUserByID = function(ID) {
  	console.log("FINDUSERID", ID)
-	return db.collection('FBusers').find({
+	return (db.collection('FBusers').find({
 		facebookID : ID
-	}).then(function(value) {
+	}) || db.collection('IGusers').find({
+		instagramID : ID
+	})).then(function(value) {
 		console.log('valueIDID',value)
 		if (value.length > 0) {
 			return value[0];
