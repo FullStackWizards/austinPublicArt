@@ -47,13 +47,14 @@ onMapClicked(props){
         activeMarker: null
       })
     }
-
 }
+
   render() {
   	const style = {
       width: '100vw',
       height: '95vh'
     }
+    console.log("active",this.state.activeMarker)
     var positions = this.props.artists;
     console.log(this.props.artists[0])
     console.log('SO',this.state.location)
@@ -67,7 +68,7 @@ onMapClicked(props){
       {this.state.location.lat?<Map google={this.props.google || this.props.googley} zoom={16} onClick={this.onMapClicked.bind(this)} initialCenter = {
     this.state.location
   }>
-  <Marker name ={'Current Location'} position = {this.state.location} onClick={this.onMarkerClick.bind(this)}/>
+  <Marker name ={'Current Location'} className = {'homeMarker'} position = {this.state.location} onClick={this.onMarkerClick.bind(this)}/>
   {positions.map((yup,index)=>{
   	return(<Marker name = {this.props.artName[index]} onClick={this.onMarkerClick.bind(this)} location = {this.props.artLocation[index].split(';')[0]} title = {this.props.artTitle[index]} artistName = {this.props.artistName[index]} artWeb = {this.props.artWeb[index]} artImage = {this.props.artImage[index].split(';')[0]} position = {yup}/>)
   })}
