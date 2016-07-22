@@ -1,6 +1,8 @@
 import React from 'react'
 import {Link} from 'react-router'
 import ReactSpinner from 'react-spinjs';
+import SearchInput, {createFilter} from 'react-search-input'
+
 import * as auth from '../models/auth'
 import SignUpModal from './SignUpModal';
 import LoginModal from './LoginModal';
@@ -11,6 +13,7 @@ export default class NavBar extends React.Component {
   constructor() {
     super()
     this.state = {
+      toggleSearch: false,
       showLogin: false,
       showSignup: false,
       showFBLogin: false,
@@ -36,6 +39,10 @@ export default class NavBar extends React.Component {
       .then((res) => {
         this.setState({ username: res })
       })
+  }
+
+  _toggleSearch() {
+    this.setState({toggleSearch: !this.state.toggleSearch});
   }
 
   _openLogin() {
@@ -82,7 +89,7 @@ export default class NavBar extends React.Component {
   //Render the navbar
   render() {
     return(
-      <div className="w3-top nav">
+      <div className="w3-top">
         <ul className="w3-navbar w3-black w3-card-2 w3-left-align">
           <li className="w3-hide-medium w3-hide-large w3-opennav w3-right">
             <a className="w3-padding-large" href="javascript:void(0)" title="Toggle Navigation Menu"><i className="fa fa-bars"></i></a>
@@ -102,6 +109,29 @@ export default class NavBar extends React.Component {
             </div>
           </li>
           <li className="w3-hide-small w3-right">{this.drawUsername()}</li>
+          {this.props.searchUpdated ?
+            this.state.toggleSearch ?
+              <div className="w3-right">
+                <SearchInput 
+                  className="search-input animated jello" 
+                  placeholder="Find Art" 
+                  onChange={this.props.searchUpdated.bind(null)}
+                  value={this.props.searchTerm}
+                />
+                <li className="w3-hide-small">
+                    <a href="javascript:void(0)" className="w3-padding-large w3-blue" onClick={this._toggleSearch.bind(this)}>
+                      <i className="fa fa-search"></i>
+                    </a>
+                </li>
+              </div> :
+              <div className="w3-right">
+                <li className="w3-hide-small">
+                    <a href="javascript:void(0)" className="w3-padding-large" onClick={this._toggleSearch.bind(this)}>
+                      <i className="fa fa-search"></i>
+                    </a>
+                </li>
+              </div> : 
+            null}
         </ul>
         {this.state.showSignup ?
           <SignUpModal onClose={this._closeSignup.bind(this)} fetchUser={this._fetchUser.bind(this)}/>

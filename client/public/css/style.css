@@ -26,7 +26,6 @@
   margin: 0 auto;
   padding: 40px;
   width: 800px;
-  height: 1000px
   color: #333;
   background: black;
 }
@@ -35,10 +34,18 @@
   padding: 25px;
   margin: auto;
 }
-.loadingDiv p {
+
+.loadingDiv .loading-img {
+  display: block;
+}
+
+.loadingDiv .spinner {
+  display: block;
+}
+.loadingDiv h4 {
+  display: block;
   padding-top: 50px;
   text-align: -webkit-center;
-  height:100vh;
 }
 
 .closeButton--jss-0-1 {
@@ -61,10 +68,12 @@
 /*background-image: url('../images/grey.jpg')*/
 }
 .search-input {
-  margin: 0 50px 10px 25px;
+  color: black;
+  margin: 10px;
   position: relative;
   float: left;
   text-align: right;
+  z-index: 1;
 }
 .artistName{
   text-align: center;
@@ -230,6 +239,10 @@ p {
   font-size: 20px;
 }
 
+.w3-navbar a {
+	color: #3299BB;
+}
+
 /* Home Page */
 /* ========================================= */
 
@@ -240,7 +253,7 @@ p {
 }
 
 .button {
-	color: #cd9023;
+	color: #3299BB;
 	display: inline-block;
   font-family: 'bushcraft', sans-serif;
 	font-size: 16px;
@@ -382,7 +395,6 @@ ul.rig li {
 	font-size: 16px;
 	font-size: 1rem;
 	vertical-align: top;
-	box-shadow: 0 0 5px #ddd;
 	box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;

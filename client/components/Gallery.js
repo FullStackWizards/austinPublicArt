@@ -32,34 +32,26 @@ export default class ArtWindow extends React.Component {
     {/*If the gallery state is not populated, show the loading div. Else diaplay gallery*/}
       {!this.props.gallery[0] ?
         <div className="loadingDiv">
-          <div className="animated infinite swing">
-            <img src="http://images.clipartpanda.com/artist-paint-brush-vector-artist__s_paint_brush_by_rildraw-d4a5ogt.png" height="150px" width="150px"/>
+          <div className="loading-img animated infinite swing">
+            <img src="http://images.clipartpanda.com/paintbrush-clip-art-Kcne5a99i.png" height="150px" width="150px"/>
           </div>
-          <p>Drawing pictures...</p>
-          <ReactSpinner config={{scale: 4, color: 'red'}}/>
+          <ReactSpinner className="spinner" config={{scale: 1.5, color: 'blue'}}/>
+          <h4>Drawing pictures...</h4>
         </div>
         :
         <div>
-        <br></br>
-        <br></br>
-        <br></br>
-        <SearchInput className="search-input" placeholder="Find Art" onChange={this.searchUpdated.bind(this)} />
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
 
-          <NavBar />
-          <div className="artGallery">
-            {/* Art info modal */}
-            {this.props.showInfoModal ?
-              <InfoModal 
-                onClose={this.props.closeInfoModal} 
-                updateCurrent={this.props.updateCurrentArt} 
-                currentArt={this.props.currentArt} 
-                parseImageUrl={parseImageUrl}
-              /> :
-              null}
+          <NavBar 
+            searchUpdated={this.searchUpdated.bind(this)} 
+            searchTerm={this.state.searchTerm}
+          />
 
           {/* Art info modal */}
           {this.props.showInfoModal ?
@@ -73,7 +65,7 @@ export default class ArtWindow extends React.Component {
 
           <ul className="rig">
             {filteredArt.map(art =>
-              <li className="artwork" key={art._id}>
+              <li className="artwork animated flipInY" key={art._id}>
                 <a 
                   href="javascript:void(0)" 
                   onClick={this.props.openInfoModal.bind(null, art)} 
@@ -84,8 +76,7 @@ export default class ArtWindow extends React.Component {
               </li>
             )}
           </ul>
-        </div>
-      </div>}
+        </div>}
       </div>
   )
   }

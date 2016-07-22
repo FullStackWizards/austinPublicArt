@@ -21,21 +21,8 @@ export default class Home extends React.Component {
                     <span className="line right"></span>
                     <span className="line bottom"></span>
                   </span>
-                  GALLERY
+                  ENTER GALLERY
                 </Link>
-                <Link 
-                  to={`/artists`} 
-                  className="button"
-                  data-wow-delay="0.6s"
-                >
-                  <span aria-hidden="true">
-                    <span className="line left"></span>
-                    <span className="line top"></span>
-                    <span className="line right"></span>
-                    <span className="line bottom"></span>
-                  </span>
-                  ARTISTS
-                </Link>       
               </div>
             </div>
           </div>    
