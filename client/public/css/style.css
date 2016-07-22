@@ -98,9 +98,12 @@
 .soloWork {
   padding:10px;
   margin: 10px;
-  height:100vh;
+  /*height:100vh;*/
   /*background: #eef;*/
   text-align: -webkit-center;
+}
+.soloWorkContainer {
+  margin-top: 75px;
 }
 .soloArtTitle {
   margin: 0;
