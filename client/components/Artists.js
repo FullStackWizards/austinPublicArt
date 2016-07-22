@@ -18,16 +18,16 @@ export default class Artists extends React.Component {
 	componentWillMount() {
 		art.getArt()
 		.then((res) => {
-			this.setState({artists: res.map((obj) => obj['Artist Name']).filter(this.onlyUnique)})
+			this.setState({artists: res.map((obj) => obj['Artist Full Name']).filter(this.onlyUnique)})
 		})
 	}
 	render() {
 		return (
       <div>
         <NavBar />
-    		<h3>Artist List</h3>
-    		<ul>
-    		{this.state.artists.map((name) => <li key={name}><Link to={`/${name}`}>{name}</Link></li>)}
+    		<h3 className="w3-xxxlarge w3-text-black"><br/>Artist List</h3>
+    		<ul id = "limheight">
+    		{this.state.artists.map((name) => <li key={name} className="w3-xlarge w3-text-black"><Link className="w3-xlarge w3-text-black" to={`/${name}`}>{name}</Link>	•	<br/></li>)}
     		</ul>
   		</div>
     )

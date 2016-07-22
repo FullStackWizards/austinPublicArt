@@ -6,22 +6,28 @@
 .slideContainer {
   margin: 0 auto;
   padding: 40px;
-  width: 800px;
+  width: 600px;
   height: 1000px
   color: #333;
-  background: black;
+/*  background: black;*/
 }
-.loadingDiv {
-  background-color: lightgrey;
+
+.loadingDiv {  
+  text-align: -webkit-center;
+/*  background-color: lightgrey;
   width: 300px;
   border: 10px solid black;
   padding: 25px;
-  margin: auto;
+  margin: auto;*/
 }
+
+
 .loadingDiv p {
-  padding-top: 50px;
-  text-align: -webkit-center;
+  font-size: 100px;
+  padding-top: 60px;
+  padding-bottom: 25px;
 }
+
 .closeButton--jss-0-1 {
   display: none !important;
 }
@@ -29,15 +35,15 @@
   color: red;
 }
 .artImage {
-  height: 345px;
-  width: 345px;
+  height: 250px;
+  width: 250px;
   border-radius: 100%;
   display: block;
   margin: 0 auto;
 }
 .artGallery {
--moz-column-count: 3;
--webkit-column-count: 3;
+-moz-column-count: 4;
+-webkit-column-count: 4;
 }
 .search-input {
   margin: 0 100px 10px 100px;
@@ -48,11 +54,10 @@
   text-align: center;
 }
 .artwork{
-
   display: block;
   margin: 0 auto;
-  height: 360px;
-  width: 360px;
+  height: 275px;
+  width: 275px;
 }
 .artTitle{
   text-align: center;
@@ -64,7 +69,6 @@
 .soloWork {
   padding:20px;
   margin: 30px;
-  background: #eef;
   text-align: -webkit-center;
 }
 .soloArtTitle {
@@ -72,8 +76,19 @@
 }
 .soloArtInfo {
   display: inline;
-  margin-left: 25px;
+/*  margin-left: 25px;*/
 }
+
+
+#limheight {
+    -webkit-column-count: 1;
+       -moz-column-count: 1;
+            column-count: 1;
+}
+#limheight li {
+    display: inline-block;
+  }
+
 
 body {
 		background: #ffffff;
@@ -143,7 +158,7 @@ p {
 /* home section styles
 /* ========================================== */
 #home {
-  background: url('../images/austin-texas-wallpaper-1.jpg') 50% 0 repeat-y fixed;
+  background: #000000 url('http://33.media.tumblr.com/8d005dbc5d352b03fb9ded11673c98e8/tumblr_naq374DYwf1re4onxo2_1280.gif') no-repeat fixed center;
   -webkit-background-size: cover;
   background-size: cover;
   background-position: center center;
@@ -157,13 +172,26 @@ p {
           align-items: center;
   height: 100vh;
   text-align: center;
-}
-
-#home h1 {
   color: white;
 }
 
-#home .btn-danger {
+
+#home h1{
+  font-size: 200px;
+}
+
+#home .btn {
+  background: transparent;
+  border-color: transparent;
+  color: #ffffff;
+  font-size: 60px;
+  /*font-weight: bold;*/
+  padding: 14px 52px;
+  margin-top: 40px;
+  transition: all 0.4s ease-in-out;
+}
+
+/*#home .btn-danger {
   background: black !important;
   margin-right: 20px;
 }
@@ -172,23 +200,13 @@ p {
   background: #ffa400 !important;
 }
 
-#home .btn {
-  background: #4C8DF8;
-  border-color: transparent;
-  color: #ffffff;
-  font-size: 12px;
-  font-weight: bold;
-  padding: 14px 52px;
-  margin-top: 40px;
-  transition: all 0.4s ease-in-out;
-}
-
 #home .btn:hover {
   background: #ffa400;
-}
+}*/
 
 /* Navbar styles */
 /* ========================================= */
+
 .usernameSpan {
   margin: 30px;
   position: relative;

@@ -26,19 +26,35 @@
     "body-parser": "^1.15.2",
     "browserify-middleware": "^7.0.0",
     "express": "^4.13.4",
+    "express-session": "^1.14.0",
+    "google-map-react": "^0.16.0",
+    "google-maps-react": "^1.0.16",
     "isomorphic-fetch": "^2.2.1",
     "node-uuid": "^1.4.7",
     "nodemon": "^1.9.2",
+    "passport": "^0.3.2",
+    "passport-facebook": "^2.1.1",
+    "passport-local": "^1.0.0",
     "path": "^0.12.7",
     "promised-mongo": "github:makersquare/promised-mongo",
     "react": "^15.1.0",
     "react-bootstrap": "^0.29.5",
     "react-dom": "^15.1.0",
+    "react-gmaps": "^1.5.0",
+    "react-google-maps": "^4.11.0",
     "react-modal-dialog": "^3.0.1",
+    "react-redux": "^4.4.5",
     "react-router": "^2.5.2",
     "react-search-input": "^0.10.1",
     "react-slick": "^0.12.2",
     "react-spinjs": "^3.0.0",
+    "redux": "^3.5.2",
     "uuid-js": "^0.7.5"
+  },
+  "babel": {
+    "presets": [
+      "es2015",
+      "react"
+    ]
   }
 }
