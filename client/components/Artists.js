@@ -4,6 +4,16 @@ import {Link} from 'react-router';
 import NavBar from './NavBar';
 
 export default class Artists extends React.Component {
+  // Just added constructor below
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      // showInfo: false,
+      searchTerm: ''
+    }
+  }
+
 	render() {
     let artists = this.props.gallery.map(obj => obj['Artist Full Name'])
                                     .filter(onlyUnique)
