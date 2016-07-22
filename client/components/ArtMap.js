@@ -5,9 +5,7 @@ import * as auth from '../models/auth'
 import * as art from '../models/art'
 import GoogleMap from 'google-map-react';
 import TheMap from './theMap'
-import {connect} from 'react-redux'
-import { bindActionCreators} from 'redux';
-import {fetchFilter} from '../actions/index';
+
 
 
 export default class ArtistMap extends React.Component {
