@@ -51,7 +51,7 @@ var utils = require('../utils')
 		}));
 
 	passport.use('local-login', new LocalStrategy(
-		
+
 		function(username, password, done) {
 			console.log("SOMETHING")
 			Auth.getUser(username)
@@ -84,7 +84,7 @@ var utils = require('../utils')
 				})
 				.then(session => {
 					console.log("SESSION ID", JSON.stringify(session.sessionId))
-					res.send(JSON.stringify(session.sessionId))
+					res.send(session.sessionId)
 				})
 			}))
 				// .then(function())

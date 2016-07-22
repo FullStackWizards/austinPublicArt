@@ -32,8 +32,8 @@ export function login(userData) {
     body: JSON.stringify(userData)
   }
   return fetch(`api/auth/login`, obj)
-  console.log("LOGIN Objobjobjobjobj", obj)
     .then(function(data){
+       console.log("LOGIN Objobjobjobjobj", obj)
       if(data.status < 400) {
         return data.json().then((data) => {
           document.cookie = "sessionId=" + data + ";path=/"
