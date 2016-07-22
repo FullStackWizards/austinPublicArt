@@ -12,7 +12,8 @@ export default class LoginModal extends React.Component {
       isLoading: false,
       username: null,
       password: null,
-      showError: false
+      showError: false,
+      showSuccess: false,
     }
 
   }
@@ -21,12 +22,17 @@ export default class LoginModal extends React.Component {
     this.setState({showError: true})
   }
 
+  showSuccess(){
+    this.setState({showSuccess: true})
+  }
+
   load() {
     this.setState({isLoading: true});
     setTimeout(() => {
       this.setState({isLoading: false});
     }, 1500);
   }
+
 
   render() {
     return <ModalContainer onClose={this.props.onClose}>
@@ -39,8 +45,8 @@ export default class LoginModal extends React.Component {
             auth.login({username: this.state.username, password: this.state.password})
              .then((x) => {
               if(x === 'Success') {
-                this.setState({showError: false})
-                this.props.onClose(true)
+                this.setState({showError: false});
+                this.props.onClose(true);
                 this.props.fetchUser()
               } else {
                 this.setState({showError: x.statusText})
