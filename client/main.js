@@ -12,12 +12,12 @@ import Locations from './components/Locations'
 
 //Create the route configuration
 render((
-  <Router history={browserHistory}>
+  <Router onUpdate={() => window.scrollTo(0, 0)} history={browserHistory}>
     <Route path="/" component={App}>
       <IndexRoute component={Home} />
     	<Route path="locations" component={Locations} />
-    	<Route path="artists" component={Artists} /> 
-	    <Route path="gallery" component={Gallery} />     
+    	<Route path="artists" component={Artists} />
+	    <Route path="gallery" component={Gallery} />
       <Route path="favorites" component={Favorites} />
       <Route path=":artistName" component={ArtistPage} />
     </Route>
