@@ -28,8 +28,8 @@ App for exploring and viewing local art and artists in Austin, Texas.
 
 
 ## This project was originally inherited from FullStackWizards, with new
-# features and improvements added by the GraniteParchmentShears team. These
-# improvements include:
+## features and improvements added by the GraniteParchmentShears team. These
+## improvements include:
 
 * Vastly improved load times of images on page transitions by elmination of
 redundant database queries
@@ -37,7 +37,7 @@ redundant database queries
 pieces in Austin
 * A map in each artwork's modal detailing its specific location in Austin
 * Revamped design aesthetic and more streamlined, intuitive UX
-* Account signup and login with Passportjs
+* User authentication with Passport
 * Functionality to view, search and filter artists
 
 
