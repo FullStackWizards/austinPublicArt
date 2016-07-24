@@ -10,9 +10,13 @@ App for exploring and viewing local art and artists in Austin, Texas.
 * Express
 * Mongo
 * Bootstrap
+* Passport
+* Promised Mongo
 * React Modal
 * React Slick
-* Promised Mongo
+* React Gmaps
+* Google Maps React
+* React Search Input
 
 ## Contributing
 
@@ -24,8 +28,8 @@ App for exploring and viewing local art and artists in Austin, Texas.
 
 
 ## This project was originally inherited from FullStackWizards, with new
-features and improvements added by the GraniteParchmentShears team. These
-improvements include:
+# features and improvements added by the GraniteParchmentShears team. These
+# improvements include:
 
 * Vastly improved load times of images on page transitions by elmination of
 redundant database queries
@@ -37,18 +41,16 @@ pieces in Austin
 * Functionality to view, search and filter artists
 
 
-
-
 ## Improvements made by GraniteParchmentShears:
 
-* Amanda Fillip
-* Mike Fleming
-* Tom LeConey
-* Shane McQuerter
-* Kenny Torng
+* [Amanda Fillip](https://github.com/afillip)
+* [Mike Fleming](https://github.com/mikemfleming)
+* [Tom LeConey](https://github.com/theTSLC)
+* [Shane McQuerter](https://github.com/Shanetou)
+* [Kenny Torng](https://github.com/ktorng)
 
 
-## Inherited project by FullStackWizards:
+## Project inherited by FullStackWizards:
 
 * Caleb Anderson @calebanderson2014
 * Carlo DiLorenzo @dilorc2
