@@ -27,9 +27,7 @@ App for exploring and viewing local art and artists in Austin, Texas.
 5. Submit a pull request :D
 
 
-## This project was originally inherited from FullStackWizards, with new
-## features and improvements added by the GraniteParchmentShears team. These
-## improvements include:
+## This project was originally inherited from FullStackWizards, with new features and improvements added by the GraniteParchmentShears team. These improvements include:
 
 * Vastly improved load times of images on page transitions by elmination of
 redundant database queries
