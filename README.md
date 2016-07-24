@@ -1,6 +1,7 @@
 # Austin Art
 
 App for exploring and viewing local art and artists in Austin, Texas.
+This project was originally inherited from FullStackWizards, with new features and improvements added by the GraniteParchmentShears team.
 
 [Austin Art](http://austinpublicart.herokuapp.com)
 
@@ -27,7 +28,7 @@ App for exploring and viewing local art and artists in Austin, Texas.
 5. Submit a pull request :D
 
 
-## This project was originally inherited from FullStackWizards, with new features and improvements added by the GraniteParchmentShears team. These improvements include:
+## Improvements include:
 
 * Vastly improved load times of images on page transitions by elmination of
 redundant database queries
