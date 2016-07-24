@@ -1,7 +1,8 @@
-# Austin Public Art
+# Austin Art
 
-A cool way to discover public art in Austin.
-[Austin Public Art](http://austinpublicart.herokuapp.com)
+App for exploring and viewing local art and artists in Austin, Texas.
+
+[Austin Art](http://austinpublicart.herokuapp.com)
 
 ## Technology
 
@@ -22,7 +23,32 @@ A cool way to discover public art in Austin.
 5. Submit a pull request :D
 
 
-## Credits
+## This project was originally inherited from FullStackWizards, with new
+features and improvements added by the GraniteParchmentShears team. These
+improvements include:
+
+* Vastly improved load times of images on page transitions by elmination of
+redundant database queries
+* A locations page which displays the locations of all Austin Public Art
+pieces in Austin
+* A map in each artwork's modal detailing its specific location in Austin
+* Revamped design aesthetic and more streamlined, intuitive UX
+* Account signup and login with Passportjs
+* Functionality to view, search and filter artists
+
+
+
+
+## Improvements made by GraniteParchmentShears:
+
+* Amanda Fillip
+* Mike Fleming
+* Tom LeConey
+* Shane McQuerter
+* Kenny Torng
+
+
+## Inherited project by FullStackWizards:
 
 * Caleb Anderson @calebanderson2014
 * Carlo DiLorenzo @dilorc2
