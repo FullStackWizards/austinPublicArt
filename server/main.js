@@ -12,7 +12,7 @@ var port = process.env.PORT || 4040;
 ////////////////// Passport //////////////////
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
-const FacebookStrategy = require('passport-facebook').Strategy;
+// const FacebookStrategy = require('passport-facebook').Strategy;
 require('./controllers/passport')(passport);
 app.use(bodyParser.json());
 app.use(passport.initialize());
