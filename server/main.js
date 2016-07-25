@@ -6,13 +6,13 @@ var history = require('connect-history-api-fallback');
 
 const routes = require('./routes');
 
-const app = express();
-const port = process.env.PORT || 4040;
+var app = express();
+var port = process.env.PORT || 4040;
 
 ////////////////// Passport //////////////////
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
-const FacebookStrategy = require('passport-facebook').Strategy;
+// const FacebookStrategy = require('passport-facebook').Strategy;
 require('./controllers/passport')(passport);
 app.use(bodyParser.json());
 app.use(passport.initialize());
@@ -33,7 +33,6 @@ app.get('/app-bundle.js',
 
 
 
-app.listen(port, () => {
-  console.log("Server is listening on port " + port) 
-})
+app.listen(port)
+console.log("Server is listening on port " + port)
 
