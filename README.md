@@ -30,7 +30,7 @@ This project was originally inherited from FullStackWizards, with new features a
 
 ## Improvements include:
 
-* Vastly improved load times of images on page transitions by elmination of
+* Vastly improved load times of images on page transitions by elimination of
 redundant database queries
 * A locations page which displays the locations of all Austin Public Art
 pieces in Austin
