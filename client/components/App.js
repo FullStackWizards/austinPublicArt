@@ -59,11 +59,14 @@ export default class App extends React.Component {
           //do fetch request
           art.getCoords(address)
             .then((res) => {
-              var coords = {
-                coords: {lat: res.results[0].geometry.location.lat,
-                         lng: res.results[0].geometry.location.lng}
+              console.log('%%%%%%%%', res)
+              if (res.results[0] !== undefined) {
+                var coords = {
+                  coords: {lat: res.results[0].geometry.location.lat,
+                           lng: res.results[0].geometry.location.lng}
+                }
+                results.push(Object.assign(artwork, coords))
               }
-              results.push(Object.assign(artwork, coords))
             })
           // when whole collection is complete, set state of gpscollection to results
         }

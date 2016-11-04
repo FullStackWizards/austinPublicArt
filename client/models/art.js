@@ -1,4 +1,5 @@
 import fetch from 'isomorphic-fetch';
+import secret from '../../secret'
 
 export function getArt() {
   let obj = {
@@ -24,7 +25,7 @@ export function getCoords(address) {
   let obj = {
     method: 'GET'
   };
-  return fetch('https://maps.googleapis.com/maps/api/geocode/json?address=' + address + ',+Austin,+TX&key=AIzaSyC6rf0MDdC4J0zkTH0fkm2lnBMMmLFElbY')
+  return fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${address},+Austin,+TX&key=${secret}`)
     .then((response) => {
       if (response.status >= 400){
         throw new Error("Error getting coordinates")
