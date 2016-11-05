@@ -55,11 +55,11 @@ export default class App extends React.Component {
     var results = []
     this.state.tempCollection.forEach((artwork) => {
         const address = artwork['Art Location Street Address'].replace(/ /g, '+').replace(/;/g, '+')
+        
+        // excludes bad api data
         if (address.length > 1){
-          //do fetch request
           art.getCoords(address)
             .then((res) => {
-              console.log('%%%%%%%%', res)
               if (res.results[0] !== undefined) {
                 var coords = {
                   coords: {lat: res.results[0].geometry.location.lat,
