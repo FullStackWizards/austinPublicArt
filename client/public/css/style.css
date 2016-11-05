@@ -1,3 +1,22 @@
+@font-face {
+  font-family: 'bushcraft';
+  src: url('../fonts/bushcraft.otf')
+       format('opentype');
+}
+
+@font-face {
+  font-family: 'bushcraft-textured';
+  src: url('../fonts/bushcraft-textured.otf')
+       format('opentype');
+}
+/*
+.wallpaper {
+  background-image: url('../images/grass_texture.jpg');
+  background-attachment: fixed;
+  background-size: contain;
+}
+*/
+
 .slideshowPicture {
   height:400px;
   width:600px;
@@ -7,21 +26,28 @@
   margin: 0 auto;
   padding: 40px;
   width: 800px;
-  height: 1000px
   color: #333;
   background: black;
 }
 .loadingDiv {
-  background-color: lightgrey;
   width: 300px;
-  border: 10px solid black;
   padding: 25px;
   margin: auto;
 }
-.loadingDiv p {
+
+.loadingDiv .loading-img {
+  display: block;
+}
+
+.loadingDiv .spinner {
+  display: block;
+}
+.loadingDiv h4 {
+  display: block;
   padding-top: 50px;
   text-align: -webkit-center;
 }
+
 .closeButton--jss-0-1 {
   display: none !important;
 }
@@ -31,28 +57,36 @@
 .artImage {
   height: 345px;
   width: 345px;
-  border-radius: 100%;
+  border-radius: 10%;
   display: block;
   margin: 0 auto;
+  box-shadow: 8px 8px 5px rgba(0, 0, 0, 0.5);
 }
 .artGallery {
 -moz-column-count: 3;
 -webkit-column-count: 3;
-}
-.search-input {
-  margin: 0 100px 10px 100px;
-  position: relative;
- text-align: right;
-}
-.artistName{
-  text-align: center;
+/*background-image: url('../images/grey.jpg')*/
 }
 .artwork{
-
   display: block;
   margin: 0 auto;
   height: 360px;
   width: 360px;
+}
+.search-input {
+  color: black;
+  margin: 10px;
+  position: relative;
+  float: left;
+  text-align: right;
+  z-index: 1;
+}
+.artistName{
+  text-align: center;
+}
+.favwork{
+  display: block;
+  margin: 0 auto;
 }
 .artTitle{
   text-align: center;
@@ -62,10 +96,14 @@
 }
 
 .soloWork {
-  padding:20px;
-  margin: 30px;
-  background: #eef;
+  padding:10px;
+  margin: 10px;
+  /*height:100vh;*/
+  /*background: #eef;*/
   text-align: -webkit-center;
+}
+.soloWorkContainer {
+  margin-top: 75px;
 }
 .soloArtTitle {
   margin: 0;
@@ -74,17 +112,24 @@
   display: inline;
   margin-left: 25px;
 }
-
+iframe{
+  /*margin-left: 15%;
+  /**//*margin-right: 15%;*/
+  display: block;
+  margin: 0 auto;
+  box-shadow: 3px 3px 10px
+}
 body {
-		background: #ffffff;
+		/*background: #E9E9E9;*/
     font-family: 'Open Sans', sans-serif;
     font-weight: 400;
     position: relative;
 }
 
 html,body {
-      width: 100%;
-     overflow-x: hidden;
+    width: 100%;
+    overflow-x: hidden;
+    font-family: 'bushcraft';
   }
 
 .post-masonry img {
@@ -94,6 +139,7 @@ html,body {
 
 /* Typography
 ------------------------------------- */
+
 h1,h2,h3,h4,h5 {
   font-weight: bold;
 }
@@ -143,7 +189,7 @@ p {
 /* home section styles
 /* ========================================== */
 #home {
-  background: url('../images/austin-texas-wallpaper-1.jpg') 50% 0 repeat-y fixed;
+  background: url('../images/lights-bg.jpg') 0 repeat-y fixed;
   -webkit-background-size: cover;
   background-size: cover;
   background-position: center center;
@@ -193,4 +239,237 @@ p {
   margin: 30px;
   position: relative;
   top: 11.5px;
+  font-size: 20px;
+}
+
+.w3-navbar a {
+	color: #3299BB;
+}
+
+/* Home Page */
+/* ========================================= */
+
+
+.title {
+  font-family: 'bushcraft-textured', sans-serif;
+  font-size: 80px;
+}
+
+.button {
+	color: #3299BB;
+	display: inline-block;
+  font-family: 'bushcraft', sans-serif;
+	font-size: 16px;
+	letter-spacing: 2px;
+	line-height: 1.5;
+  margin: 20px;
+	padding: 10px 20px;
+	position: relative;
+	text-transform: uppercase;
+}
+
+.button:hover {
+	color: white;
+  text-decoration: none;
+}
+
+.button .line {
+	background-color: #d4d3d3;
+	position: absolute;
+}
+
+.button .left,
+.button .right {
+	height: 100%;
+	width: 1px;
+}
+
+.button .top,
+.button .bottom {
+	height: 1px;
+	width: 100%;
+}
+
+.button .left,
+.button .top {
+	left: 0;
+	top: 0;
+}
+
+.button .right {
+	right: 0;
+	top: 0;
+}
+
+.button .bottom {
+	left: 0;
+	bottom: 0;
+}
+
+.button .line:before {
+	background-color: #5a5a5a;
+	content: "";
+	position: absolute;
+	-webkit-transition: all .4s;
+	-moz-transition:	all .4s;
+	transition:			all .4s;
+}
+
+.button .left:before,
+.button .right:before {
+	height: 0;
+	left: 0;
+	width: 1px;
+}
+
+.button .top:before,
+.button .bottom:before {
+	height: 1px;
+	top: 0;
+	width: 0;
+}
+
+.button .top:before {
+	left: 0;
+}
+
+.button .right:before {
+	top: 0;
+}
+
+.button .bottom:before {
+	right: 0;
+}
+
+.button .left:before {
+	bottom: 0;
+}
+
+.button:hover .left:before,
+.button:hover .right:before {
+	height: 100%;
+}
+
+.button:hover .top:before,
+.button:hover .bottom:before {
+	width: 100%;
+}
+
+/* Artist List */
+/* ========================================= */
+.artistTitle {
+  margin-top: 130px;
+  /*aligns artist table title*/
+  margin-left: -15px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 23px;
+  text-align: center;
+}
+
+.artistContainer {
+  margin-top: 0px;
+  margin-right: 60px;
+  padding: 30px;
+  /*creates three columns*/
+  -moz-column-count: 3;
+  -webkit-column-count: 3;
+}
+
+.artist-list {
+  display: block;
+  margin: 0 auto;
+  /*aligns first column height with other columns*/
+  margin-top: 5px;
+  width: 80%;
+}
+
+.artist-list > li {
+  /*text-align: left;*/
+  /*position:relative; */ /* Create a positioning context */
+  margin:0 0 6px 6px; /* Give each list item a left margin to make room for the numbers */
+  padding:4px 8px; /* Add some spacing around the content */
+  list-style:none; /* Disable the normal item numbering */
+  background:transparent;
+  -webkit-column-break-inside: avoid;
+          page-break-inside: avoid;
+               break-inside: avoid;
+  -moz-border-radius: 15px;
+  -webkit-border-radius: 15px;
+  border-radius: 5px;
+  overflow: visible;
+}
+
+.artist-list a:hover {
+  text-decoration: none;
+}
+
+.artist-list a {
+  color: #3299BB;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+  letter-spacing: 2px;
+  line-height: 1.9;
+  display: block;
+  text-align: center;
+}
+
+/* Art Gallery */
+/* ========================================= */
+ul.rig {
+	list-style: none;
+	font-size: 0px;
+	margin-left: -2.5%; /* should match li left margin */
+}
+ul.rig li {
+	display: inline-block;
+	padding: 10px;
+	margin: 0 0 2.5% 2.5%;
+	font-size: 16px;
+	font-size: 1rem;
+	vertical-align: top;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+}
+ul.rig li img {
+	max-width: 100%;
+	max-height: 100%;
+	margin: 0 0 10px;
+}
+ul.rig li h3 {
+	margin: 0 0 5px;
+}
+ul.rig li p {
+	font-size: .9em;
+	line-height: 1.5em;
+	color: #999;
+}
+/* class for 2 columns */
+ul.rig.columns-2 li {
+	width: 47.5%; /* this value + 2.5 should = 50% */
+}
+/* class for 3 columns */
+ul.rig.columns-3 li {
+	width: 30.83%; /* this value + 2.5 should = 33% */
+}
+/* class for 4 columns */
+ul.rig.columns-4 li {
+	width: 22.5%; /* this value + 2.5 should = 25% */
+}
+
+@media (max-width: 480px) {
+	ul.grid-nav li {
+		display: block;
+		margin: 0 0 5px;
+	}
+	ul.grid-nav li a {
+		display: block;
+	}
+	ul.rig {
+		margin-left: 0;
+	}
+	ul.rig li {
+		width: 100% !important; /* over-ride all li styles */
+		margin: 0 0 20px;
+	}
 }

@@ -1,55 +1,55 @@
 import React from 'react'
+
+import InfoModal from './InfoModal'
 import NavBar from './NavBar'
-import * as art from '../models/art'
+import * as helpers from '../helpers'
 
 export default class ArtistPage extends React.Component {
-	constructor(props) {
-		super(props)
 
-		this.state = {
-			art: []
-		}
-	}
-
-	componentWillMount() {
-    this.fetchArt(this.props.params.artistName)
-  }	
-  fetchArt(artist) {
-    art.getArt()
-    .then((artwork) => {
-      if(artist) {
-        this.setState({art: artwork.filter((art) => art['Artist Name'] == artist)})
-      }
-      else {
-        this.setState({art: artwork})
-      }   
-    })
-  }
-  parseImageUrl(imgUrl) {
-    imgUrl = imgUrl.split(';')
-    return imgUrl
+  componentWillMount() {
+    this.props.closeInfoModal()
   }
 
   render() {
+    // filter gallery collection by selected artist name
+    let arts = this.props.gallery.filter(art =>
+      art['Artist Full Name'] === this.props.params.artistName
+    )
+
     return (
-      <div>
+      <div className="wallpaper">
         <NavBar />
         <br/>
         <br/>
-        {this.state.art.map(art => {
-          return (
+
+        {/* Art info modal */}
+        {this.props.showInfoModal ?
+          <InfoModal
+            onClose={this.props.closeInfoModal}
+            updateCurrent={this.props.updateCurrentArt}
+            currentArt={this.props.currentArt}
+            parseImageUrl={helpers.parseImageUrl}
+          /> :
+          null}
+
+        <div className="soloWorkContainer">
+          {arts.map(art =>
             <div key={art._id} className="soloWork">
               <h3 className="soloArtTitle">{art['Art Title']}</h3>
-              <img src={this.parseImageUrl(art.Images)[0]} />
+              <a
+                href="javascript:void(0)"
+                onClick={this.props.openInfoModal.bind(null, art)}
+                className="artImage"
+              >
+                <img className='artImage' src={helpers.parseImageUrl(art.Images)[0]} />
+              </a>
               <div className="soloArtInfo">
                 <p>{art['Art Location Name']}</p>
               </div>
             </div>
-          )
-        })}
+          )}
+        </div>
       </div>
-
-    )
+    );
   }
-
 }

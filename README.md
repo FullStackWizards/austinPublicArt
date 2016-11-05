@@ -1,7 +1,9 @@
-# Austin Public Art
+# Austin Art
 
-A cool way to discover public art in Austin.
-[Austin Public Art](http://austinpublicart.herokuapp.com)
+App for exploring and viewing local art and artists in Austin, Texas.
+This project was originally inherited from FullStackWizards, with new features and improvements added by the GraniteParchmentShears team.
+
+[Austin Art](http://austinpublicart.herokuapp.com)
 
 ## Starting on localhost
     git clone https://github.com/FullStackWizards/austinPublicArt.git
@@ -19,9 +21,13 @@ A cool way to discover public art in Austin.
 * Express
 * Mongo
 * Bootstrap
+* Passport
+* Promised Mongo
 * React Modal
 * React Slick
-* Promised Mongo
+* React Gmaps
+* Google Maps React
+* React Search Input
 
 ## Contributing
 
@@ -32,7 +38,28 @@ A cool way to discover public art in Austin.
 5. Submit a pull request :D
 
 
-## Credits
+## Improvements include:
+
+* Vastly improved load times of images on page transitions by elimination of
+redundant database queries
+* A locations page which displays the locations of all Austin Public Art
+pieces in Austin
+* A map in each artwork's modal detailing its specific location in Austin
+* Revamped design aesthetic and more streamlined, intuitive UX
+* User authentication with Passport
+* Functionality to view, search and filter artists
+
+
+## Improvements made by GraniteParchmentShears:
+
+* [Amanda Fillip](https://github.com/afillip)
+* [Mike Fleming](https://github.com/mikemfleming)
+* [Tom LeConey](https://github.com/theTSLC)
+* [Shane McQuerter](https://github.com/Shanetou)
+* [Kenny Torng](https://github.com/ktorng)
+
+
+## Project inherited by FullStackWizards:
 
 * Caleb Anderson @calebanderson2014
 * Carlo DiLorenzo @dilorc2
